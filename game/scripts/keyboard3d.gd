@@ -12,6 +12,8 @@ const TRAVEL := 0.2
 const HOME := {"foam": 0.30, "pcb": 0.45, "pefoam": 0.51, "plate": PLATE_Y}
 
 var spec: Dictionary = {}
+var board: Node3D            # tilted by the case typing angle; everything lives here
+var tilt_deg := 6.0
 var L: Dictionary = {}
 var W := 15.0
 var H := 5.0
@@ -74,25 +76,43 @@ func build(sp: Dictionary) -> void:
 	for c in get_children(): c.queue_free()
 	keys.clear(); parts.clear(); screws.clear(); rgb_lights.clear(); piece = null; ghost = null; ghost_kind = ""; _lit.clear()
 	spec = sp; L = Data.LAYOUTS[sp.layout]; W = float(L.W); H = float(L.H)
-	var holder := Node3D.new(); holder.name = "Body"; add_child(holder)
-	# case
 	var cs := Data.case_(sp.case)
+	var shape: Dictionary = cs.get("shape", {}).duplicate()
+	tilt_deg = float(shape.get("angle", 6.0))
+	var bez: float = shape.get("bezel", 0.45)
+	var od := H + 2.0 * bez
+	var ta := tan(deg_to_rad(tilt_deg))
+	shape.base = -(od * 0.5) * ta - 0.04
+	shape.floor_y = 0.22
+	board = Node3D.new(); board.name = "Board"; add_child(board)
+	board.rotation.x = deg_to_rad(tilt_deg)
+	var feet_h := 0.06
+	board.position.y = -float(shape.base) * cos(deg_to_rad(tilt_deg)) + feet_h
+	var holder := Node3D.new(); holder.name = "Body"; board.add_child(holder)
+	# case shell
 	var cmat := Mats.case_mat(sp.case, int(sp.get("color", 0)))
-	var tray := _mi(MeshGen.case_tray(W, H, 1.0, 0.22), cmat); holder.add_child(tray)
-	if cs.look == "acrylic":
-		# visible layers on stacked acrylic
-		for y in [0.25, 0.5, 0.75]:
-			var ln := _mi(MeshGen.slab(W + 0.92, H + 0.92, 0.012, 0.43), Mats.std(Color(1, 1, 1, 0.08), 0.1)); ln.position.y = y; holder.add_child(ln)
-	elif cs.look == "metal" and str(sp.case) in ["c_heavy", "c_ti", "c_gasket"]:
-		# brass weight on the back
-		var wgt := _mi(MeshGen.rounded_box(W * 0.45, 0.04, 0.9, 0.2), Mats.std(Color("c9a447"), 0.25, 0.95))
-		wgt.position = Vector3(0, -0.02, H * 0.15); holder.add_child(wgt)
+	var shell := _mi(MeshGen.case_shell(W, H, shape), cmat); holder.add_child(shell)
+	if shape.get("two_tone"):
+		# split case: contrasting bottom half (Mode / Rama style), slightly proud of the top half
+		var bt := shape.duplicate(); bt.wall_h = 0.14; bt.bezel = bez + 0.008; bt.chamfer = 0.02
+		holder.add_child(_mi(MeshGen.case_shell(W, H, bt), Mats.std(Color(shape.two_tone), 0.28, 0.95)))
+	if shape.get("layers", false):
+		for y in [0.0, 0.33, 0.66]:
+			var ln := _mi(MeshGen.slab(W + 2.0 * bez + 0.01, od + 0.01, 0.012, float(shape.get("radius", 0.35))), Mats.std(Color(1, 1, 1, 0.1), 0.1)); ln.position.y = y; holder.add_child(ln)
+	if shape.get("knob", false):
+		var kn := _mi(MeshGen.knob(0.3, 0.42), Mats.std(Color(cs.colors[int(sp.get("color", 0))][1]).lightened(0.06), 0.42, 1.0))
+		kn.position = Vector3(W / 2.0 + bez * 0.5, float(shape.wall_h) - 0.02, -H / 2.0 - bez * 0.5 + 0.02)
+		holder.add_child(kn)
+	# rubber feet on the (level) desk side of the wedge
 	for f in [Vector2(-1, -1), Vector2(1, -1), Vector2(-1, 1), Vector2(1, 1)]:
-		var ft := _mi(MeshGen.rounded_box(1.1, 0.07, 0.45, 0.12), Mats.std(Color("101112"), 0.9))
-		ft.position = Vector3(f.x * (W / 2.0 - 0.6), -0.06, f.y * (H / 2.0 - 0.1)); holder.add_child(ft)
-	# badge
+		var fz: float = f.y * (od / 2.0 - 0.5)
+		var ft := _mi(MeshGen.rounded_box(1.0, feet_h, 0.4, 0.1), Mats.std(Color("101112"), 0.95))
+		ft.position = Vector3(f.x * (W / 2.0 + bez - 0.9), float(shape.base) + fz * ta - feet_h, fz)
+		ft.rotation.x = -deg_to_rad(tilt_deg)
+		holder.add_child(ft)
+	# badge on the back wall
 	var badge := _mi(MeshGen.rounded_box(1.2, 0.02, 0.32, 0.08), Mats.std(Color("d8d8d8"), 0.2, 1.0))
-	badge.position = Vector3(W / 2.0 - 1.2, 0.5, H / 2.0 + 0.452); badge.rotation_degrees.x = 90; holder.add_child(badge)
+	badge.position = Vector3(0, float(shape.base) * 0.5 + 0.2, -(od / 2.0) - 0.002); badge.rotation_degrees.x = -90; holder.add_child(badge)
 	# internals
 	parts.foam = _mi(MeshGen.slab(W + 0.02, H + 0.02, 0.12, 0.1), Mats.std(Color("34383d"), 1.0))
 	var pc := Data.pcb(sp.pcb); rgb = bool(pc.rgb)
@@ -106,17 +126,17 @@ func build(sp: Dictionary) -> void:
 	var pl_tex := _plate_tex()
 	parts.plate = _mi(MeshGen.slab(W + 0.12, H + 0.12, PLATE_TH, 0.06), Mats.plate_mat(sp.plate, pl_tex))
 	for n in parts:
-		var o: Node3D = parts[n]; o.position.y = HOME[n]; o.set_meta("home", HOME[n]); o.name = n; add_child(o)
+		var o: Node3D = parts[n]; o.position.y = HOME[n]; o.set_meta("home", HOME[n]); o.name = n; board.add_child(o)
 	if rgb:
-		var glow := _mi(MeshGen.slab(W + 0.7, H + 0.7, 0.01, 0.4), Mats.emissive(Color("7a5cff"), 1.5)); glow.position.y = 0.05; holder.add_child(glow)
+		var glow := _mi(MeshGen.slab(W + 0.7, H + 0.7, 0.01, 0.4), Mats.emissive(Color("7a5cff"), 1.5)); glow.position.y = 0.25; holder.add_child(glow)
 		for i in 4:
 			var ol := OmniLight3D.new(); ol.omni_range = 3.2; ol.light_energy = 0.0; ol.shadow_enabled = false; ol.omni_attenuation = 2.0
 			ol.light_specular = 0.0
-			ol.position = Vector3(-W / 2.0 + W * (i + 0.5) / 4.0, 0.45, 0); add_child(ol); rgb_lights.append(ol)
+			ol.position = Vector3(-W / 2.0 + W * (i + 0.5) / 4.0, 0.45, 0); board.add_child(ol); rgb_lights.append(ol)
 	# keys
 	var sw := Data.sw(sp.sw); var kc := Data.kc(sp.kc)
 	var centered: bool = not (kc.prof in ["cherry", "oem"])
-	var rough: float = 0.78 if kc.mat == "PBT" else 0.36
+	var rough: float = 0.74 if kc.mat == "PBT" else 0.47
 	var hm := _housing_mat(sw); var smt := Mats.std(Color(sw.stem), 0.35)
 	var art_id: String = Game.art_base_id(str(sp.get("art", ""))) if sp.get("art") else ""
 	for i in L.keys.size():
@@ -133,7 +153,7 @@ func build(sp: Dictionary) -> void:
 		var s2 := _mi(MeshGen.rounded_box(0.065, 0.19, 0.21, 0.01), smt); stem.add_child(s2)
 		var s3 := _mi(MeshGen.rounded_box(0.3, 0.06, 0.3, 0.04), smt); s3.position.y = -0.05; stem.add_child(s3)
 		swn.add_child(stem)
-		add_child(swn)
+		board.add_child(swn)
 		o.sw = swn; o.stem = stem; o.hous = [bot, top]
 		# keycap
 		var cap := Node3D.new(); cap.position = Vector3(x, CAP_Y, z)
@@ -152,20 +172,20 @@ func build(sp: Dictionary) -> void:
 		cmi.set_instance_shader_parameter("centered", 0.0)
 		cap.add_child(cmi)
 		if is_art: _add_artisan(cap, art_id, float(MeshGen.PROFILES[kc.prof].h[srow]))
-		add_child(cap)
+		board.add_child(cap)
 		o.cap = cap; o.cmi = cmi
 		# stabilizer
 		if float(k.w) >= 2.0:
-			o.stab = _stab_obj(float(k.w)); o.stab.position = Vector3(x, PLATE_Y + PLATE_TH, z); add_child(o.stab)
+			o.stab = _stab_obj(float(k.w)); o.stab.position = Vector3(x, PLATE_Y + PLATE_TH, z); board.add_child(o.stab)
 		# mark
 		var mk := MeshInstance3D.new(); var pm := PlaneMesh.new(); pm.size = Vector2(float(k.w) - 0.12, 0.86); mk.mesh = pm
-		mk.position = Vector3(x, PLATE_Y + PLATE_TH + 0.01, z); mk.visible = false; mk.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF; add_child(mk)
+		mk.position = Vector3(x, PLATE_Y + PLATE_TH + 0.01, z); mk.visible = false; mk.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF; board.add_child(mk)
 		o.mark = mk
 		keys.append(o)
 	# screws
 	var sp_pos := screw_positions(L)
 	for j in 6:
-		var s := _screw_obj(j); s.position = Vector3(sp_pos[j].x, PLATE_Y + PLATE_TH, sp_pos[j].y); add_child(s); screws.append(s)
+		var s := _screw_obj(j); s.position = Vector3(sp_pos[j].x, PLATE_Y + PLATE_TH, sp_pos[j].y); board.add_child(s); screws.append(s)
 
 func _mi(mesh: Mesh, mat: Material) -> MeshInstance3D:
 	var m := MeshInstance3D.new(); m.mesh = mesh; m.material_override = mat; return m
@@ -175,8 +195,8 @@ func _housing_mat(sw: Dictionary) -> Material:
 	var key := "hous" + str(sw.id)
 	if Mats._c.has(key): return Mats._c[key]
 	var m := StandardMaterial3D.new()
-	if c.get_luminance() > 0.7:
-		m.albedo_color = Color(c.r, c.g, c.b, 0.55); m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_DEPTH_PRE_PASS; m.roughness = 0.12
+	if sw.get("clear", c.get_luminance() > 0.7):
+		m.albedo_color = Color(c.r, c.g, c.b, 0.5); m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_DEPTH_PRE_PASS; m.roughness = 0.12
 		m.metallic_specular = 0.7
 	else:
 		m.albedo_color = c; m.roughness = 0.42
@@ -320,6 +340,18 @@ func sync(st = null) -> void:
 			if int(ks.get("d", 0)) == 1: g = Color(1, 0.15, 0.15, 1.6)
 			elif int(ks.get("t", 0)) == 1: g = Color(0.2, 0.9, 0.4, 0.9)
 		elif st and int(ks.get("c", 0)) == 1 and int(ks.get("w", 0)) == 1: g = Color(1, 0.15, 0.15, 1.2)
+		if st and Asm.is_repair(st):
+			var f := str(ks.get("f", ""))
+			var fc := Color(Asm.FAULTS[f].col) if f != "" else Color.WHITE
+			if step == "diag":
+				if f != "" and int(ks.get("seen", 0)) == 1: g = Color(fc, 1.5)
+				elif int(ks.get("t", 0)) == 1: g = Color(0.2, 0.9, 0.4, 0.7)
+			elif step == "fix":
+				if f != "":
+					g = Color(fc, 1.4)
+					if int(ks.get("c", 0)) == 0: o.mark.visible = true; o.mark.material_override = _mark_mat(fc)
+				elif int(ks.get("fx", 0)) == 1: g = Color(0.2, 0.9, 0.4, 0.6)
+			if f == "cap" and int(ks.get("fs", 0)) == 0: o.cap.rotation.z = 0.09
 		o.glow = g
 		o.cmi.set_instance_shader_parameter("glow", g)
 	for j in 6:
@@ -437,7 +469,7 @@ func set_ghost(kind: String) -> void:
 				var a := _mi(MeshGen.rounded_box(0.05, 0.9, 0.08, 0.02), pm2); a.position = Vector3(sx, 1.55, 0); ghost.add_child(a)
 			var hdl2 := _mi(MeshGen.rounded_box(0.3, 0.6, 0.3, 0.12), Mats.std(Color("2b2f35"), 0.7)); hdl2.position.y = 2.3; ghost.add_child(hdl2)
 	ghost.visible = false
-	add_child(ghost)
+	board.add_child(ghost)
 
 func ghost_at(i: int) -> void:
 	ghost_i = i
@@ -465,7 +497,7 @@ static func _soft_dot() -> Texture2D:
 # ---------------------------------------------------------------- picking
 ## Returns {i, scr, p} for a world-space ray. p = local hit on the key plane.
 func pick(from: Vector3, dir: Vector3) -> Dictionary:
-	var inv := global_transform.affine_inverse()
+	var inv := board.global_transform.affine_inverse()
 	var o := inv * from
 	var d := (inv.basis * dir).normalized()
 	var res := {"i": -1, "scr": -1, "p": Vector3.ZERO}
@@ -487,16 +519,16 @@ func pick(from: Vector3, dir: Vector3) -> Dictionary:
 	return res
 
 func plane_point(from: Vector3, dir: Vector3, y: float) -> Vector3:
-	var inv := global_transform.affine_inverse()
+	var inv := board.global_transform.affine_inverse()
 	var o := inv * from; var d := (inv.basis * dir).normalized()
 	if abs(d.y) < 1e-5: return Vector3(99, y, 99)
 	return o + d * ((y - o.y) / d.y)
 
 func key_world(i: int) -> Vector3:
-	if i < 0 or i >= keys.size(): return global_position
-	return global_transform * Vector3(keys[i].x, 1.4, keys[i].z)
+	if i < 0 or i >= keys.size(): return board.global_position
+	return board.global_transform * Vector3(keys[i].x, 1.4, keys[i].z)
 func screw_world(j: int) -> Vector3:
-	return global_transform * (screws[j].position + Vector3(0, 0.2, 0))
+	return board.global_transform * (screws[j].position + Vector3(0, 0.2, 0))
 
 # ------------------------------------------------------------------ loop
 func _process(delta: float) -> void:

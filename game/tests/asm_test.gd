@@ -40,6 +40,7 @@ func _process(_d: float) -> void:
 			if main.modal_open(): main.close_modal(true)
 			Game.S.seenIntro = true; Game.S.settings.gfx = "low"; ws().apply_quality()
 			if "first" in OS.get_cmdline_user_args():
+				Game.S.stats.repairs = 2
 				main.open_tab("workshop", false); main.screen.build_screen(false)
 				phase = 1; wait = 10; return
 			# make this a full (second) build: bump built, give parts
@@ -79,7 +80,8 @@ func _process(_d: float) -> void:
 			shot("99_finished")
 			main.close_modal(true)
 			# deliver to an order
-			var o = Game.S.orders[0]; var b = Game.S.boards[-1]
+			if not Game.S.orders.any(func(x): return x.kind != "repair"): Game.S.orders.append(Game.gen_order())
+			var o = Game.S.orders.filter(func(x): return x.kind != "repair")[0]; var b = Game.S.boards[-1]
 			var r := Game.deliver_order(o.id, b.uid)
 			L("delivered stars=%d pay=%d" % [int(r.get("stars", 0)), int(r.get("pay", 0))])
 			# sound path: type on a finished board and hear switches

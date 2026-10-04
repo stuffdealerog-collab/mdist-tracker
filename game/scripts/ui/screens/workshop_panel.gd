@@ -87,6 +87,7 @@ static func full_spec(sp: Dictionary) -> Dictionary:
 	return f
 
 func _draft_view(first: bool) -> Control:
+	if not Game.builds_unlocked(): return _locked_view()
 	_auto_draft()
 	var d: Dictionary = main.draft
 	var sp = _draft_spec()
@@ -241,6 +242,19 @@ func _opt_btn(on: bool, title: String, subt: String, col := Color(0, 0, 0, 0)) -
 	UIK.juice(b)
 	return b
 
+func _locked_view() -> Control:
+	main.ws.kb.visible = false; main.set_kb_sound({})
+	var v = UIK.vbox(14)
+	v.add_child(UIK.head("Верстак", "Сначала ремонт"))
+	var n: int = int(g().stats.get("repairs", 0)); var need: int = Game.REPAIR_STORY.size()
+	var c = UIK.vbox(10, [UIK.label("Вы только открыли мастерскую. Заработайте имя и первые деньги на ремонте чужих клавиатур, тогда клиенты начнут заказывать сборки.", "Small", true),
+		UIK.hbox(8, [UIK.label("Ремонтов выполнено", "Small"), UIK.spacer(), UIK.label("%d/%d" % [n, need], "Num")]), UIK.bar(float(n) / need)])
+	c.add_child(UIK.button("Взять ремонт в «Заказах»", "BtnPri", func(): main.open_tab("orders"), "wrench"))
+	v.add_child(UIK.card("CardHi", c))
+	v.add_child(UIK.card("Card", UIK.vbox(8, [UIK.label("КАК ПРОХОДИТ РЕМОНТ", "Eyebrow"),
+		UIK.label("1. Диагностика: прожмите все клавиши и найдите дефекты на слух.\n2. Ремонт: съёмник, новый свитч, чистка, смазка стаба или паяльник.\n3. Проверка звука и возврат клиенту.", "Small", true)])))
+	return v
+
 func _start() -> void:
 	var d: Dictionary = main.draft
 	var sp = _draft_spec()
@@ -263,12 +277,12 @@ func _build_view(first: bool) -> Control:
 	if first:
 		asm.enter()
 		main.ws.fit_keyboard()
-		main.ws.mode = "asm" if not (st in ["keytest", "test"]) else "view"
+		main.ws.mode = "asm" if not (st in ["keytest", "test", "diag"]) else "view"
 		if st in ["sw", "kc", "solder", "stab"]: main.ws.set_view("close" if L.W <= 16 else "persp")
 		elif st == "screw": main.ws.set_view("persp")
 		elif st == "test": main.ws.set_view("hero")
 		else: main.ws.set_view("persp")
-		if st in ["keytest", "test"]: main.set_kb_sound(Game.build_spec(b))
+		if st in ["keytest", "test", "diag"]: main.set_kb_sound(Game.build_spec(b))
 		else: main.set_kb_sound({})
 	_setup_lube(st == "lube")
 	var v = UIK.vbox(14)
@@ -279,8 +293,12 @@ func _build_view(first: bool) -> Control:
 		var col = UIK.TEAL if i == int(b.step) else (UIK.GOOD if i < int(b.step) else UIK.MUTE)
 		var c = UIK.chip(("✓ " if i < int(b.step) else "%d. " % (i + 1)) + Asm.STEP_INFO[s].n, col)
 		steps.add_child(c)
-	var cancel = UIK.button("Отменить", "BtnGhost", func(): main.confirm("Отменить сборку?", "Детали вернутся на склад, расходники пропадут.", "Отменить сборку", func(): Game.cancel_build(); main.ws.kb.set_ghost(""); build_screen(true)))
-	v.add_child(UIK.head("Сборка · %s · себестоимость %s" % [L.name, Game.rub(b.cost)], info.t, [] if st == "test" else [cancel]))
+	var rp: bool = Asm.is_repair(b)
+	var cancel = UIK.button("Отложить" if rp else "Отменить", "BtnGhost", func():
+		if rp: Game.cancel_build(); main.ws.kb.set_ghost(""); build_screen(true)
+		else: main.confirm("Отменить сборку?", "Детали вернутся на склад, расходники пропадут.", "Отменить сборку", func(): Game.cancel_build(); main.ws.kb.set_ghost(""); build_screen(true)))
+	var ttl: String = ("Ремонт · %s · клиент: %s" % [L.name, b.client]) if rp else ("Сборка · %s · себестоимость %s" % [L.name, Game.rub(b.cost)])
+	v.add_child(UIK.head(ttl, info.t, [] if st == "test" else [cancel]))
 	v.add_child(steps)
 	if st == "test": return _test_view(v, b)
 	# status
@@ -386,11 +404,46 @@ func _update_status() -> void:
 			status_box.add_child(UIK.bar(float(t) / n, UIK.GOOD))
 			status_box.add_child(UIK.hbox(8, [UIK.label("Не работают", "Small"), UIK.colored(str(dd), UIK.BAD if dd else UIK.GOOD, "Num"), UIK.spacer(), UIK.label("починено: %d" % int(b.fixes), "SmallMuted")]))
 			tools_box.add_child(UIK.button("Автотест", "BtnTeal", asm.autotest, "zap"))
+		"diag":
+			var t = 0; var found = []
+			for i in n:
+				if int(b.ks[i].t) == 1: t += 1
+				if int(b.ks[i].get("seen", 0)) == 1: found.append(i)
+			status_box.add_child(line.call("Проверено", "%d/%d" % [t, n]))
+			status_box.add_child(UIK.bar(float(t) / n, UIK.GOOD))
+			status_box.add_child(UIK.label("НАЙДЕННЫЕ ДЕФЕКТЫ · %d" % found.size(), "Eyebrow"))
+			if found.is_empty(): status_box.add_child(UIK.label("Пока ничего. Проверьте все клавиши.", "SmallMuted"))
+			for i in found: status_box.add_child(_fault_row(b, i))
+			tools_box.add_child(UIK.button("Автотест", "BtnTeal", asm.autotest, "zap"))
+		"fix":
+			var left = []; var fixed = 0
+			for i in n:
+				if str(b.ks[i].get("f", "")) != "": left.append(i)
+				if int(b.ks[i].get("fx", 0)) == 1: fixed += 1
+			status_box.add_child(line.call("Исправлено", "%d/%d" % [fixed, fixed + left.size()]))
+			status_box.add_child(UIK.bar(float(fixed) / max(1, fixed + left.size()), UIK.GOOD))
+			for i in left: status_box.add_child(_fault_row(b, i))
+			status_box.add_child(UIK.hbox(8, [UIK.label("Ошибки инструментом", "Small"), UIK.spacer(), UIK.colored(str(int(b.get("mist", 0))), UIK.BAD if int(b.get("mist", 0)) > 0 else UIK.GOOD, "Num")]))
+			status_box.add_child(UIK.label("ИНСТРУМЕНТ", "Eyebrow"))
+			for tl in Asm.TOOLS:
+				if tl[0] == "iron" and Data.pcb(b.parts.pcb.id).hs: continue
+				var on: bool = asm.tool == tl[0]
+				var tb = UIK.button(tl[1], "BtnTeal" if on else "BtnGhost", func(): asm.set_tool(tl[0]), tl[2])
+				tools_box.add_child(tb)
 	if Game.upl("bench") >= 3 and not (st in ["test", "lube"]):
 		var ab = UIK.button("Авто", "BtnGhost", asm.auto, "zap"); ab.tooltip_text = "Верстак 3 уровня: выполнить этап автоматически"; tools_box.add_child(ab)
 	if is_instance_valid(next_btn): next_btn.disabled = not asm.done()
 	if is_instance_valid(next_btn) and asm.done() and not next_btn.has_meta("pulsed"):
 		next_btn.set_meta("pulsed", true); UIK.pop(next_btn, 1.1)
+
+func _fault_row(b: Dictionary, i: int) -> Control:
+	var k: Dictionary = b.ks[i]; var f: String = str(k.get("f", ""))
+	var lab: String = str(Data.LAYOUTS[b.layout].keys[i].label)
+	var fi: Dictionary = Asm.FAULTS[f]
+	var sub: String = fi.why
+	if Asm.b_step(b) == "fix": sub = "дальше: " + Asm.TOOL_HINT[Asm.fault_stage(k)].to_lower()
+	var dot = ColorRect.new(); dot.color = Color(fi.col); dot.custom_minimum_size = Vector2(10, 10); dot.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	return UIK.hbox(8, [dot, UIK.label("«%s»" % lab, "Num"), UIK.expand(UIK.vbox(0, [UIK.label(fi.n, "Small"), UIK.label(sub, "SmallMuted", true)]))])
 
 func _tools_hand(asm: Asm, main_name: String) -> void:
 	var a = UIK.button(main_name, "BtnTeal" if asm.tool == "main" else "BtnGhost", func(): asm.set_tool("main"), "hand")
@@ -464,6 +517,13 @@ func _test_view(v: VBoxContainer, b: Dictionary) -> Control:
 	box.text_changed.connect(func(t): _typing(t, stat))
 	td.add_child(box); td.add_child(stat)
 	td.add_child(UIK.sep())
+	if Asm.is_repair(b):
+		var fx: int = b.ks.filter(func(k): return int(k.get("fx", 0)) == 1).size()
+		td.add_child(UIK.hbox(10, [UIK.label("Исправлено дефектов: %d · ошибок: %d" % [fx, int(b.get("mist", 0))], "Small"), UIK.spacer()]))
+		var back = UIK.button("Вернуть клиенту", "BtnPri", _finish_repair, "check"); back.custom_minimum_size.y = 48
+		td.add_child(back)
+		v.add_child(UIK.card("CardHi", td))
+		return v
 	td.add_child(UIK.label("НАЗВАНИЕ СБОРКИ", "Eyebrow"))
 	var nm = LineEdit.new(); nm.text = Game.auto_name(spec); nm.max_length = 40; td.add_child(nm)
 	var b2 = spec.duplicate(); b2.st = st; b2.cost = b.cost
@@ -495,6 +555,22 @@ func _finish(n: String) -> void:
 	main.ws.kb.show_spec(board, null); main.ws.kb.reveal(); main.ws.set_view("hero")
 	main.flash(Color(1, 0.85, 0.5, 0.25))
 	_celebrate(board)
+	build_screen(true)
+
+func _finish_repair() -> void:
+	var r = Game.finish_repair()
+	typing = {}
+	main.set_kb_sound({})
+	main.ws.mode = "view"; main.ws.kb.set_ghost("")
+	main.flash(Color(1, 0.85, 0.5, 0.2))
+	var v = UIK.vbox(12, [main.modal_head("Клиент доволен" if int(r.stars) >= 4 else "Ремонт сдан", "Ремонт · " + str(r.client)), UIK.stars(int(r.stars))])
+	v.add_child(UIK.hbox(8, [UIK.label("Исправлено", "Muted"), UIK.spacer(), UIK.label("%d/%d" % [int(r.fixed), int(r.total)], "Num")]))
+	v.add_child(UIK.hbox(8, [UIK.label("Ошибки инструментом", "Muted"), UIK.spacer(), UIK.label(str(r.mist), "Num")]))
+	v.add_child(UIK.hbox(8, [UIK.label("Оплата", "Muted"), UIK.spacer(), UIK.label(Game.rub(float(r.pay) + float(r.tip)), "Price")]))
+	if r.unlocked: v.add_child(UIK.note("[b]Открыта сборка на заказ![/b] Дима хочет свою первую клавиатуру: соберите её на верстаке из стартового набора.", UIK.GOLD))
+	var row = UIK.hbox(8, [UIK.button("К заказам", "BtnTeal", func(): main.close_modal(); main.open_tab("orders")), UIK.spacer(), UIK.button("Отлично", "BtnPri", main.close_modal)])
+	v.add_child(row)
+	main.open_modal(v, 520)
 	build_screen(true)
 
 func _celebrate(board: Dictionary) -> void:

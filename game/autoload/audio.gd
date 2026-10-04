@@ -1,43 +1,64 @@
 extends Node
-## Switch sounds: real recordings (kbsim, MIT) shaped per build on a dedicated bus,
-## plus synthesized layers (spring ping, stab rattle, case hollowness) and UI sounds.
+## Keyboard audio built from real recordings:
+##  - switch sets (kbsim MIT + live CC0 recordings) with many press/release variations
+##  - keycap cavity resonance (profile + material) and tone shaping per build (EQ21)
+##  - case "hollowness" layers made by convolving each press with a real hollow knock
+##  - real stabilizer rattle (rattly spacebars), spring ping (battery spring), grit (bristle friction)
+##  - foley / UI from CC0 recordings (assets/snd2/_fx), synth only as a fallback
 
 const RATE := 44100
-const NAMES_PRESS := ["GENERIC_R0","GENERIC_R1","GENERIC_R2","GENERIC_R3","GENERIC_R4","SPACE","ENTER","BACKSPACE"]
-const NAMES_REL := ["GENERIC","SPACE","ENTER","BACKSPACE"]
+const SND := "res://assets/snd2/"
 
-var sets = {}                 # set -> {press:{name:stream}, release:{...}}
+var sets = {}                 # set -> {press_g:[...], release_g:[...], press_big:[...], release_big:[...], hollow:[...]}
+var layers = {}               # ping / rattle / scratch / ring -> [streams]
+var fx = {}                   # name -> stream
+var manifest = {}
 var key_players: Array[AudioStreamPlayer] = []
 var ui_players: Array[AudioStreamPlayer] = []
 var _kp = 0
 var _up = 0
 var keys_bus = -1
-var eq: AudioEffectEQ6
-var syn = {}                  # synthesized streams
+var eq: AudioEffectEQ21
+var cav: AudioEffectBandPassFilter
+var body_eq: AudioEffectEQ10
+var room_rev: AudioEffectReverb
+var syn = {}                  # synthesized fallbacks
 var ambient: AudioStreamPlayer
 var current_P = {}
+var _last := {}               # avoid repeating the same variation twice in a row
 
 func _ready() -> void:
 	_setup_buses()
-	for i in 28:
+	for i in 40:
 		var p = AudioStreamPlayer.new(); p.bus = "Keys"; add_child(p); key_players.append(p)
-	for i in 10:
+	for i in 12:
 		var p = AudioStreamPlayer.new(); p.bus = "UI"; add_child(p); ui_players.append(p)
 	_make_synth()
-	ambient = AudioStreamPlayer.new(); ambient.bus = "Ambient"; ambient.stream = syn.room; ambient.volume_db = -26; add_child(ambient)
+	_load_manifest()
+	ambient = AudioStreamPlayer.new(); ambient.bus = "Ambient"; ambient.stream = syn.room; ambient.volume_db = -30; add_child(ambient)
 	ambient.play()
 
+func _bus(name: String, send := "Master") -> int:
+	var i := AudioServer.get_bus_index(name)
+	if i == -1:
+		AudioServer.add_bus(); i = AudioServer.bus_count - 1; AudioServer.set_bus_name(i, name)
+	AudioServer.set_bus_send(i, send)
+	return i
+
 func _setup_buses() -> void:
-	for n in ["Keys", "UI", "Ambient"]:
-		if AudioServer.get_bus_index(n) == -1:
-			AudioServer.add_bus(); var i = AudioServer.bus_count - 1
-			AudioServer.set_bus_name(i, n); AudioServer.set_bus_send(i, "Master")
-	keys_bus = AudioServer.get_bus_index("Keys")
-	eq = AudioEffectEQ6.new()
-	AudioServer.add_bus_effect(keys_bus, eq)
-	var rev = AudioEffectReverb.new(); rev.room_size = 0.18; rev.damping = 0.6; rev.wet = 0.10; rev.dry = 1.0; rev.spread = 0.6
-	AudioServer.add_bus_effect(keys_bus, rev)
-	var lim = AudioEffectLimiter.new(); lim.ceiling_db = -0.5; lim.threshold_db = -6
+	keys_bus = _bus("Keys")
+	var cav_bus := _bus("Cavity", "Keys")
+	var body_bus := _bus("Body", "Keys")
+	_bus("UI"); _bus("Ambient")
+	eq = AudioEffectEQ21.new(); AudioServer.add_bus_effect(keys_bus, eq)
+	var comp := AudioEffectCompressor.new(); comp.threshold = -14.0; comp.ratio = 2.5; comp.attack_us = 800.0; comp.release_ms = 80.0
+	AudioServer.add_bus_effect(keys_bus, comp)
+	room_rev = AudioEffectReverb.new(); room_rev.room_size = 0.22; room_rev.damping = 0.65; room_rev.wet = 0.08; room_rev.dry = 1.0; room_rev.spread = 0.7; room_rev.predelay_msec = 8.0
+	AudioServer.add_bus_effect(keys_bus, room_rev)
+	cav = AudioEffectBandPassFilter.new(); cav.cutoff_hz = 1800.0; cav.resonance = 0.75; cav.db = AudioEffectFilter.FILTER_24DB
+	AudioServer.add_bus_effect(cav_bus, cav)
+	body_eq = AudioEffectEQ10.new(); AudioServer.add_bus_effect(body_bus, body_eq)
+	var lim := AudioEffectLimiter.new(); lim.ceiling_db = -0.5; lim.threshold_db = -6
 	AudioServer.add_bus_effect(AudioServer.get_bus_index("Master"), lim)
 
 func apply_settings() -> void:
@@ -47,72 +68,161 @@ func apply_settings() -> void:
 	AudioServer.set_bus_volume_db(0, linear_to_db(max(0.0001, float(st.vol))))
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Ambient"), linear_to_db(max(0.0001, float(st.get("music", 0.4)))))
 
+func _load_manifest() -> void:
+	var path := SND + "manifest.json"
+	if FileAccess.file_exists(path): manifest = JSON.parse_string(FileAccess.get_file_as_string(path))
+	if manifest == null: manifest = {}
+	var lm: Dictionary = manifest.get("_layers", {})
+	for k in lm:
+		layers[k] = []
+		for i in int(lm[k]):
+			var f := SND + "_layers/%s_%02d.ogg" % [k, i]
+			if ResourceLoader.exists(f): layers[k].append(load(f))
+	for n in manifest.get("_fx", []):
+		var f := SND + "_fx/%s.ogg" % n
+		if ResourceLoader.exists(f): fx[n] = load(f)
+
 func load_set(s: String) -> Dictionary:
-	if s == "" : return {}
+	if s == "": return {}
 	if sets.has(s): return sets[s]
-	var out = {"press": {}, "release": {}}
-	for n in NAMES_PRESS:
-		var path = "res://assets/snd/%s/press/%s.mp3" % [s, n]
-		if ResourceLoader.exists(path): out.press[n] = load(path)
-	for n in NAMES_REL:
-		var path = "res://assets/snd/%s/release/%s.mp3" % [s, n]
-		if ResourceLoader.exists(path): out.release[n] = load(path)
+	var m: Dictionary = manifest.get(s, {})
+	var out := {}
+	for kind in ["press_g", "release_g", "press_big", "release_big", "hollow"]:
+		out[kind] = []
+		for i in int(m.get(kind, 0)):
+			var f := SND + "%s/%s_%02d.ogg" % [s, kind, i]
+			if ResourceLoader.exists(f): out[kind].append(load(f))
 	sets[s] = out
 	return out
 
-## Shape the Keys bus to the current build (called when a keyboard becomes active).
+# keycap cavity: profile -> (centre Hz, level); material shifts the resonance
+const CAVITY := {"cherry": [2400.0, 0.22], "oem": [2000.0, 0.3], "kat": [1850.0, 0.34], "xda": [2600.0, 0.2], "sa": [1300.0, 0.5], "mt3": [1200.0, 0.48]}
+# EQ21 centres: 22 32 44 63 90 125 175 250 350 500 700 1k 1.4k 2k 2.8k 4k 5.6k 8k 11k 16k 22k
+const BANDS := [22, 32, 44, 63, 90, 125, 175, 250, 350, 500, 700, 1000, 1400, 2000, 2800, 4000, 5600, 8000, 11000, 16000, 22000]
+
+## Shape the buses to the current build (called when a keyboard becomes active).
 func set_profile(P: Dictionary) -> void:
 	current_P = P
 	if P.is_empty(): return
-	var sh = float(P.shift)
-	var hollow = float(P.hollow)
-	# bands: 32, 100, 320, 1000, 3200, 10000 Hz
-	eq.set_band_gain_db(0, clamp(-sh * 5.0, -6, 6))
-	eq.set_band_gain_db(1, clamp(-sh * 9.0, -9, 10))
-	eq.set_band_gain_db(2, clamp((hollow - 0.15) * 14.0 - sh * 3.0, -6, 10))
-	eq.set_band_gain_db(3, 0.0)
-	eq.set_band_gain_db(4, clamp(sh * 8.0 - (14.0 if P.silent else 0.0), -18, 9))
-	eq.set_band_gain_db(5, clamp(sh * 6.0 - (16.0 if P.silent else 0.0), -20, 8))
+	var sh := float(P.get("shift", 0.0))
+	var hollow := float(P.get("hollow", 0.0))
+	var prof: String = P.get("prof", "cherry"); var mat: String = P.get("kmat", "PBT")
+	var look: String = P.get("look", "metal"); var plate: String = P.get("plate", "p_alu")
+	var silent: bool = P.get("silent", false)
+	var g := []; g.resize(21); g.fill(0.0)
+	for i in 21:
+		var f: float = BANDS[i]
+		var lo := clampf(1.0 - log(f / 90.0) / log(8.0), 0.0, 1.0)          # weight toward lows
+		var hi := clampf(log(f / 1400.0) / log(6.0), 0.0, 1.0)               # weight toward highs
+		g[i] += -sh * 7.0 * lo + sh * 7.0 * hi                              # deeper / brighter build
+		if mat == "PBT": g[i] += (1.5 if f >= 250 and f <= 700 else 0.0) - (2.5 * hi)
+		else: g[i] += 2.0 * hi * (1.0 if f < 9000 else 0.5)
+		if prof in ["sa", "mt3"] and f >= 500 and f <= 1400: g[i] += 2.5
+		if plate in ["p_brass", "p_alu"] and f >= 2800 and f <= 5600: g[i] += 1.5
+		if plate in ["p_pc", "p_pom"]:
+			g[i] += (1.2 if f >= 175 and f <= 350 else 0.0) - (2.0 if f >= 2800 and f <= 8000 else 0.0)
+		if P.get("tape", false): g[i] += (2.0 if f >= 175 and f <= 350 else 0.0) - (1.5 if f >= 5600 else 0.0)
+		if silent: g[i] -= 14.0 * hi
+		if f < 40: g[i] -= 6.0
+	for i in 21: eq.set_band_gain_db(i, clampf(g[i], -18.0, 9.0))
+	var c: Array = CAVITY.get(prof, CAVITY.cherry)
+	cav.cutoff_hz = float(c[0]) * (1.15 if mat == "ABS" else 0.88)
+	cav.resonance = 0.82 if mat == "ABS" else 0.65
+	# case body colour for the hollowness layer (EQ10: 31 62 125 250 500 1k 2k 4k 8k 16k)
+	var b := [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+	match look:
+		"plastic": b = [-6.0, 0.0, 3.0, 5.0, 3.0, 0.0, -4.0, -8.0, -12.0, -15.0]
+		"acrylic": b = [-8.0, -3.0, 0.0, 2.0, 5.0, 3.0, -2.0, -6.0, -10.0, -14.0]
+		"wood": b = [-6.0, 0.0, 4.0, 4.0, 1.0, -2.0, -6.0, -10.0, -14.0, -16.0]
+		_: b = [-10.0, -6.0, -2.0, 1.0, 3.0, 4.0, 2.0, -3.0, -8.0, -12.0]   # metal: tighter, higher
+	for i in 10: body_eq.set_band_gain_db(i, b[i])
 
-func _player() -> AudioStreamPlayer:
-	_kp = (_kp + 1) % key_players.size(); return key_players[_kp]
+## Room acoustics follow the property (concrete garage is lively, the boutique is damped).
+func set_room(style: String) -> void:
+	var r: Array = {"garage": [0.42, 0.45, 0.13], "loft": [0.5, 0.5, 0.11], "studio": [0.28, 0.7, 0.07], "boutique": [0.3, 0.8, 0.06], "flagship": [0.36, 0.6, 0.08]}.get(style, [0.25, 0.65, 0.08])
+	room_rev.room_size = r[0]; room_rev.damping = r[1]; room_rev.wet = r[2]
+
+func _player(bus := "Keys") -> AudioStreamPlayer:
+	_kp = (_kp + 1) % key_players.size()
+	var p := key_players[_kp]; p.bus = bus
+	return p
+
+func _pick(arr: Array, tag: String) -> int:
+	if arr.is_empty(): return -1
+	if arr.size() == 1: return 0
+	var i := randi() % arr.size()
+	if i == int(_last.get(tag, -1)): i = (i + 1 + randi() % (arr.size() - 1)) % arr.size()
+	_last[tag] = i
+	return i
+
+func _play(stream: AudioStream, gain: float, pitch: float, bus := "Keys") -> void:
+	if stream == null or gain <= 0.0004: return
+	var p := _player(bus); p.stream = stream; p.pitch_scale = clampf(pitch, 0.5, 2.0); p.volume_db = linear_to_db(gain); p.play()
 
 ## k: layout key dictionary {w,row,codes}; fgap: layout has an F-row
 func key(P: Dictionary, k: Dictionary, up: bool, fgap := false) -> void:
 	if Game.S.is_empty() or not Game.S.settings.sound: return
 	if P != current_P: set_profile(P)
-	var s = load_set(P.get("snd", ""))
-	var w = float(k.get("w", 1.0)); var code: String = k.get("codes", [""])[0]
-	var row: int = clamp(int(k.get("row", 2)) - (1 if fgap else 0), 0, 4)
-	var nm: String
-	if code == "Space" or w >= 5: nm = "SPACE"
-	elif code == "Enter" or code == "NumpadEnter": nm = "ENTER"
-	elif code == "Backspace": nm = "BACKSPACE"
-	elif up: nm = "GENERIC"
-	else: nm = "GENERIC_R%d" % row
-	var bank: Dictionary = s.get("release" if up else "press", {})
-	var stream = bank.get(nm, bank.get("GENERIC" if up else "GENERIC_R%d" % row, bank.get("GENERIC_R2", null)))
-	var L = 0.3 + float(P.loud) * 0.7
-	if stream:
-		var p = _player(); p.stream = stream
-		p.pitch_scale = clamp(pow(2.0, float(P.shift) * 0.5), 0.78, 1.28) * (1.0 + (randf() - 0.5) * 0.035)
-		p.volume_db = linear_to_db((0.35 + float(P.loud) * 0.9) * (0.4 if P.silent else 1.0) * (0.9 if up else 1.0) * randf_range(0.92, 1.08))
-		p.play()
-	var xping: float = max(0.0, float(P.ping) - 0.12)
-	if xping > 0.03: _layer(syn.ping, 0.06 * xping * L, randf_range(0.95, 1.12))
-	if not up and float(P.hollow) > 0.3: _layer(syn.hollow, 0.35 * (float(P.hollow) - 0.25) * L, 1.0 + float(P.pitch) * 0.15)
-	if w >= 1.75 and float(P.rattle) > 0.3: _layer(syn.rattle, 0.5 * (float(P.rattle) - 0.2) * L, randf_range(0.9, 1.1))
+	var s: Dictionary = load_set(P.get("snd", ""))
+	if s.is_empty(): return
+	var w := float(k.get("w", 1.0)); var code: String = k.get("codes", [""])[0]
+	var big: bool = w >= 2.0 or code in ["Space", "Enter", "NumpadEnter", "Backspace"]
+	var row: int = clampi(int(k.get("row", 2)) - (1 if fgap else 0), 0, 4)
+	var silent: bool = P.get("silent", false)
+	var loud := 0.35 + float(P.get("loud", 0.6)) * 0.8
+	var base_pitch := clampf(pow(2.0, float(P.get("shift", 0.0)) * 0.5), 0.78, 1.3)
+	# alphas: top rows are slightly higher, like on a real board
+	var row_pitch: float = 1.0 + (2 - row) * 0.012 if not big else 0.97
+	var pitch := base_pitch * row_pitch * (1.0 + (randf() - 0.5) * 0.03)
+	var rattle := float(P.get("rattle", 0.0))
+	var bank: Array
+	if up: bank = s.release_big if big and not s.release_big.is_empty() else s.release_g
+	else: bank = s.press_big if big and not s.press_big.is_empty() else s.press_g
+	var idx := _pick(bank, ("u" if up else "d") + ("b" if big else "g"))
+	if idx < 0: return
+	var main_gain := loud * (0.4 if silent else 1.0) * (0.85 if up else 1.0) * randf_range(0.93, 1.07)
+	if big and rattle > 0.25: main_gain *= 1.0 - clampf(rattle, 0.0, 1.0) * 0.4
+	_play(bank[idx], main_gain, pitch)
+	# keycap cavity colour (louder on tall profiles, ABS rings more than PBT)
+	var c: Array = CAVITY.get(P.get("prof", "cherry"), CAVITY.cherry)
+	var cav_gain := float(c[1]) * (1.2 if P.get("kmat", "PBT") == "ABS" else 0.8) * (0.5 if up else 1.0)
+	_play(bank[idx], main_gain * cav_gain, pitch, "Cavity")
+	if not up:
+		# case hollowness: real resonance layer for this exact press
+		var hol := float(P.get("hollow", 0.0))
+		if hol > 0.08 and not s.hollow.is_empty():
+			var hi: int = idx if not big else randi() % s.hollow.size()
+			_play(s.hollow[hi % s.hollow.size()], loud * hol * 1.1 * (0.5 if silent else 1.0), pitch * (0.92 if big else 1.0), "Body")
+		# scratchy stem rails
+		var scr := float(P.get("scratch", 0.0))
+		if scr > 0.15 and layers.has("scratch") and not layers.scratch.is_empty():
+			_play(layers.scratch[_pick(layers.scratch, "scr")], loud * scr * 0.22, randf_range(0.9, 1.15))
+		# metal case ring on bottom-out
+		var ring := float(P.get("ring", 0.0))
+		if ring > 0.25 and P.get("look", "") == "metal" and layers.has("ring"):
+			_play(layers.ring[randi() % layers.ring.size()], loud * (ring - 0.2) * 0.07, randf_range(0.95, 1.05), "Body")
+	# spring ping (both directions; an unlubed spring rings on release too)
+	var ping := float(P.get("ping", 0.0))
+	if ping > 0.1 and layers.has("ping") and not layers.ping.is_empty():
+		_play(layers.ping[_pick(layers.ping, "ping")], loud * (ping - 0.08) * 0.13 * (0.7 if up else 1.0), randf_range(0.92, 1.12))
+	# stabilizer rattle: real rattly spacebar hits on long keys
+	if big and rattle > 0.25 and layers.has("rattle") and not layers.rattle.is_empty():
+		_play(layers.rattle[_pick(layers.rattle, "rat")], loud * (rattle - 0.15) * (0.55 if up else 0.85), pitch * randf_range(0.97, 1.03))
 
-func _layer(stream: AudioStream, gain: float, pitch := 1.0) -> void:
-	if gain <= 0.0005: return
-	var p = _player(); p.stream = stream; p.pitch_scale = pitch; p.volume_db = linear_to_db(gain); p.play()
+const UI_GAIN := {"tick": -12.0, "rtick": -14.0, "hover": -24.0, "click": -10.0, "spin": -9.0, "socket": -5.0, "cap": -6.0, "pull": -7.0,
+	"ratchet": -8.0, "thud": -5.0, "sizzle": -10.0, "lube": -9.0, "coin": -6.0, "coins": -7.0, "sale": -6.0, "buy": -8.0, "box_open": -6.0,
+	"tape": -8.0, "whoosh": -12.0, "open": -10.0, "good": -9.0, "level": -5.0, "bad": -6.0, "rare": -4.0, "drawer": -9.0, "reveal": -6.0}
+const UI_ALIAS := {"reveal": "good"}
 
 func ui(name: String) -> void:
 	if Game.S.is_empty() or not Game.S.settings.sound: return
-	if not syn.has(name): return
+	var n: String = name if fx.has(name) else UI_ALIAS.get(name, name)
+	var stream = fx.get(n, syn.get(name, null))
+	if stream == null: return
 	_up = (_up + 1) % ui_players.size()
-	var p = ui_players[_up]; p.stream = syn[name]; p.pitch_scale = 1.0; p.volume_db = {"tick": -10.0, "hover": -22.0, "click": -12.0, "spin": -10.0}.get(name, -6.0)
-	if name == "rtick": p.pitch_scale = randf_range(0.95, 1.08); p.volume_db = -12.0
+	var p = ui_players[_up]; p.stream = stream
+	p.pitch_scale = randf_range(0.96, 1.05) if name in ["tick", "rtick", "socket", "cap", "ratchet", "spin", "coin", "hover", "click"] else 1.0
+	p.volume_db = float(UI_GAIN.get(name, -6.0))
 	p.play()
 
 func socket(cap: bool) -> void:

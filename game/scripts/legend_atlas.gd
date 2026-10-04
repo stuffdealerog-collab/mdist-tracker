@@ -16,8 +16,8 @@ func build() -> void:
 	for lid in Data.LAYOUTS:
 		for k in Data.LAYOUTS[lid].keys: labels[str(k.label)] = true
 	var font := FontVariation.new()
-	font.base_font = load("res://assets/fonts/JetBrainsMono.ttf")
-	font.variation_opentype = {"wght": 760}
+	font.base_font = load("res://assets/fonts/Onest.ttf")
+	font.variation_opentype = {TextServerManager.get_primary_interface().name_to_tag("wght"): 560}
 	var slot := 0
 	index.clear()
 	for lab in labels:
@@ -29,7 +29,7 @@ func build() -> void:
 			var L := Label.new()
 			L.text = lab
 			L.add_theme_font_override("font", font)
-			var fs := 54 if lab.length() <= 1 else (40 if lab.length() <= 2 else (30 if lab.length() <= 4 else 24))
+			var fs := 62 if lab.length() <= 1 else (44 if lab.length() <= 2 else (32 if lab.length() <= 4 else 26))
 			L.add_theme_font_size_override("font_size", fs)
 			L.add_theme_color_override("font_color", Color.WHITE)
 			L.position = Vector2(cx * CELL, cy * CELL)

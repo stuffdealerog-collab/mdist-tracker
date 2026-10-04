@@ -35,7 +35,7 @@ func _ready() -> void:
 	var floor = MeshInstance3D.new(); var pm = PlaneMesh.new(); pm.size = Vector2(3, 3); floor.mesh = pm
 	var fm = StandardMaterial3D.new(); fm.albedo_color = Color(0.08, 0.09, 0.1); fm.roughness = 0.6; floor.material_override = fm; floor.position.y = -0.003
 	vp.add_child(floor)
-	kb = Keyboard3D.new(); kb.scale = Vector3.ONE * Workshop.U; kb.rotation.x = 0.06; vp.add_child(kb)
+	kb = Keyboard3D.new(); kb.scale = Vector3.ONE * Workshop.U; vp.add_child(kb)
 	cam = Camera3D.new(); cam.fov = 34; cam.near = 0.02; vp.add_child(cam)
 	if not spec.is_empty(): set_spec(spec)
 

@@ -27,13 +27,16 @@ static func rr_points(w: float, d: float, r: float, corner_seg := 6, edge_step :
 
 # --- keycap ----------------------------------------------------------------
 # profile table: height per sculpt row (R1..R4), tilt deg, dish type/depth, top inset, corner radii
+# Real-world sculpt (mm / 19.05 = key units). Rows: R1 (number row) .. R4 (shift + bottom row).
+# tilt > 0 = the top faces the typist (front edge lower), < 0 = faces away. Together the rows form a
+# concave arc with its low point at R3 (home row), like real Cherry / OEM / SA / MT3 sets.
 const PROFILES := {
-	"cherry": {"h": [0.52, 0.45, 0.42, 0.46], "tilt": [10.0, 5.0, 0.0, -6.0], "dish": "cyl", "depth": 0.045, "inset": 0.14, "rb": 0.06, "rt": 0.08},
-	"oem":    {"h": [0.62, 0.54, 0.50, 0.56], "tilt": [12.0, 6.0, 0.0, -7.0], "dish": "cyl", "depth": 0.04, "inset": 0.14, "rb": 0.05, "rt": 0.07},
-	"sa":     {"h": [0.72, 0.66, 0.64, 0.66], "tilt": [13.0, 7.0, 0.0, -8.0], "dish": "sph", "depth": 0.06, "inset": 0.17, "rb": 0.07, "rt": 0.16},
-	"mt3":    {"h": [0.70, 0.64, 0.60, 0.64], "tilt": [11.0, 6.0, 0.0, -6.0], "dish": "sph", "depth": 0.075, "inset": 0.15, "rb": 0.07, "rt": 0.14},
-	"kat":    {"h": [0.58, 0.52, 0.48, 0.52], "tilt": [10.0, 5.0, 0.0, -6.0], "dish": "sph", "depth": 0.045, "inset": 0.13, "rb": 0.07, "rt": 0.12},
-	"xda":    {"h": [0.36, 0.36, 0.36, 0.36], "tilt": [0.0, 0.0, 0.0, 0.0], "dish": "sph", "depth": 0.03, "inset": 0.09, "rb": 0.08, "rt": 0.13},
+	"cherry": {"h": [0.495, 0.405, 0.385, 0.43], "tilt": [8.0, 4.0, 0.0, -6.0], "dish": "cyl", "depth": 0.04, "inset": 0.145, "rb": 0.055, "rt": 0.075},
+	"oem":    {"h": [0.62, 0.52, 0.47, 0.53], "tilt": [10.0, 5.0, 0.0, -7.0], "dish": "cyl", "depth": 0.035, "inset": 0.15, "rb": 0.05, "rt": 0.065},
+	"sa":     {"h": [0.77, 0.67, 0.62, 0.69], "tilt": [13.0, 7.0, 0.0, -8.0], "dish": "sph", "depth": 0.06, "inset": 0.17, "rb": 0.08, "rt": 0.17},
+	"mt3":    {"h": [0.73, 0.63, 0.59, 0.64], "tilt": [12.0, 6.0, 0.0, -7.0], "dish": "sph", "depth": 0.08, "inset": 0.155, "rb": 0.075, "rt": 0.15},
+	"kat":    {"h": [0.59, 0.51, 0.47, 0.52], "tilt": [10.0, 5.0, 0.0, -6.0], "dish": "sph", "depth": 0.045, "inset": 0.135, "rb": 0.07, "rt": 0.12},
+	"xda":    {"h": [0.475, 0.475, 0.475, 0.475], "tilt": [0.0, 0.0, 0.0, 0.0], "dish": "sph", "depth": 0.03, "inset": 0.09, "rb": 0.08, "rt": 0.13},
 }
 
 static func keycap(w: float, prof: String, srow: int) -> ArrayMesh:
@@ -47,7 +50,8 @@ static func keycap(w: float, prof: String, srow: int) -> ArrayMesh:
 	var bd := 0.945
 	var tw := bw - 2.0 * float(P.inset)
 	var td := bd - 2.0 * float(P.inset) - 0.02
-	var skew := 0.025 * signf(float(P.tilt[srow])) if prof in ["cherry", "oem"] else 0.0
+	# Cherry/OEM tops sit slightly toward the back on rows that face the typist
+	var skew := -0.03 * signf(float(P.tilt[srow])) if prof in ["cherry", "oem"] else 0.0
 	var step := 0.12
 	var bottom := rr_points(bw, bd, P.rb, 6, step)
 	var top := rr_points(tw, td, P.rt, 6, step)
@@ -59,7 +63,8 @@ static func keycap(w: float, prof: String, srow: int) -> ArrayMesh:
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	# ---------- sides: rings bottom -> top rim (with a fillet near the top)
 	var rings := [0.0, 0.25, 0.5, 0.72, 0.86, 0.94, 1.0]
-	var rim_y := func(p: Vector2) -> float: return h + tan(tilt) * p.y * 0.9
+	# +z is toward the typist: a positive tilt lowers the front edge of the top
+	var rim_y := func(p: Vector2) -> float: return h - tan(tilt) * p.y
 	var verts: Array = []
 	for ri in rings.size():
 		var t: float = rings[ri]
@@ -324,5 +329,95 @@ static func slab(W: float, H: float, th: float, r := 0.05) -> ArrayMesh:
 	# flat normals: no welding so edges stay crisp
 	var st2 := SurfaceTool.new(); st2.create_from(arr, 0); st2.generate_normals(); st2.generate_tangents()
 	var m := ArrayMesh.new(); m.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, st2.commit_to_arrays())
+	_cache[key] = m
+	return m
+
+# --- keyboard case shell: wedge bottom (typing angle), bezel, chamfered rim ---
+## Built in the tilted board space: the rim is level at wall_h, the bottom follows
+## y = base + z * tan(angle) so the case stands flat on the desk once the board is
+## rotated by `angle`. S: {bezel, radius, chamfer, wall_h, floor_y, angle, base, inner_r}
+static func case_shell(W: float, H: float, S: Dictionary) -> ArrayMesh:
+	var bez: float = S.get("bezel", 0.45)
+	var key := "shell|%.2f|%.2f|%s" % [W, H, JSON.stringify(S)]
+	if _cache.has(key): return _cache[key]
+	var ow := W + 2.0 * bez; var od := H + 2.0 * bez
+	var R: float = S.get("radius", 0.4)
+	var ch: float = S.get("chamfer", 0.06)
+	var wall_h: float = S.get("wall_h", 1.0)
+	var floor_y: float = S.get("floor_y", 0.22)
+	var ta: float = tan(deg_to_rad(float(S.get("angle", 6.0))))
+	var base: float = S.get("base", -0.35)
+	var outer := rr_points(ow, od, R, 8, 0.25)
+	var inner := _resample(rr_points(W + 0.16, H + 0.16, float(S.get("inner_r", 0.12)), 6, 0.25), outer.size())
+	var n := outer.size()
+	var st := SurfaceTool.new(); st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var bottom_y := func(z: float) -> float: return base + z * ta
+	# outer wall: bottom (bevel) -> straight -> top chamfer
+	var rings: Array = []
+	var specs := [[0.0, 0.03], [0.02, 0.0], [0.5, 0.0], [1.0 - ch / max(0.01, wall_h - base), 0.0], [1.0, ch]]
+	for sp in specs:
+		var ring := PackedVector3Array()
+		for i in n:
+			var p: Vector2 = outer[i]
+			var q := p - p.normalized() * float(sp[1])
+			var yb: float = bottom_y.call(p.y)
+			var y: float = lerp(yb, wall_h, float(sp[0]))
+			if sp[0] == 1.0: y = wall_h
+			elif float(sp[0]) > 0.6: y = wall_h - ch
+			ring.append(Vector3(q.x, y, q.y))
+		rings.append(ring)
+	for li in rings.size() - 1:
+		for i in n:
+			var j := (i + 1) % n
+			_quad(st, rings[li][i], rings[li][j], rings[li + 1][j], rings[li + 1][i])
+	var otop: PackedVector3Array = rings[rings.size() - 1]
+	var itop := PackedVector3Array(); var ibot := PackedVector3Array()
+	for i in n:
+		itop.append(Vector3(inner[i].x, wall_h, inner[i].y)); ibot.append(Vector3(inner[i].x, floor_y, inner[i].y))
+	for i in n:
+		var j := (i + 1) % n
+		st.add_vertex(otop[i]); st.add_vertex(otop[j]); st.add_vertex(itop[i])
+		st.add_vertex(otop[j]); st.add_vertex(itop[j]); st.add_vertex(itop[i])
+	for i in n:
+		var j := (i + 1) % n
+		st.add_vertex(ibot[i]); st.add_vertex(itop[j]); st.add_vertex(ibot[j])
+		st.add_vertex(ibot[i]); st.add_vertex(itop[i]); st.add_vertex(itop[j])
+	var fc := Vector3(0, floor_y, 0)
+	for i in n:
+		var j := (i + 1) % n
+		st.add_vertex(fc); st.add_vertex(ibot[i]); st.add_vertex(ibot[j])
+	var br: PackedVector3Array = rings[0]
+	var bc := Vector3(0, base, 0)
+	for i in n:
+		var j := (i + 1) % n
+		st.add_vertex(bc); st.add_vertex(br[j]); st.add_vertex(br[i])
+	var m := finalize(st.commit())
+	_cache[key] = _planar_uv(m, 0.25)
+	return _cache[key]
+
+## Rotary knob (Q1-style): knurled cylinder in key units.
+static func knob(r := 0.42, h := 0.5) -> ArrayMesh:
+	var key := "knob|%.2f|%.2f" % [r, h]
+	if _cache.has(key): return _cache[key]
+	var st := SurfaceTool.new(); st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var n := 96
+	var ring := func(y: float, rr: float, knurl: bool) -> PackedVector3Array:
+		var out := PackedVector3Array()
+		for i in n:
+			var a := TAU * i / n
+			var k := rr * (1.0 + (0.035 if knurl and i % 2 == 0 else 0.0))
+			out.append(Vector3(cos(a) * k, y, sin(a) * k))
+		return out
+	var rs := [ring.call(0.0, r, true), ring.call(h * 0.85, r, true), ring.call(h * 0.97, r * 0.94, false), ring.call(h, r * 0.86, false)]
+	for li in rs.size() - 1:
+		for i in n:
+			var j := (i + 1) % n
+			_quad(st, rs[li][i], rs[li][j], rs[li + 1][j], rs[li + 1][i])
+	var top: PackedVector3Array = rs[rs.size() - 1]
+	var c := Vector3(0, h - 0.02, 0)
+	for i in n:
+		var j := (i + 1) % n
+		st.add_vertex(c); st.add_vertex(top[j]); st.add_vertex(top[i])
+	var m := finalize(st.commit())
 	_cache[key] = m
 	return m

@@ -33,10 +33,30 @@ const STEP_INFO := {
 	"keytest": {"n": "Тест клавиш", "t": "Проверка клавиш",
 		"help": "Нажмите каждую клавишу на своей клавиатуре или кликом, либо запустите автотест. Зелёная клавиша работает, красная мёртвая: кликните по ней ещё раз, чтобы починить.",
 		"ctl": ["Клавиатура / клик: проверить", "Клик по красной: починить"]},
+	"diag": {"n": "Диагностика", "t": "Диагностика неисправностей",
+		"help": "Нажмите каждую клавишу на своей клавиатуре или кликом. Слушайте: мёртвая молчит, изношенная печатает дважды, липкая отпускается с задержкой, сухой стаб гремит. Найденные дефекты подсвечиваются.",
+		"ctl": ["Клавиатура / клик: проверить", "Автотест: прогнать всё"]},
+	"fix": {"n": "Ремонт", "t": "Устранение дефектов",
+		"help": "Выберите инструмент и кликните по подсвеченной клавише. Порядок как в жизни: снять кейкап, затем лечить свитч или стаб, потом надеть кейкап обратно. Неверный инструмент считается ошибкой и снижает оценку клиента.",
+		"ctl": ["ЛКМ: применить инструмент", "ПКМ: камера", "Колесо: зум"]},
 	"test": {"n": "Звук", "t": "Тест звука",
 		"help": "Печатайте на своей клавиатуре: играют настоящие записи свитчей, обработанные под вашу сборку. Затем назовите клавиатуру и завершите сборку.",
 		"ctl": ["Печать / клик: играть", "Перетаскивание: камера"]},
 }
+## Repair faults: name, cause, tool sequence, highlight colour.
+const FAULTS := {
+	"dead": {"n": "Не печатает", "why": "свитч вышел из строя", "seq": ["cap_pull", "sw_pull", "sw_new", "cap_put"], "col": "ff4a3d"},
+	"chatter": {"n": "Двойное нажатие", "why": "изношен контакт свитча", "seq": ["cap_pull", "sw_pull", "sw_new", "cap_put"], "col": "ff8a3d"},
+	"sticky": {"n": "Залипает", "why": "свитч залит сладким", "seq": ["cap_pull", "clean", "cap_put"], "col": "f2b84b"},
+	"stab": {"n": "Гремит стаб", "why": "высохла смазка стабилизатора", "seq": ["cap_pull", "stablube", "cap_put"], "col": "ffd166"},
+	"cap": {"n": "Треснул кейкап", "why": "сломана крестовина", "seq": ["cap_pull", "cap_new"], "col": "b48cff"},
+	"joint": {"n": "Срабатывает через раз", "why": "холодная пайка", "seq": ["iron"], "col": "cfd6dc"},
+}
+const TOOLS := [["cap_pull", "Съёмник кейкапов", "x"], ["sw_pull", "Съёмник свитчей", "x"], ["sw_new", "Новый свитч", "plus"], ["cap_put", "Надеть кейкап", "hand"],
+	["cap_new", "Новый кейкап", "plus"], ["clean", "Спирт и кисть", "drop"], ["stablube", "Смазка стаба", "drop"], ["iron", "Паяльник", "zap"]]
+const TOOL_HINT := {"cap_pull": "Сначала снимите кейкап съёмником", "sw_pull": "Теперь вытащите старый свитч съёмником свитчей", "sw_new": "Вставьте новый свитч",
+	"cap_put": "Наденьте кейкап обратно", "cap_new": "Наденьте новый кейкап", "clean": "Промойте свитч спиртом и пройдитесь кистью",
+	"stablube": "Смажьте стабилизатор", "iron": "Пропаяйте контакт паяльником"}
 const PIECE_N := {"foam": "Пенка в корпус", "pcb": "Плата (PCB)", "pefoam": "PE-фоам", "plate": "Пластина"}
 
 var kb: Keyboard3D
@@ -68,9 +88,16 @@ static func need_solder(b: Dictionary) -> bool: return not Data.pcb(b.parts.pcb.
 static func kc_sculpted(b: Dictionary) -> bool: return Data.kc(b.parts.kc.id).prof != "xda"
 static func row_names(layout: String) -> Array:
 	return ["F-ряд", "Цифры", "Верхний", "Средний", "Нижний", "Пробел"] if Data.LAYOUTS[layout].get("fgap", false) else ["Цифры", "Верхний", "Средний", "Нижний", "Пробел"]
+static func is_repair(b: Dictionary) -> bool: return b.get("kind", "") == "repair"
+static func fault_stage(k: Dictionary) -> String:
+	var f := str(k.get("f", ""))
+	if f == "": return ""
+	var seq: Array = FAULTS[f].seq
+	return seq[min(int(k.get("fs", 0)), seq.size() - 1)]
 static func is_dead(b: Dictionary, k: Dictionary) -> bool:
 	return int(k.get("b", 0)) == 1 or (need_solder(b) and float(k.get("so", 0)) < 1.0)
 
+static func b_step(bb: Dictionary) -> String: return str(bb.steps[int(bb.step)]) if not bb.is_empty() else ""
 func b() -> Dictionary: return Game.S.build if Game.S.build else {}
 func step() -> String:
 	var bb := b()
@@ -78,7 +105,7 @@ func step() -> String:
 
 func enter() -> void:
 	var bb := b(); if bb.is_empty(): return
-	tool = "main"; tq_msg = ""; held = false; _cur = -1; _hold = false; _scr = -1
+	tool = "cap_pull" if step() == "fix" else "main"; tq_msg = ""; held = false; _cur = -1; _hold = false; _scr = -1
 	kb.show_spec(Game.build_spec(bb), bb)
 	var st := step()
 	match st:
@@ -96,6 +123,7 @@ func resync() -> void:
 func set_tool(t: String) -> void:
 	tool = t
 	var st := step()
+	if st == "fix": kb.set_ghost(""); status_changed.emit(); return
 	kb.set_ghost("pull" if t == "pull" else ("sw" if st == "sw" else ("cap" if st == "kc" else "")))
 	status_changed.emit()
 
@@ -117,7 +145,8 @@ func done() -> bool:
 			var z := torque_zone()
 			return bb.screws.all(func(v): return v != null and float(v) >= z.lo)
 		"kc": return bb.ks.all(func(k): return int(k.c) == 1)
-		"keytest": return bb.ks.all(func(k): return int(k.t) == 1)
+		"keytest", "diag": return bb.ks.all(func(k): return int(k.t) == 1)
+		"fix": return bb.ks.all(func(k): return str(k.get("f", "")) == "")
 	return true
 
 func next_step(force := false) -> bool:
@@ -197,6 +226,13 @@ func auto() -> void:
 			for k in bb.ks:
 				if is_dead(bb, k): k.b = 0; k.so = 1.0; bb.fixes = int(bb.fixes) + 1
 				k.d = 0; k.t = 1
+		"diag":
+			for k in bb.ks:
+				k.t = 1
+				if str(k.get("f", "")) != "": k.seen = 1
+		"fix":
+			for k in bb.ks:
+				if str(k.get("f", "")) != "": k.f = ""; k.fx = 1; k.s = 1; k.c = 1; bb.fixes = int(bb.fixes) + 1
 	Audio.ui("tick"); resync()
 
 # ------------------------------------------------------------------ input
@@ -212,6 +248,7 @@ func hover(inf: Dictionary) -> void:
 			var ok2 := i >= 0 and (int(bb.ks[i].c) == 1 if tool == "pull" else int(bb.ks[i].c) == 0)
 			kb.ghost_at(i if ok2 else -1)
 		"solder": kb.ghost_at(i)
+		"fix": kb.ghost_at(-1)
 
 func down(inf: Dictionary) -> bool:
 	var bb := b(); if bb.is_empty(): return false
@@ -236,6 +273,7 @@ func down(inf: Dictionary) -> bool:
 			if tool == "pull": _pull_cap(inf.i)
 			else: _put_cap(inf.i)
 			return true
+		"fix": apply_tool(inf.i); return true
 	return false
 
 func move(inf: Dictionary) -> void:
@@ -381,6 +419,47 @@ func _fin_screw() -> void:
 	bb.screwSeq.append(_scr); _scr = -1; _tq = 0.0; torque.emit(0.0)
 	resync()
 
+# -------------------------------------------------------------- repair
+## Applies the selected repair tool to key i; returns true when the action matched the next fix step.
+func apply_tool(i: int) -> bool:
+	var bb := b(); if bb.is_empty() or i < 0 or i >= bb.ks.size(): return false
+	var k: Dictionary = bb.ks[i]
+	var f := str(k.get("f", ""))
+	if f == "":
+		if int(k.get("fx", 0)) == 1: Game.toast("Эта клавиша уже исправлена")
+		else: Game.toast("Клавиша в порядке: лишний разбор ни к чему"); bb.mist = int(bb.get("mist", 0)) + 1; Audio.ui("bad")
+		status_changed.emit(); return false
+	var need := fault_stage(k)
+	if tool != need:
+		bb.mist = int(bb.get("mist", 0)) + 1; Audio.ui("bad")
+		Game.toast("%s. Неверный инструмент: ошибка %d" % [TOOL_HINT[need], int(bb.mist)], "bad")
+		status_changed.emit(); return false
+	match tool:
+		"cap_pull": k.c = 0; Audio.socket(true)
+		"sw_pull": k.s = 0; Audio.socket(true)
+		"sw_new": k.s = 1; Audio.socket(false); kb.insert(i, "sw")
+		"cap_put", "cap_new": k.c = 1; Audio.socket(true); kb.insert(i, "cap")
+		"clean", "stablube": Audio.ui("lube")
+		"iron": Audio.ui("sizzle")
+	k.fs = int(k.get("fs", 0)) + 1
+	if int(k.fs) >= (FAULTS[f].seq as Array).size():
+		k.f = ""; k.fx = 1; bb.fixes = int(bb.fixes) + 1
+		Audio.ui("good"); Game.toast("Исправлено: %s" % FAULTS[f].n.to_lower(), "good")
+	resync()
+	return true
+
+## Diagnosis press: marks the key tested, reveals its fault. Returns the fault id ("" when healthy).
+func diag(i: int) -> String:
+	var bb := b(); if bb.is_empty() or i < 0 or i >= bb.ks.size(): return ""
+	var k: Dictionary = bb.ks[i]
+	k.t = 1
+	var f := str(k.get("f", ""))
+	if f != "" and int(k.get("seen", 0)) == 0:
+		k.seen = 1
+		Game.toast("Найдено: %s (%s)" % [FAULTS[f].n, FAULTS[f].why], "bad")
+	kb.sync(bb); status_changed.emit()
+	return f
+
 # -------------------------------------------------------------- keytest
 ## Returns true when the key should sound.
 func keytest(i: int) -> bool:
@@ -399,9 +478,12 @@ func autotest() -> void:
 	var bb := b()
 	for i in bb.ks.size():
 		get_tree().create_timer(i * 0.018).timeout.connect(func():
-			if Game.S.build == null or step() != "keytest": return
+			if Game.S.build == null or not (step() in ["keytest", "diag"]): return
 			var k: Dictionary = bb.ks[i]
-			if int(k.t) == 0:
+			if step() == "diag":
+				k.t = 1
+				if str(k.get("f", "")) != "": k.seen = 1
+			elif int(k.t) == 0:
 				k.t = 1
 				if is_dead(bb, k): k.d = 1
 			kb.press(i, true)

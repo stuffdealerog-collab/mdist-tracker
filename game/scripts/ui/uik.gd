@@ -192,6 +192,8 @@ static func _dot_icon(s: int, col: Color) -> Texture2D:
 
 # ------------------------------------------------------------------ icons
 const ICONS := {
+	"plus": "<path d='M12 5v14M5 12h14'/>",
+	"drop": "<path d='M12 2.7l5.7 5.7a8 8 0 1 1-11.4 0z'/>",
 	"wrench": "<path d='M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z'/>",
 	"clipboard": "<rect x='8' y='2' width='8' height='4' rx='1'/><path d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/><path d='M9 12h6M9 16h6'/>",
 	"store": "<path d='M3 9l1.5-5h15L21 9'/><path d='M4 9v11h16V9'/><path d='M3 9a3 3 0 0 0 6 0a3 3 0 0 0 6 0a3 3 0 0 0 6 0'/><path d='M10 20v-6h4v6'/>",

@@ -67,7 +67,7 @@ func new_state(prev: Dictionary = {}) -> Dictionary:
 		"inv": {"items": [], "sw": {}, "cons": {"lube": 1, "stablube": 1}, "art": [], "boxes": {}},
 		"boards": [], "listings": [], "orders": [], "log": [],
 		"up": {}, "sk": {}, "sp": 0,
-		"stats": {"built":0,"orders":0,"five":0,"sold":0,"earned":0.0,"earnedAll":0.0,"maxSale":0.0,"maxThock":0,"minLoud":100,"maxQ":0,"perfectLube":0,"fullBuilt":0,"gb":0,"contestWins":0,"keys":0,"bought":0,"listed":0,"loginClaims":0,"boxes":0,"trades":0,"props":0},
+		"stats": {"built":0,"orders":0,"five":0,"sold":0,"earned":0.0,"earnedAll":0.0,"maxSale":0.0,"maxThock":0,"minLoud":100,"maxQ":0,"perfectLube":0,"fullBuilt":0,"gb":0,"contestWins":0,"keys":0,"bought":0,"listed":0,"loginClaims":0,"boxes":0,"trades":0,"props":0,"repairs":0},
 		"col": {"sw": {}, "kc": {}, "art": {}}, "ach": {},
 		"daily": {"date":"", "tasks":[], "bonus":false, "prog":{}},
 		"weekly": {"week":0, "task":null, "prog":0.0, "claimed":false, "contest":null, "result":null, "npcLvl":1},
@@ -79,13 +79,13 @@ func new_state(prev: Dictionary = {}) -> Dictionary:
 		"property": "garage", "owned_props": ["garage"],
 		"traders": {"day":-1, "offers":[]},
 		"online": {"token":"", "pid":"", "name":""},
-		"build": null, "tut": 0, "uid": 100, "seenIntro": false, "hints": {},
+		"build": null, "tut": 0, "tutv": 2, "uid": 100, "seenIntro": false, "hints": {},
 		"settings": {"vol":0.8, "music":0.4, "sound":true, "gfx":"high", "server":"http://localhost:8787"},
 	}
 	if not prev.is_empty():
 		for k in ["col","ach","login","settings","vip","prestige","online","hints"]: st[k] = prev[k]
 		st.tut = 99; st.seenIntro = true
-		for k in ["earnedAll","maxSale","maxThock","minLoud","maxQ","perfectLube","fullBuilt","gb","contestWins","five","built","orders","sold","loginClaims","boxes","trades","props"]:
+		for k in ["earnedAll","maxSale","maxThock","minLoud","maxQ","perfectLube","fullBuilt","gb","contestWins","five","built","orders","sold","loginClaims","boxes","trades","props","repairs"]:
 			st.stats[k] = prev.stats.get(k, 0)
 		st.stats.bought = 1; st.stats.listed = 1
 		st.money += perk("cash") * 15000
@@ -106,10 +106,134 @@ func starter_kit(st: Dictionary) -> void:
 	add.call("stab", "s_basic", {})
 	add.call("kc", "k_stock", {})
 	st.inv.sw["sw_red"] = 70; st.col.sw["sw_red"] = 1; st.col.kc["k_stock"] = 1
-	st.uid += 1
-	st.orders.append({"id":"o%d" % st.uid, "kind":"tut", "name":"Сосед Дима", "col":"#8fd3c7",
-		"text":"Слышал, ты собираешь клавиатуры! Мне бы простую 60% для учёбы — главное, чтобы работала и щёлкала приятнее офисной.",
-		"req":{"layout":"l60"}, "budget":16000.0, "expires":999, "created":1, "district": Vector2(0.5,0.45)})
+	for j in REPAIR_STORY.size():
+		st.uid += 1
+		st.orders.append(repair_order(REPAIR_STORY[j], "o%d" % st.uid, j))
+
+func dima_build_order() -> Dictionary:
+	return {"id":"o%d" % uid(), "kind":"tut", "name":"Сосед Дима", "col":"#8fd3c7",
+		"text":"Старую ты оживил — теперь хочу свою! Собери мне простую 60% для учёбы: главное, чтобы работала и щёлкала приятнее офисной.",
+		"req":{"layout":"l60"}, "budget":16000.0, "expires":999, "created":S.day, "district": Vector2(0.5,0.45)}
+
+# ------------------------------------------------------------------ repairs
+## Story repairs that open the game; after them random repairs keep coming between builds.
+const REPAIR_STORY := [
+	{"name":"Сосед Дима", "col":"#8fd3c7", "budget":3500.0, "district":Vector2(0.5,0.45),
+		"text":"Привет! Говорят, ты разбираешься в механике. Моя клавиатура совсем сдала: одна буква не печатает, другая залипает после чая, и треснул колпачок. Глянешь?",
+		"board":{"layout":"l60","case":"c_abs","color":1,"plate":"p_fr4","pcb":"b_hs","stab":"s_basic","kc":"k_stock","sw":"sw_red","mods":{}},
+		"faults":[["dead",""],["sticky",""],["cap",""]]},
+	{"name":"Лена, стримерша", "col":"#f2a7c3", "budget":5500.0, "district":Vector2(0.32,0.6),
+		"text":"Пробел дребезжит прямо в микрофон, а одна клавиша печатает дважды — зрители смеются. Спасёшь эфир?",
+		"board":{"layout":"l65","case":"c_pc","color":0,"plate":"p_alu","pcb":"b_hs","stab":"s_basic","kc":"k_bow","sw":"sw_brown","mods":{}},
+		"faults":[["stab","space"],["chatter",""],["sticky",""]]},
+]
+const REPAIR_TEXT := {
+	"dead": ["Пара клавиш вообще перестала печатать.", "Одна клавиша умерла после падения со стола."],
+	"chatter": ["Некоторые буквы печатаются по два раза.", "Клавиша иногда «дребезжит» и ставит двойные символы."],
+	"sticky": ["Пролил кофе — теперь кнопки залипают.", "Клавиши тугие и липкие, будто в сиропе."],
+	"stab": ["Пробел гремит, как погремушка.", "Длинные клавиши дребезжат и звенят."],
+	"cap": ["Колпачок треснул и слетает.", "Кот уронил клаву — сломался кейкап."],
+	"joint": ["Клавиша срабатывает через раз.", "Буква печатается, только если сильно нажать."],
+}
+
+## Custom builds open after the first story repairs (old saves keep them).
+func builds_unlocked() -> bool:
+	return int(S.stats.get("repairs", 0)) >= REPAIR_STORY.size() or int(S.stats.built) > 0 or int(S.level) >= 3
+
+func repair_order(r: Dictionary, id: String, story := -1) -> Dictionary:
+	return {"id":id, "kind":"repair", "story":story, "name":r.name, "col":r.col, "text":r.text, "req":{}, "board":r.board, "faults":r.faults,
+		"budget":r.budget, "expires":999 if story >= 0 else int(S.day if not S.is_empty() else 1) + randi_range(2, 4), "created":1, "district":r.district}
+
+func gen_repair() -> Dictionary:
+	var lays = Data.LAYOUTS.keys().filter(func(k): return int(Data.LAYOUTS[k].lvl) <= int(S.level))
+	var layout: String = lays.pick_random()
+	var u := func(arr: Array) -> Dictionary: return unlocked(arr).pick_random()
+	var pc: Dictionary = u.call(Data.PCBS); var sw: Dictionary = u.call(Data.SWITCHES)
+	var board = {"layout":layout, "case":u.call(Data.CASES).id, "color":randi() % 3, "plate":u.call(Data.PLATES).id, "pcb":pc.id,
+		"stab":u.call(Data.STABS).id, "kc":u.call(Data.KEYCAPS).id, "sw":sw.id, "mods":{}}
+	var pool = ["dead","dead","chatter","sticky","sticky","stab","cap"]
+	if not Data.pcb(pc.id).hs: pool.append_array(["joint","joint"])
+	var n: int = clamp(2 + int(S.level) / 4 + randi() % 2, 2, 6)
+	var faults = []
+	for j in n:
+		var f: String = pool.pick_random()
+		if f == "stab" and faults.any(func(x): return x[0] == "stab"): f = "dead"
+		faults.append([f, ""])
+	var kinds = []
+	for f in faults: if not (f[0] in kinds): kinds.append(f[0])
+	var text = " ".join(kinds.map(func(k): return REPAIR_TEXT[k].pick_random()))
+	var budget = round((1800.0 + 650.0 * n + float(Data.LAYOUTS[layout].count) * 12.0) * (1.0 + float(S.rep) * 0.05) * city_k() * (1.0 + 0.04 * int(S.level)) / 100.0) * 100.0
+	var r = {"name": Data.C.FIRST.pick_random() + " " + Data.C.LAST.pick_random(), "col": Data.C.AVA_COL.pick_random(), "budget": budget,
+		"district": Vector2(randf_range(0.1,0.9), randf_range(0.12,0.88)), "text": text, "board": board, "faults": faults}
+	return repair_order(r, "o%d" % uid())
+
+func _fault_keys(L: Dictionary, faults: Array, seed_s: String) -> Dictionary:
+	var rng := seeded(seed_s); var out := {}
+	var big := []; var alpha := []
+	for i in L.keys.size():
+		var k: Dictionary = L.keys[i]
+		if float(k.w) >= 2.0: big.append(i)
+		elif k.get("kind", "") == "a": alpha.append(i)
+	for f in faults:
+		var kind: String = f[0]; var pick := -1
+		if kind == "stab":
+			var sp: Array = big.filter(func(i): return float(L.keys[i].w) >= 6.0 and not out.has(i))
+			if f[1] == "" or sp.is_empty(): sp = big.filter(func(i): return not out.has(i))
+			if not sp.is_empty(): pick = sp[rng.randi() % sp.size()]
+		else:
+			var free: Array = alpha.filter(func(i): return not out.has(i))
+			if not free.is_empty(): pick = free[rng.randi() % free.size()]
+		if pick >= 0: out[pick] = kind
+	return out
+
+func start_repair(oid: String) -> bool:
+	if S.build != null:
+		toast("Сначала закончите текущую работу в мастерской", "bad"); return false
+	var o = null
+	for x in S.orders: if x.id == oid: o = x
+	if o == null or o.kind != "repair": return false
+	var bd: Dictionary = o.board; var L: Dictionary = Data.LAYOUTS[bd.layout]
+	var fk := _fault_keys(L, o.faults, o.id)
+	var ks = []
+	for i in L.keys.size():
+		var f: String = fk.get(i, "")
+		if f == "joint" and Data.pcb(bd.pcb).hs: f = "dead"
+		ks.append({"s":1,"b":0,"so":1.0,"c":1,"w":0,"t":0,"d":0,"f":f,"fs":0,"seen":0,"fx":0})
+	var parts = {}
+	for k in ["case","plate","pcb","stab","kc"]: parts[k] = {"id": bd[k], "cost": 0.0}
+	parts.case.color = bd.get("color", 0)
+	var stabs = {}
+	for i in stab_targets(bd.layout): stabs[str(i)] = 1
+	o.taken = true
+	S.build = {"kind":"repair", "oid":o.id, "client":o.name, "layout": bd.layout, "parts": parts, "sw": bd.sw, "mods": bd.mods.duplicate(), "art": null, "cost": 0.0,
+		"steps": ["diag","fix","test"], "step": 0, "lubeQ": null, "precision": 1.0, "keys": 0, "ks": ks, "pieces": {"pcb":1,"plate":1}, "prot": {}, "stabs": stabs,
+		"screws": [0.8,0.8,0.8,0.8,0.8,0.8], "screwSeq": [], "sc": {"align": [], "screw": 0.9}, "bentEver": 0, "wrongEver": 0, "fixes": 0, "mist": 0, "lubeR": 0, "lubeS": []}
+	Audio.ui("box_open"); mark(); return true
+
+func finish_repair() -> Dictionary:
+	var b: Dictionary = S.build
+	var o = null
+	for x in S.orders: if x.id == b.oid: o = x
+	var left: int = b.ks.filter(func(k): return str(k.get("f", "")) != "").size()
+	var total: int = b.ks.filter(func(k): return int(k.get("fx", 0)) == 1).size() + left
+	var mist := int(b.get("mist", 0))
+	var stars: int = clamp(5 - int(ceil(mist / 3.0)) - left * 2, 1, 5)
+	var budget: float = float(o.budget) if o else 3000.0
+	var pay: float = round(budget * (1.0 if stars >= 4 else (0.8 if stars == 3 else 0.5)) * income_k())
+	var tip: float = round(budget * (0.12 + 0.05 * skl("charm"))) if stars == 5 else 0.0
+	S.build = null
+	if o: S.orders.erase(o)
+	earn(pay + tip, "ремонт: " + str(b.client)); add_rep((stars - 3) * 0.05)
+	S.stats.repairs = int(S.stats.get("repairs", 0)) + 1; track("repair", 1)
+	add_xp(22 + stars * 8 + total * 3)
+	Audio.ui("coin")
+	var lines = ["%s%s — %s забрал(а) клавиатуру и заплатил(а) %s%s" % ["★".repeat(stars), "☆".repeat(5 - stars), b.client, rub(pay), (" + чаевые " + rub(tip)) if tip > 0 else ""]]
+	if int(S.stats.repairs) == REPAIR_STORY.size() and int(S.stats.built) == 0:
+		S.orders.append(dima_build_order())
+		lines.append("Открыта сборка на заказ! Дима ждёт свою первую клавиатуру.")
+	toast("\n".join(lines), "gold" if stars >= 4 else ("bad" if stars <= 2 else ""))
+	mark()
+	return {"stars": stars, "pay": pay, "tip": tip, "client": b.client, "fixed": total - left, "total": total, "mist": mist, "unlocked": int(S.stats.repairs) == REPAIR_STORY.size() and int(S.stats.built) == 0}
 
 func merge_defaults(def: Dictionary, obj: Dictionary) -> Dictionary:
 	for k in def:
@@ -198,7 +322,8 @@ func board_stats(b: Dictionary) -> Dictionary:
 	return {"pitch":pitch,"thock":thock,"clack":100-thock,"loud":loud,"smooth":smooth,"quality":quality,"aesthetic":aesthetic,"type":sw.type,
 		"ping":int(round(ping*100)),"rattle":int(round(rattle*100)),"hollow":int(round(hollow*100)),"scratch":int(round(scratch*100)),
 		"rgb":pc.rgb,"wl":pc.wl,"hs":pc.hs,"tags":kc.tags,"dead":int(b.get("dead",0)),"wrong":int(b.get("wrongLeft",0)),
-		"P":{"pitch":pitch,"loud":loud/100.0,"scratch":scratch,"ping":ping,"click":float(sw.click),"tact":float(sw.tact),"rattle":rattle,"hollow":hollow,"ring":ring,"silent":silent,"snd":sw.get("snd",""),"shift":shift}}
+		"P":{"pitch":pitch,"loud":loud/100.0,"scratch":scratch,"ping":ping,"click":float(sw.click),"tact":float(sw.tact),"rattle":rattle,"hollow":hollow,"ring":ring,"silent":silent,"snd":sw.get("snd",""),"shift":shift,
+			"prof":kc.prof,"kmat":kc.mat,"look":cs.look,"plate":pl.id,"tape":m.get("tape",false)}}
 
 func sound_label(st: Dictionary) -> String:
 	if st.type == "clicky": return "Кликающая"
@@ -376,6 +501,9 @@ func start_build(d: Dictionary) -> bool:
 func cancel_build() -> void:
 	var b = S.build
 	if b == null: return
+	if b.get("kind", "") == "repair":
+		for o in S.orders: if o.id == b.oid: o.erase("taken")
+		S.build = null; toast("Ремонт отложен: клавиатура ждёт на доске заказов"); mark(); return
 	for k in b.parts: S.inv.items.append(b.parts[k])
 	S.inv.sw[b.sw] = int(S.inv.sw.get(b.sw,0)) + int(Data.LAYOUTS[b.layout].count)
 	for k in b.mods:
@@ -476,7 +604,7 @@ func vip_order(v: Dictionary) -> Dictionary:
 func refill_orders(n: int) -> void:
 	for i in n:
 		if S.orders.size() >= order_slots(): break
-		S.orders.append(gen_order())
+		S.orders.append(gen_order() if builds_unlocked() and randf() > 0.3 else gen_repair())
 	for v in Data.VIPS:
 		var stg = int(S.vip.get(v.id, 0))
 		var has = S.orders.any(func(o): return o.get("vip") == v.id)
@@ -629,9 +757,9 @@ func new_day() -> void:
 		if e.id == "press": add_rep(0.1)
 		S.market.event = {"id":e.id, "n":e.n, "until":int(S.day) + int(e.len)}
 		toast("Событие: " + e.n, "vio")
-	var expired = S.orders.filter(func(o): return int(o.expires) < int(S.day))
+	var expired = S.orders.filter(func(o): return int(o.expires) < int(S.day) and not o.get("taken", false))
 	if expired.size() > 0:
-		S.orders = S.orders.filter(func(o): return int(o.expires) >= int(S.day))
+		S.orders = S.orders.filter(func(o): return int(o.expires) >= int(S.day) or o.get("taken", false))
 		add_rep(-0.03 * expired.size())
 		toast("%d клиент(а) не дождались и ушли к конкурентам" % expired.size(), "bad")
 	refill_orders(randi_range(1, 2))
@@ -948,6 +1076,8 @@ func accept_npc_trade(offer_id: String, give: Dictionary) -> bool:
 
 # ------------------------------------------------------------------ tutorial / achievements
 const TUT := [
+	{"t":"Почините клавиатуру Димы: «Заказы» → «Взять в ремонт»", "k":"repairs", "r":1500},
+	{"t":"Почините клавиатуру Лены — после этого откроется сборка на заказ", "k":"repairs", "n":2, "r":2000},
 	{"t":"Соберите первую клавиатуру в мастерской из стартового набора", "k":"built", "r":2000},
 	{"t":"Отдайте её Диме: вкладка «Заказы»", "k":"orders", "r":3000},
 	{"t":"Купите детали для следующей сборки на «Рынке»", "k":"bought", "r":2000},
@@ -955,7 +1085,7 @@ const TUT := [
 	{"t":"Загляните в «События» и заберите ежедневную награду", "k":"loginClaims", "r":5000},
 ]
 func tut_tick() -> void:
-	while int(S.tut) < TUT.size() and float(S.stats.get(TUT[int(S.tut)].k, 0)) >= 1:
+	while int(S.tut) < TUT.size() and float(S.stats.get(TUT[int(S.tut)].k, 0)) >= float(TUT[int(S.tut)].get("n", 1)):
 		var t: Dictionary = TUT[int(S.tut)]
 		earn(t.r, "обучение"); toast("Шаг обучения выполнен: +" + rub(t.r), "gold"); S.tut = int(S.tut) + 1
 func ach_value(key: String) -> float:
@@ -1015,7 +1145,11 @@ func load_game() -> bool:
 	if not FileAccess.file_exists(SAVE_PATH): return false
 	var d = JSON.parse_string(FileAccess.get_file_as_string(SAVE_PATH))
 	if not d is Dictionary: return false
+	var old_tut: bool = not d.has("tutv")
 	S = merge_defaults(new_state(), d)
+	if old_tut:
+		if int(S.tut) < 90: S.tut = int(S.tut) + 2
+		S.stats.repairs = max(int(S.stats.repairs), 2)
 	for b in S.boards:
 		if not b.has("st"): b.st = board_stats(b)
 	return true

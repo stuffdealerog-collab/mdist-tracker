@@ -345,9 +345,24 @@ func _key(i: int, down: bool) -> void:
 	if kb_ctx.is_empty(): return
 	var k: Dictionary = kb_ctx.L.keys[i]
 	var play = true
+	var P: Dictionary = kb_ctx.P
+	var fg := bool(kb_ctx.L.get("fgap", false))
 	if down and Game.S.build and tab == "workshop" and ws.asm.step() == "keytest":
 		play = ws.asm.keytest(i)
-	if play: Audio.key(kb_ctx.P, k, not down, bool(kb_ctx.L.get("fgap", false)))
+	elif Game.S.build and tab == "workshop" and ws.asm.step() == "diag":
+		# each fault sounds like the real thing: silence, double hit, late release, rattle
+		var f: String = ws.asm.diag(i) if down else str(Game.S.build.ks[i].get("f", ""))
+		match f:
+			"dead": play = false; if down: Audio.ui("tick")
+			"joint": play = randf() < 0.4
+			"chatter":
+				if down: get_tree().create_timer(0.045).timeout.connect(func(): Audio.key(P, k, false, fg))
+			"sticky":
+				if not down:
+					play = false
+					get_tree().create_timer(0.38).timeout.connect(func(): Audio.key(P, k, true, fg))
+			"stab": P = P.duplicate(); P.rattle = 0.95
+	if play: Audio.key(P, k, not down, fg)
 	if down:
 		Game.S.stats.keys = int(Game.S.stats.keys) + 1; Game.track("keys", 1)
 		if Game.S.build: Game.S.build.keys = int(Game.S.build.keys) + 1

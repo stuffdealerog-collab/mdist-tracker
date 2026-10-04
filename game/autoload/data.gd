@@ -55,9 +55,9 @@ const BOX_ODDS_PRO := {"common":0.40, "rare":0.38, "epic":0.17, "legendary":0.05
 
 # Case-exclusive items (only from boxes or trading)
 const EXCLUSIVE_SWITCHES := [
-	{"id":"sw_holo","snd":"cream","name":"Голограмма","type":"linear","force":55,"price":190,"lvl":1,"pitch":-0.2,"loud":0.64,"scratch":0.02,"ping":0.03,"click":0,"tact":0,"lube":0.8,"stem":"#d8b4ff","hous":"#e6f7ff","desc":"Эксклюзив из коробок: мраморный тон, переливающийся корпус","box":"epic"},
-	{"id":"sw_obsid","snd":"holypanda","name":"Вулканическое стекло","type":"tactile","force":68,"price":210,"lvl":1,"pitch":-0.38,"loud":0.78,"scratch":0.03,"ping":0.03,"click":0,"tact":0.95,"lube":0.6,"stem":"#151515","hous":"#2a1a2e","desc":"Эксклюзив из коробок: глубокий резкий тактиль","box":"legendary"},
-	{"id":"sw_mint","snd":"alpaca","name":"Мятный ветер","type":"linear","force":48,"price":120,"lvl":1,"pitch":-0.08,"loud":0.6,"scratch":0.05,"ping":0.06,"click":0,"tact":0,"lube":0.65,"stem":"#8ff0c8","hous":"#f2fffa","desc":"Эксклюзив из коробок: лёгкий и гладкий","box":"rare"},
+	{"id":"sw_holo","snd":"cream","name":"Голограмма","type":"linear","force":55,"price":190,"lvl":1,"pitch":-0.2,"loud":0.64,"scratch":0.02,"ping":0.03,"click":0,"tact":0,"lube":0.8,"stem":"#d8b4ff","hous":"#e6f7ff","desc":"Эксклюзив из коробок: мраморный тон, переливающийся корпус","box":"epic","clear":true},
+	{"id":"sw_obsid","snd":"holypanda","name":"Вулканическое стекло","type":"tactile","force":68,"price":210,"lvl":1,"pitch":-0.38,"loud":0.78,"scratch":0.03,"ping":0.03,"click":0,"tact":0.95,"lube":0.6,"stem":"#151515","hous":"#2a1a2e","desc":"Эксклюзив из коробок: глубокий резкий тактиль","box":"legendary","clear":true},
+	{"id":"sw_mint","snd":"alpaca","name":"Мятный ветер","type":"linear","force":48,"price":120,"lvl":1,"pitch":-0.08,"loud":0.6,"scratch":0.05,"ping":0.06,"click":0,"tact":0,"lube":0.65,"stem":"#8ff0c8","hous":"#f2fffa","desc":"Эксклюзив из коробок: лёгкий и гладкий","box":"rare","clear":true},
 ]
 const EXCLUSIVE_KEYCAPS := [
 	{"id":"k_holo","name":"Голографическая серия","prof":"sa","mat":"ABS","price":38000,"lvl":1,"tags":["cyber","bright","elegant"],"c":{"a":"#e9e3ff","al":"#6b4cff","m":"#b8f2ff","ml":"#3a2a8f","x":"#ff9de2","xl":"#ffffff","sp":"m"},"box":"epic"},

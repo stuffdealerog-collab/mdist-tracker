@@ -12,7 +12,7 @@ func content(first: bool) -> Control:
 		var gr = UIK.grid(grid_cols())
 		for o in S.orders: gr.add_child(_card(o))
 		v.add_child(gr)
-	if S.boards.is_empty() and not S.orders.is_empty():
+	if S.boards.is_empty() and S.orders.any(func(o): return o.kind != "repair"):
 		v.add_child(UIK.note("На складе нет готовых клавиатур. Соберите клавиатуру в «Мастерской» под требования клиента.", UIK.WARN))
 	v.add_child(UIK.label("Звёзды зависят от того, сколько требований выполнено, и от качества сборки. За 5★ — чаевые и шанс получить артизан. Просроченные заказы бьют по репутации.", "SmallMuted", true))
 	return v
@@ -30,13 +30,33 @@ func _card(o: Dictionary) -> Control:
 	var S = g()
 	var vip: bool = o.kind == "vip"
 	var left: int = int(o.expires) - int(S.day)
-	var sub_t: String = ("VIP · %s · глава %d/3" % [o.role, int(o.stage) + 1]) if vip else ("первый клиент" if o.kind == "tut" else ("последний день" if left <= 0 else "ждёт ещё %d дн." % left))
+	var rp: bool = o.kind == "repair"
+	var story: bool = rp and int(o.get("story", -1)) >= 0
+	var sub_t: String = ("VIP · %s · глава %d/3" % [o.role, int(o.stage) + 1]) if vip else ("первый клиент" if o.kind == "tut" else ("ремонт · без срока" if story else ((("ремонт · " if rp else "") + ("последний день" if left <= 0 else "ждёт ещё %d дн." % left)))))
 	var v = UIK.vbox(10)
 	var st = UIK.label(sub_t, "SmallMuted")
-	if left <= 0 and not vip and o.kind != "tut": st.add_theme_color_override("font_color", UIK.BAD)
+	if left <= 0 and not vip and o.kind != "tut" and not story: st.add_theme_color_override("font_color", UIK.BAD)
 	v.add_child(UIK.hbox(10, [_ava(o.name, Color(o.col)), UIK.expand(UIK.vbox(0, [UIK.label(o.name, "H3"), st])), UIK.label(Game.rub(o.budget), "Price")]))
 	var q = UIK.card("Note", UIK.label("«%s»" % o.text, "Small", true)); v.add_child(q)
 	var chips = UIK.flow(5)
+	if rp:
+		var bd: Dictionary = o.board
+		chips.add_child(UIK.chip("Ремонт", UIK.CORAL)); chips.add_child(UIK.chip(Data.LAYOUTS[bd.layout].name))
+		chips.add_child(UIK.chip(Data.kc(bd.kc).name)); chips.add_child(UIK.chip(Data.sw(bd.sw).name))
+		chips.add_child(UIK.chip("Дефектов: %d" % (o.faults as Array).size(), UIK.GOLD))
+		v.add_child(chips)
+		var row0 = UIK.hbox(6)
+		var busy: bool = S.build != null and not o.get("taken", false)
+		var take = UIK.button("Продолжить ремонт" if o.get("taken", false) else "Взять в ремонт", "BtnPri", func():
+			if o.get("taken", false) or Game.start_repair(o.id): main.open_tab("workshop"), "wrench")
+		take.disabled = busy
+		if busy: take.tooltip_text = "Верстак занят текущей работой"
+		row0.add_child(take)
+		if not story and not o.get("taken", false): row0.add_child(UIK.button("Отклонить", "BtnGhost", func(): Game.decline_order(o.id)))
+		row0.add_child(UIK.spacer())
+		row0.add_child(UIK.button("", "BtnGhost", func(): main.sub["map_focus"] = o.id; main.open_tab("map"), "map"))
+		v.add_child(row0)
+		return UIK.card("Card", v)
 	var req: Dictionary = o.req
 	if req.has("layout"): chips.add_child(UIK.chip("Формат " + Data.LAYOUTS[req.layout].name))
 	if req.has("sound"): chips.add_child(UIK.chip({"thock": "Thock", "clack": "Clack", "silent": "Тихая", "clicky": "Клики"}[req.sound], UIK.CORAL))

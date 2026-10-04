@@ -36,7 +36,7 @@ var _ptr_key := -1
 func _ready() -> void:
 	_build_env()
 	room = Node3D.new(); room.name = "Room"; add_child(room)
-	kb = Keyboard3D.new(); kb.name = "Keyboard"; kb.scale = Vector3.ONE * U; kb.rotation.x = 0.06
+	kb = Keyboard3D.new(); kb.name = "Keyboard"; kb.scale = Vector3.ONE * U
 	kb.position = Vector3(0, 0.0045, 0)
 	add_child(kb)
 	asm = Asm.new(); asm.kb = kb; asm.name = "Asm"; add_child(asm)
@@ -48,22 +48,28 @@ func _ready() -> void:
 # ------------------------------------------------------------- environment
 func _build_env() -> void:
 	var we := WorldEnvironment.new(); env = Environment.new()
-	env.background_mode = Environment.BG_COLOR; env.background_color = Color("0b0d10")
-	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR; env.ambient_light_color = Color("8b97a6"); env.ambient_light_energy = 0.18
-	env.reflected_light_source = Environment.REFLECTION_SOURCE_BG
-	env.tonemap_mode = Environment.TONE_MAPPER_ACES; env.tonemap_exposure = 1.1; env.tonemap_white = 6.0
-	env.ssao_enabled = true; env.ssao_radius = 0.06; env.ssao_intensity = 1.6; env.ssao_power = 1.4; env.ssao_detail = 0.6
-	env.ssil_enabled = true; env.ssil_radius = 0.6; env.ssil_intensity = 0.8
-	env.ssr_enabled = true; env.ssr_max_steps = 48; env.ssr_fade_in = 0.1; env.ssr_fade_out = 2.0
-	env.glow_enabled = true; env.glow_intensity = 0.55; env.glow_bloom = 0.04; env.glow_hdr_threshold = 1.6; env.glow_blend_mode = Environment.GLOW_BLEND_MODE_SOFTLIGHT
-	env.set_glow_level(0, 0.0); env.set_glow_level(1, 1.0); env.set_glow_level(2, 0.6); env.set_glow_level(3, 0.4); env.set_glow_level(4, 0.2)
-	env.volumetric_fog_enabled = true; env.volumetric_fog_density = 0.012; env.volumetric_fog_albedo = Color(1, 0.96, 0.9)
-	env.volumetric_fog_length = 6.0; env.volumetric_fog_anisotropy = 0.6; env.volumetric_fog_ambient_inject = 0.05
-	env.adjustment_enabled = true; env.adjustment_contrast = 1.06; env.adjustment_saturation = 1.08
+	env.background_mode = Environment.BG_SKY
+	var sky := Sky.new(); var pm := PanoramaSkyMaterial.new(); pm.panorama = Mats.room_panorama("garage"); sky.sky_material = pm
+	sky.radiance_size = Sky.RADIANCE_SIZE_256
+	env.sky = sky; env.sky_custom_fov = 0.0
+	env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY; env.ambient_light_energy = 0.55; env.ambient_light_sky_contribution = 1.0
+	env.reflected_light_source = Environment.REFLECTION_SOURCE_SKY
+	env.tonemap_mode = Environment.TONE_MAPPER_AGX; env.tonemap_exposure = 1.0; env.tonemap_white = 12.0
+	env.ssao_enabled = true; env.ssao_radius = 0.05; env.ssao_intensity = 1.3; env.ssao_power = 1.3; env.ssao_detail = 0.7; env.ssao_light_affect = 0.15
+	env.ssil_enabled = true; env.ssil_radius = 0.5; env.ssil_intensity = 0.55
+	env.ssr_enabled = true; env.ssr_max_steps = 56; env.ssr_fade_in = 0.12; env.ssr_fade_out = 2.0; env.ssr_depth_tolerance = 0.05
+	env.glow_enabled = true; env.glow_intensity = 0.35; env.glow_bloom = 0.0; env.glow_hdr_threshold = 2.2; env.glow_blend_mode = Environment.GLOW_BLEND_MODE_SOFTLIGHT
+	env.set_glow_level(0, 0.0); env.set_glow_level(1, 0.6); env.set_glow_level(2, 0.6); env.set_glow_level(3, 0.4); env.set_glow_level(4, 0.2)
+	env.volumetric_fog_enabled = true; env.volumetric_fog_density = 0.006; env.volumetric_fog_albedo = Color(1, 0.97, 0.92)
+	env.volumetric_fog_length = 5.0; env.volumetric_fog_anisotropy = 0.55; env.volumetric_fog_ambient_inject = 0.0; env.volumetric_fog_sky_affect = 0.0
+	env.adjustment_enabled = true; env.adjustment_contrast = 1.04; env.adjustment_saturation = 1.04
 	we.environment = env; add_child(we)
 	cam_attr = CameraAttributesPractical.new()
-	cam_attr.dof_blur_far_enabled = true; cam_attr.dof_blur_far_distance = 1.3; cam_attr.dof_blur_far_transition = 1.2; cam_attr.dof_blur_amount = 0.08
+	cam_attr.dof_blur_far_enabled = true; cam_attr.dof_blur_far_distance = 1.3; cam_attr.dof_blur_far_transition = 1.2; cam_attr.dof_blur_amount = 0.035
 	cam_attr.dof_blur_near_enabled = false
+	# eye adaptation keeps every room readable without blown highlights
+	cam_attr.auto_exposure_enabled = true; cam_attr.auto_exposure_scale = 0.42; cam_attr.auto_exposure_speed = 1.6
+	cam_attr.auto_exposure_min_sensitivity = 80.0; cam_attr.auto_exposure_max_sensitivity = 420.0
 
 func apply_quality() -> void:
 	var q: String = str(Game.S.settings.get("gfx", "high")) if not Game.S.is_empty() else "high"
@@ -73,7 +79,7 @@ func apply_quality() -> void:
 	env.sdfgi_enabled = hi and OS.get_name() != "Web"
 	if env.sdfgi_enabled:
 		env.sdfgi_use_occlusion = true; env.sdfgi_cascades = 4; env.sdfgi_min_cell_size = 0.02; env.sdfgi_energy = 0.9; env.sdfgi_bounce_feedback = 0.4
-	cam_attr.dof_blur_far_enabled = mid
+	cam_attr.dof_blur_far_enabled = false
 	get_viewport().msaa_3d = Viewport.MSAA_4X if hi else (Viewport.MSAA_2X if mid else Viewport.MSAA_DISABLED)
 	get_viewport().screen_space_aa = Viewport.SCREEN_SPACE_AA_FXAA if not hi else Viewport.SCREEN_SPACE_AA_DISABLED
 	get_viewport().use_taa = hi
@@ -96,6 +102,8 @@ func set_style(st: String) -> void:
 		"flagship": _room_flagship()
 		_: _room_garage()
 	_fill_lights()
+	Audio.set_room(style)
+	(env.sky.sky_material as PanoramaSkyMaterial).panorama = Mats.room_panorama(style)
 	probe = ReflectionProbe.new(); probe.size = Vector3(4, 2.4, 3); probe.position = Vector3(0, 0.3, 0.2); probe.box_projection = true
 	probe.update_mode = ReflectionProbe.UPDATE_ONCE; probe.interior = true; probe.ambient_mode = ReflectionProbe.AMBIENT_DISABLED
 	room.add_child(probe)
@@ -109,8 +117,8 @@ func _fill_lights() -> void:
 	var ceil_l := OmniLight3D.new(); ceil_l.light_color = tint; ceil_l.light_energy = e * 0.8; ceil_l.omni_range = 6.0; ceil_l.shadow_enabled = false
 	ceil_l.position = Vector3(0, 1.9, -0.4); room.add_child(ceil_l)
 	var rim := DirectionalLight3D.new(); rim.light_color = Color("9fc8ff") if style != "boutique" else Color("ffcf9a"); rim.light_energy = 0.35
-	rim.rotation_degrees = Vector3(-25, 155, 0); rim.shadow_enabled = false; rim.light_specular = 0.8; room.add_child(rim)
-	env.ambient_light_energy = max(env.ambient_light_energy, 0.25)
+	rim.rotation_degrees = Vector3(-25, 155, 0); rim.shadow_enabled = false; rim.light_specular = 0.35; room.add_child(rim)
+	env.ambient_light_energy = {"garage": 0.5, "loft": 0.65, "studio": 0.75, "boutique": 0.45, "flagship": 0.4}.get(style, 0.5)
 
 func _box(size: Vector3, pos: Vector3, mat: Material, r := 0.004) -> MeshInstance3D:
 	var mi := MeshInstance3D.new()
@@ -128,7 +136,10 @@ func _build_desk() -> void:
 	var wood := Mats.wood_tex(Color("7a5434") if style != "studio" else Color("c9a77c"))
 	var dm := Mats.textured(wood, Vector3(2.5, 2.5, 2.5), 0.5)
 	dm.clearcoat_enabled = true; dm.clearcoat = 0.3; dm.clearcoat_roughness = 0.35
-	_box(Vector3(2.0, 0.04, 0.95), Vector3(0, -0.0, 0.05), dm, 0.006)
+	dm.uv1_triplanar = false; dm.uv1_scale = Vector3(1.6, 1.0, 1.0)
+	var top := MeshInstance3D.new(); top.mesh = MeshGen.slab(2.0, 0.95, 0.035, 0.01); top.material_override = dm
+	top.position = Vector3(0, -0.035, 0.05); room.add_child(top)
+	var desk_edge := _box(Vector3(2.0, 0.03, 0.95), Vector3(0, -0.035, 0.05), Mats.std(Color("3a2516"), 0.6), 0.0)
 	for sx in [-0.95, 0.95]:
 		for sz in [-0.38, 0.45]:
 			_box(Vector3(0.05, 0.72, 0.05), Vector3(sx, -0.04, sz), Mats.std(Color("26282b"), 0.5, 0.8), 0.0).position.y = -0.4
@@ -383,7 +394,6 @@ func _update_cam(dt: float) -> void:
 	var p := tgt + Vector3(float(orb.dist) * sp * sin(float(orb.theta)), float(orb.dist) * cos(float(orb.phi)), float(orb.dist) * sp * cos(float(orb.theta)))
 	cam.look_at_from_position(p, tgt)
 	cam.h_offset = lerp(cam.h_offset, frame_offset * float(orb.dist) * 0.35, k)
-	cam_attr.dof_blur_far_distance = float(orb.dist) + 0.5
 
 func _process(delta: float) -> void:
 	_update_cam(delta)

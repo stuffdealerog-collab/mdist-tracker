@@ -96,27 +96,19 @@ static func set_atlas(t: Texture2D) -> void:
 	if _c.has("cap_top"): _c.cap_top.set_shader_parameter("legend_atlas", t)
 
 # --- procedural textures ----------------------------------------------------
-static func wood_tex(base: Color, size := 512) -> Array:
-	var key := "wood" + base.to_html()
+## Plain-sawn hardwood: cathedral growth rings, latewood bands, pores and medullary flecks.
+static func tex(name: String) -> Texture2D:
+	var key := "tex:" + name
 	if _c.has(key): return _c[key]
-	var img := Image.create(size, size, false, Image.FORMAT_RGB8)
-	var bump := Image.create(size, size, false, Image.FORMAT_RGB8)
-	var n := FastNoiseLite.new(); n.frequency = 0.006; n.fractal_octaves = 4
-	var n2 := FastNoiseLite.new(); n2.frequency = 0.05; n2.seed = 7
-	for y in size:
-		for x in size:
-			var w := n.get_noise_2d(x * 0.15, y * 2.2) * 9.0
-			var ring := fposmod(w + y * 0.02, 1.0)
-			var r2 := smoothstep(0.0, 0.5, ring) * smoothstep(1.0, 0.55, ring)
-			var fine := n2.get_noise_2d(x * 0.3, y * 6.0) * 0.5 + 0.5
-			var k := 0.78 + r2 * 0.18 + fine * 0.08
-			img.set_pixel(x, y, base * k)
-			var b := r2 * 0.6 + fine * 0.4
-			bump.set_pixel(x, y, Color(b, b, b))
-	img.generate_mipmaps()
-	bump.bump_map_to_normal_map(3.0); bump.generate_mipmaps()
-	_c[key] = [ImageTexture.create_from_image(img), ImageTexture.create_from_image(bump)]
+	var path := "res://assets/tex/%s.png" % name
+	_c[key] = load(path) if ResourceLoader.exists(path) else null
 	return _c[key]
+
+## Wood species picked from the case/desk colour (baked textures, see tools/bake_tex.py).
+static func wood_tex(base: Color, _size := 512) -> Array:
+	var map := {"6b4528": "wood_walnut", "a8814f": "wood_oak", "8a6a3e": "wood_zebrano", "c9a77c": "wood_light", "d6b48a": "wood_light", "7a5434": "wood_desk"}
+	var n: String = map.get(base.to_html(false), "wood_oak" if base.v > 0.6 else "wood_walnut")
+	return [tex(n), tex(n + "_n")]
 
 static func brushed_normal() -> Texture2D:
 	if _c.has("brushed"): return _c.brushed
@@ -133,19 +125,7 @@ static func brushed_normal() -> Texture2D:
 	return _c.brushed
 
 static func fabric_tex(base: Color) -> Array:
-	var key := "fabric" + base.to_html()
-	if _c.has(key): return _c[key]
-	var s := 256
-	var img := Image.create(s, s, false, Image.FORMAT_RGB8); var bump := Image.create(s, s, false, Image.FORMAT_RGB8)
-	for y in s:
-		for x in s:
-			var weave := (sin(x * 1.6) * 0.5 + 0.5) * (sin(y * 1.6 + 1.0) * 0.5 + 0.5)
-			var k := 0.86 + weave * 0.1 + randf() * 0.06
-			img.set_pixel(x, y, base * k); bump.set_pixel(x, y, Color(weave, weave, weave))
-	img.generate_mipmaps(); bump.bump_map_to_normal_map(1.2); bump.generate_mipmaps()
-	_c[key] = [ImageTexture.create_from_image(img), ImageTexture.create_from_image(bump)]
-	return _c[key]
-
+	return [tex("fabric"), tex("fabric_n")]
 static func noise_tex(freq := 0.02, seed := 1, normal := false, strength := 1.0) -> Texture2D:
 	var key := "noise%f%d%s" % [freq, seed, normal]
 	if _c.has(key): return _c[key]
@@ -168,25 +148,72 @@ static func case_mat(case_id: String, color_idx: int) -> Material:
 	var key := "case%s%d" % [case_id, color_idx]
 	if _c.has(key): return _c[key]
 	var m := StandardMaterial3D.new()
+	m.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
 	match cs.look:
 		"metal":
-			m.albedo_color = col; m.metallic = 0.9; m.roughness = 0.34
-			m.normal_enabled = true; m.normal_texture = brushed_normal(); m.normal_scale = 0.35
-			m.uv1_triplanar = true; m.uv1_scale = Vector3(0.6, 0.6, 0.6)
-			m.clearcoat_enabled = true; m.clearcoat = 0.25; m.clearcoat_roughness = 0.4
+			# bead-blasted anodized aluminium / titanium: satin, never mirror-like
+			m.albedo_color = col.darkened(0.06) if col.get_luminance() > 0.5 else col
+			m.metallic = 1.0
+			m.roughness = 0.38 if case_id == "c_ti" else 0.46
+			m.normal_enabled = true; m.normal_texture = bead_normal(); m.normal_scale = 0.25
+			m.uv1_triplanar = true; m.uv1_scale = Vector3(1.6, 1.6, 1.6)
+			m.roughness_texture = noise_tex(0.12, 21); m.roughness_texture_channel = BaseMaterial3D.TEXTURE_CHANNEL_RED
+			m.anisotropy_enabled = case_id == "c_ti"; m.anisotropy = 0.35
 		"wood":
 			var t := wood_tex(col)
-			m.albedo_texture = t[0]; m.normal_enabled = true; m.normal_texture = t[1]; m.normal_scale = 0.5
-			m.roughness = 0.55; m.uv1_triplanar = true; m.uv1_scale = Vector3(0.18, 0.18, 0.18)
-			m.clearcoat_enabled = true; m.clearcoat = 0.5; m.clearcoat_roughness = 0.3
+			m.albedo_texture = t[0]; m.normal_enabled = true; m.normal_texture = t[1]; m.normal_scale = 0.35
+			m.roughness = 0.62; m.uv1_triplanar = true; m.uv1_scale = Vector3(0.22, 0.22, 0.22)
+			m.clearcoat_enabled = true; m.clearcoat = 0.18; m.clearcoat_roughness = 0.45
 		"acrylic":
-			m.albedo_color = Color(col.r, col.g, col.b, 0.55); m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_DEPTH_PRE_PASS
-			m.roughness = 0.06; m.metallic_specular = 0.7; m.refraction_enabled = true; m.refraction_scale = 0.02
-			m.rim_enabled = true; m.rim = 0.3
+			if case_id == "c_pc":
+				# frosted polycarbonate
+				m.albedo_color = Color(col.r, col.g, col.b, 0.72); m.roughness = 0.42
+			else:
+				m.albedo_color = Color(col.r, col.g, col.b, 0.42); m.roughness = 0.08
+			m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_DEPTH_PRE_PASS
+			m.metallic_specular = 0.5; m.refraction_enabled = true; m.refraction_scale = 0.015
+			m.backlight_enabled = true; m.backlight = Color(col.r, col.g, col.b) * 0.25
 		_:
-			m.albedo_color = col; m.roughness = 0.55
-			m.normal_enabled = true; m.normal_texture = noise_tex(0.08, 3, true, 0.4); m.normal_scale = 0.2; m.uv1_triplanar = true
+			# injection-moulded ABS with a fine spark-eroded texture
+			m.albedo_color = col; m.roughness = 0.62
+			m.normal_enabled = true; m.normal_texture = noise_tex(0.35, 3, true, 0.6); m.normal_scale = 0.18; m.uv1_triplanar = true; m.uv1_scale = Vector3(2, 2, 2)
 	_c[key] = m; return m
+
+static func bead_normal() -> Texture2D: return tex("bead_n")
+## Interior HDR panorama used as sky for ambient light and reflections.
+static func room_panorama(style: String) -> Texture2D:
+	var key := "pano" + style
+	if _c.has(key): return _c[key]
+	var w := 1024; var h := 512
+	var img := Image.create(w, h, false, Image.FORMAT_RGBH)
+	var pal: Dictionary = {
+		"garage": {"wall": Color(0.42, 0.41, 0.39), "floor": Color(0.25, 0.24, 0.23), "ceil": Color(0.3, 0.3, 0.3), "win": Color(0.6, 0.7, 0.85) * 1.5, "lamp": Color(1.0, 0.82, 0.6) * 9.0},
+		"loft": {"wall": Color(0.52, 0.3, 0.22), "floor": Color(0.35, 0.24, 0.16), "ceil": Color(0.32, 0.32, 0.32), "win": Color(0.85, 0.92, 1.0) * 7.0, "lamp": Color(1.0, 0.9, 0.78) * 5.0},
+		"studio": {"wall": Color(0.85, 0.84, 0.82), "floor": Color(0.62, 0.5, 0.38), "ceil": Color(0.92, 0.92, 0.9), "win": Color(0.9, 0.95, 1.0) * 6.0, "lamp": Color(1.0, 0.95, 0.88) * 5.0},
+		"boutique": {"wall": Color(0.16, 0.24, 0.2), "floor": Color(0.22, 0.14, 0.09), "ceil": Color(0.12, 0.1, 0.08), "win": Color(1.0, 0.85, 0.65) * 3.0, "lamp": Color(1.0, 0.82, 0.6) * 8.0},
+		"flagship": {"wall": Color(0.09, 0.09, 0.12), "floor": Color(0.06, 0.06, 0.07), "ceil": Color(0.05, 0.05, 0.06), "win": Color(0.45, 0.4, 0.75) * 2.5, "lamp": Color(0.9, 0.92, 1.0) * 6.0},
+	}.get(style, {})
+	if pal.is_empty(): pal = {"wall": Color(0.4, 0.4, 0.4), "floor": Color(0.2, 0.2, 0.2), "ceil": Color(0.3, 0.3, 0.3), "win": Color.WHITE * 4.0, "lamp": Color.WHITE * 6.0}
+	var n := FastNoiseLite.new(); n.frequency = 0.02
+	for y in h:
+		var v := float(y) / h          # 0 = up, 1 = down
+		for x in w:
+			var u := float(x) / w
+			var c: Color
+			if v < 0.3: c = (pal.ceil as Color).lerp(pal.wall, smoothstep(0.15, 0.3, v))
+			elif v < 0.55: c = pal.wall
+			else: c = (pal.wall as Color).lerp(pal.floor, smoothstep(0.55, 0.65, v))
+			c *= 0.9 + n.get_noise_2d(x, y) * 0.1
+			# window band (behind the desk) and a softbox above
+			var dx: float = abs(u - 0.5); var wy: float = abs(v - 0.38)
+			if dx < 0.13 and wy < 0.1: c = (pal.win as Color) * (1.0 - smoothstep(0.1, 0.13, dx) * 0.6)
+			var lx: float = abs(u - 0.25); var ly: float = abs(v - 0.12)
+			if lx < 0.04 and ly < 0.025: c = pal.lamp
+			var l2: float = abs(u - 0.75)
+			if l2 < 0.06 and abs(v - 0.08) < 0.02: c = (pal.lamp as Color) * 0.6
+			img.set_pixel(x, y, c)
+	_c[key] = ImageTexture.create_from_image(img)
+	return _c[key]
 
 static func plate_mat(id: String, holes: Texture2D) -> StandardMaterial3D:
 	var m := StandardMaterial3D.new()
@@ -224,71 +251,13 @@ static func resin(col: Color) -> StandardMaterial3D:
 	_c[key] = m; return m
 
 # --- room textures -----------------------------------------------------------
-static func brick_tex() -> Array:
-	if _c.has("brick"): return _c.brick
-	var s := 512
-	var img := Image.create(s, s, false, Image.FORMAT_RGB8); var bump := Image.create(s, s, false, Image.FORMAT_RGB8)
-	var n := FastNoiseLite.new(); n.frequency = 0.05
-	var rng := RandomNumberGenerator.new(); rng.seed = 5
-	var bh := 32; var bw := 96
-	var tints := []
-	for i in 200: tints.append(Color("8a4532").lerp(Color("a65a3e"), rng.randf()).darkened(rng.randf() * 0.25))
-	for y in s:
-		var row := y / bh
-		var off := (bw / 2) if row % 2 == 1 else 0
-		for x in s:
-			var bx := (x + off) % s
-			var col_i := (row * 7 + (x + off) / bw) % 200
-			var mortar := (y % bh) < 3 or (bx % bw) < 3
-			var nv := n.get_noise_2d(x, y) * 0.5 + 0.5
-			if mortar:
-				img.set_pixel(x, y, Color("b9b1a3") * (0.8 + nv * 0.2)); bump.set_pixel(x, y, Color(0.1, 0.1, 0.1))
-			else:
-				var c: Color = tints[col_i]
-				img.set_pixel(x, y, c * (0.85 + nv * 0.3)); var bv := 0.6 + nv * 0.4; bump.set_pixel(x, y, Color(bv, bv, bv))
-	img.generate_mipmaps(); bump.bump_map_to_normal_map(4.0); bump.generate_mipmaps()
-	_c.brick = [ImageTexture.create_from_image(img), ImageTexture.create_from_image(bump)]
-	return _c.brick
-
+static func brick_tex() -> Array: return [tex("brick"), tex("brick_n")]
 static func concrete_tex(base := Color("8d8c88")) -> Array:
-	var key := "concrete" + base.to_html()
-	if _c.has(key): return _c[key]
-	var s := 512
-	var img := Image.create(s, s, false, Image.FORMAT_RGB8); var bump := Image.create(s, s, false, Image.FORMAT_RGB8)
-	var n := FastNoiseLite.new(); n.frequency = 0.01; n.fractal_octaves = 5
-	var n2 := FastNoiseLite.new(); n2.frequency = 0.2; n2.seed = 3
-	for y in s:
-		for x in s:
-			var v := n.get_noise_2d(x, y) * 0.5 + 0.5; var f := n2.get_noise_2d(x, y) * 0.5 + 0.5
-			var k := 0.8 + v * 0.25 + f * 0.06
-			if randf() < 0.004: k *= 0.7
-			img.set_pixel(x, y, base * k); bump.set_pixel(x, y, Color(f, f, f))
-	img.generate_mipmaps(); bump.bump_map_to_normal_map(1.5); bump.generate_mipmaps()
-	_c[key] = [ImageTexture.create_from_image(img), ImageTexture.create_from_image(bump)]
-	return _c[key]
-
+	var n := "concrete_floor" if base.v < 0.4 else "concrete_wall"
+	return [tex(n), tex(n + "_n")]
 static func planks_tex(base: Color) -> Array:
-	var key := "planks" + base.to_html()
-	if _c.has(key): return _c[key]
-	var s := 512
-	var img := Image.create(s, s, false, Image.FORMAT_RGB8); var bump := Image.create(s, s, false, Image.FORMAT_RGB8)
-	var n := FastNoiseLite.new(); n.frequency = 0.004; n.fractal_octaves = 4
-	var rng := RandomNumberGenerator.new(); rng.seed = 11
-	var pw := 64
-	var tints := []
-	for i in 16: tints.append(0.82 + rng.randf() * 0.3)
-	for y in s:
-		for x in s:
-			var plank := x / pw
-			var seam := (x % pw) < 2 or ((y + plank * 137) % 384) < 2
-			var g := n.get_noise_2d(x * 4.0, y * 0.25 + plank * 300) * 0.5 + 0.5
-			var k: float = tints[plank % 16] * (0.82 + g * 0.3)
-			if seam: k *= 0.45
-			img.set_pixel(x, y, base * k); var bv := 0.15 if seam else 0.6 + g * 0.3; bump.set_pixel(x, y, Color(bv, bv, bv))
-	img.generate_mipmaps(); bump.bump_map_to_normal_map(2.0); bump.generate_mipmaps()
-	_c[key] = [ImageTexture.create_from_image(img), ImageTexture.create_from_image(bump)]
-	return _c[key]
-
+	var n := "planks_light" if base.v > 0.55 else ("planks_boutique" if base.v < 0.25 else "planks_dark")
+	return [tex(n), tex(n + "_n")]
 static func pegboard_tex() -> Array:
 	if _c.has("peg"): return _c.peg
 	var s := 256

@@ -22,7 +22,7 @@ func _ready():
 func _process(_d):
 	f += 1
 	if f == 5: print("cam ", get_viewport().get_camera_3d(), " pos ", ws.cam.global_position, " kb children ", ws.kb.get_child_count(), " room ", ws.room.get_child_count())
-	if f == 39 and Mats.legend_atlas: Mats.legend_atlas.get_image().save_png(out.replace(".png","_atlas.png"))
-	if f == 40:
+	if f == 59 and Mats.legend_atlas: Mats.legend_atlas.get_image().save_png(out.replace(".png","_atlas.png"))
+	if f == 60:
 		get_viewport().get_texture().get_image().save_png(out); get_tree().quit()
 

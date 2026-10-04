@@ -1,0 +1,154 @@
+{
+ "mxblue_r": {
+  "press_g": 12,
+  "release_g": 8,
+  "press_big": 4,
+  "release_big": 2,
+  "hollow": 12
+ },
+ "topre_r": {
+  "press_g": 12,
+  "release_g": 8,
+  "press_big": 4,
+  "release_big": 2,
+  "hollow": 12
+ },
+ "whitefox_r": {
+  "press_g": 12,
+  "release_g": 8,
+  "press_big": 4,
+  "release_big": 2,
+  "hollow": 12
+ },
+ "mxbrown_r": {
+  "press_g": 12,
+  "release_g": 8,
+  "press_big": 4,
+  "release_big": 2,
+  "hollow": 12
+ },
+ "alpaca": {
+  "press_g": 5,
+  "release_g": 1,
+  "press_big": 3,
+  "release_big": 3,
+  "hollow": 5
+ },
+ "blackink": {
+  "press_g": 5,
+  "release_g": 1,
+  "press_big": 3,
+  "release_big": 3,
+  "hollow": 5
+ },
+ "bluealps": {
+  "press_g": 5,
+  "release_g": 1,
+  "press_big": 3,
+  "release_big": 3,
+  "hollow": 5
+ },
+ "boxnavy": {
+  "press_g": 5,
+  "release_g": 1,
+  "press_big": 3,
+  "release_big": 3,
+  "hollow": 5
+ },
+ "buckling": {
+  "press_g": 5,
+  "release_g": 1,
+  "press_big": 3,
+  "release_big": 3,
+  "hollow": 5
+ },
+ "cream": {
+  "press_g": 5,
+  "release_g": 1,
+  "press_big": 3,
+  "release_big": 3,
+  "hollow": 5
+ },
+ "holypanda": {
+  "press_g": 5,
+  "release_g": 1,
+  "press_big": 3,
+  "release_big": 3,
+  "hollow": 5
+ },
+ "mxblack": {
+  "press_g": 5,
+  "release_g": 1,
+  "press_big": 3,
+  "release_big": 3,
+  "hollow": 5
+ },
+ "mxblue": {
+  "press_g": 5,
+  "release_g": 1,
+  "press_big": 0,
+  "release_big": 0,
+  "hollow": 5
+ },
+ "mxbrown": {
+  "press_g": 5,
+  "release_g": 1,
+  "press_big": 3,
+  "release_big": 3,
+  "hollow": 5
+ },
+ "redink": {
+  "press_g": 5,
+  "release_g": 1,
+  "press_big": 3,
+  "release_big": 3,
+  "hollow": 5
+ },
+ "topre": {
+  "press_g": 5,
+  "release_g": 1,
+  "press_big": 3,
+  "release_big": 3,
+  "hollow": 5
+ },
+ "turquoise": {
+  "press_g": 5,
+  "release_g": 1,
+  "press_big": 3,
+  "release_big": 3,
+  "hollow": 5
+ },
+ "_layers": {
+  "ping": 4,
+  "rattle": 10,
+  "scratch": 6,
+  "ring": 2
+ },
+ "_fx": [
+  "bad",
+  "box_open",
+  "buy",
+  "cap",
+  "click",
+  "coin",
+  "coins",
+  "drawer",
+  "good",
+  "hover",
+  "level",
+  "lube",
+  "open",
+  "pull",
+  "rare",
+  "ratchet",
+  "rtick",
+  "sale",
+  "sizzle",
+  "socket",
+  "spin",
+  "tape",
+  "thud",
+  "tick",
+  "whoosh"
+ ]
+}
