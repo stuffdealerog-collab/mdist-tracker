@@ -1,0 +1,5 @@
+# HTTPS reverse proxy (Caddy gets a Let's Encrypt certificate automatically).
+# Replace kss.example.com with your domain pointing to the VPS.
+kss.example.com {
+	reverse_proxy 127.0.0.1:8787
+}

@@ -1,0 +1,6490 @@
+{
+ "LAYOUTS": {
+  "l60": {
+   "name": "60%",
+   "mult": 1,
+   "lvl": 1,
+   "W": 15,
+   "H": 5,
+   "count": 61,
+   "keys": [
+    {
+     "codes": [
+      "Backquote",
+      "Escape"
+     ],
+     "label": "Esc",
+     "x": 0,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "x"
+    },
+    {
+     "codes": [
+      "Digit1"
+     ],
+     "label": "1",
+     "x": 1,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit2"
+     ],
+     "label": "2",
+     "x": 2,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit3"
+     ],
+     "label": "3",
+     "x": 3,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit4"
+     ],
+     "label": "4",
+     "x": 4,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit5"
+     ],
+     "label": "5",
+     "x": 5,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit6"
+     ],
+     "label": "6",
+     "x": 6,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit7"
+     ],
+     "label": "7",
+     "x": 7,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit8"
+     ],
+     "label": "8",
+     "x": 8,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit9"
+     ],
+     "label": "9",
+     "x": 9,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit0"
+     ],
+     "label": "0",
+     "x": 10,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Minus"
+     ],
+     "label": "-",
+     "x": 11,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Equal"
+     ],
+     "label": "=",
+     "x": 12,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Backspace"
+     ],
+     "label": "⌫",
+     "x": 13,
+     "y": 0,
+     "w": 2,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Tab"
+     ],
+     "label": "Tab",
+     "x": 0,
+     "y": 1,
+     "w": 1.5,
+     "row": 1,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "KeyQ"
+     ],
+     "label": "Q",
+     "x": 1.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyW"
+     ],
+     "label": "W",
+     "x": 2.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyE"
+     ],
+     "label": "E",
+     "x": 3.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyR"
+     ],
+     "label": "R",
+     "x": 4.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyT"
+     ],
+     "label": "T",
+     "x": 5.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyY"
+     ],
+     "label": "Y",
+     "x": 6.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyU"
+     ],
+     "label": "U",
+     "x": 7.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyI"
+     ],
+     "label": "I",
+     "x": 8.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyO"
+     ],
+     "label": "O",
+     "x": 9.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyP"
+     ],
+     "label": "P",
+     "x": 10.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "BracketLeft"
+     ],
+     "label": "[",
+     "x": 11.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "BracketRight"
+     ],
+     "label": "]",
+     "x": 12.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Backslash"
+     ],
+     "label": "\\",
+     "x": 13.5,
+     "y": 1,
+     "w": 1.5,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "CapsLock"
+     ],
+     "label": "Caps",
+     "x": 0,
+     "y": 2,
+     "w": 1.75,
+     "row": 2,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "KeyA"
+     ],
+     "label": "A",
+     "x": 1.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyS"
+     ],
+     "label": "S",
+     "x": 2.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyD"
+     ],
+     "label": "D",
+     "x": 3.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyF"
+     ],
+     "label": "F",
+     "x": 4.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyG"
+     ],
+     "label": "G",
+     "x": 5.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyH"
+     ],
+     "label": "H",
+     "x": 6.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyJ"
+     ],
+     "label": "J",
+     "x": 7.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyK"
+     ],
+     "label": "K",
+     "x": 8.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyL"
+     ],
+     "label": "L",
+     "x": 9.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Semicolon"
+     ],
+     "label": ";",
+     "x": 10.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Quote"
+     ],
+     "label": "'",
+     "x": 11.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Enter"
+     ],
+     "label": "Enter",
+     "x": 12.75,
+     "y": 2,
+     "w": 2.25,
+     "row": 2,
+     "kind": "x"
+    },
+    {
+     "codes": [
+      "ShiftLeft"
+     ],
+     "label": "Shift",
+     "x": 0,
+     "y": 3,
+     "w": 2.25,
+     "row": 3,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "KeyZ"
+     ],
+     "label": "Z",
+     "x": 2.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyX"
+     ],
+     "label": "X",
+     "x": 3.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyC"
+     ],
+     "label": "C",
+     "x": 4.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyV"
+     ],
+     "label": "V",
+     "x": 5.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyB"
+     ],
+     "label": "B",
+     "x": 6.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyN"
+     ],
+     "label": "N",
+     "x": 7.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyM"
+     ],
+     "label": "M",
+     "x": 8.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Comma"
+     ],
+     "label": ",",
+     "x": 9.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Period"
+     ],
+     "label": ".",
+     "x": 10.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Slash"
+     ],
+     "label": "/",
+     "x": 11.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "ShiftRight"
+     ],
+     "label": "Shift",
+     "x": 12.25,
+     "y": 3,
+     "w": 2.75,
+     "row": 3,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ControlLeft"
+     ],
+     "label": "Ctrl",
+     "x": 0,
+     "y": 4,
+     "w": 1.25,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "MetaLeft"
+     ],
+     "label": "Win",
+     "x": 1.25,
+     "y": 4,
+     "w": 1.25,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "AltLeft"
+     ],
+     "label": "Alt",
+     "x": 2.5,
+     "y": 4,
+     "w": 1.25,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Space"
+     ],
+     "label": "",
+     "x": 3.75,
+     "y": 4,
+     "w": 6.25,
+     "row": 4,
+     "kind": "sp"
+    },
+    {
+     "codes": [
+      "AltRight"
+     ],
+     "label": "Alt",
+     "x": 10,
+     "y": 4,
+     "w": 1.25,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Fn"
+     ],
+     "label": "Fn",
+     "x": 11.25,
+     "y": 4,
+     "w": 1.25,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ContextMenu"
+     ],
+     "label": "Menu",
+     "x": 12.5,
+     "y": 4,
+     "w": 1.25,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ControlRight"
+     ],
+     "label": "Ctrl",
+     "x": 13.75,
+     "y": 4,
+     "w": 1.25,
+     "row": 4,
+     "kind": "m"
+    }
+   ]
+  },
+  "l65": {
+   "name": "65%",
+   "mult": 1.1,
+   "lvl": 3,
+   "W": 16,
+   "H": 5,
+   "count": 68,
+   "keys": [
+    {
+     "codes": [
+      "Backquote",
+      "Escape"
+     ],
+     "label": "Esc",
+     "x": 0,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "x"
+    },
+    {
+     "codes": [
+      "Digit1"
+     ],
+     "label": "1",
+     "x": 1,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit2"
+     ],
+     "label": "2",
+     "x": 2,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit3"
+     ],
+     "label": "3",
+     "x": 3,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit4"
+     ],
+     "label": "4",
+     "x": 4,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit5"
+     ],
+     "label": "5",
+     "x": 5,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit6"
+     ],
+     "label": "6",
+     "x": 6,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit7"
+     ],
+     "label": "7",
+     "x": 7,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit8"
+     ],
+     "label": "8",
+     "x": 8,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit9"
+     ],
+     "label": "9",
+     "x": 9,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit0"
+     ],
+     "label": "0",
+     "x": 10,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Minus"
+     ],
+     "label": "-",
+     "x": 11,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Equal"
+     ],
+     "label": "=",
+     "x": 12,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Backspace"
+     ],
+     "label": "⌫",
+     "x": 13,
+     "y": 0,
+     "w": 2,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Delete"
+     ],
+     "label": "Del",
+     "x": 15,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Tab"
+     ],
+     "label": "Tab",
+     "x": 0,
+     "y": 1,
+     "w": 1.5,
+     "row": 1,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "KeyQ"
+     ],
+     "label": "Q",
+     "x": 1.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyW"
+     ],
+     "label": "W",
+     "x": 2.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyE"
+     ],
+     "label": "E",
+     "x": 3.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyR"
+     ],
+     "label": "R",
+     "x": 4.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyT"
+     ],
+     "label": "T",
+     "x": 5.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyY"
+     ],
+     "label": "Y",
+     "x": 6.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyU"
+     ],
+     "label": "U",
+     "x": 7.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyI"
+     ],
+     "label": "I",
+     "x": 8.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyO"
+     ],
+     "label": "O",
+     "x": 9.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyP"
+     ],
+     "label": "P",
+     "x": 10.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "BracketLeft"
+     ],
+     "label": "[",
+     "x": 11.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "BracketRight"
+     ],
+     "label": "]",
+     "x": 12.5,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Backslash"
+     ],
+     "label": "\\",
+     "x": 13.5,
+     "y": 1,
+     "w": 1.5,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "PageUp"
+     ],
+     "label": "PgUp",
+     "x": 15,
+     "y": 1,
+     "w": 1,
+     "row": 1,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "CapsLock"
+     ],
+     "label": "Caps",
+     "x": 0,
+     "y": 2,
+     "w": 1.75,
+     "row": 2,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "KeyA"
+     ],
+     "label": "A",
+     "x": 1.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyS"
+     ],
+     "label": "S",
+     "x": 2.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyD"
+     ],
+     "label": "D",
+     "x": 3.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyF"
+     ],
+     "label": "F",
+     "x": 4.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyG"
+     ],
+     "label": "G",
+     "x": 5.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyH"
+     ],
+     "label": "H",
+     "x": 6.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyJ"
+     ],
+     "label": "J",
+     "x": 7.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyK"
+     ],
+     "label": "K",
+     "x": 8.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyL"
+     ],
+     "label": "L",
+     "x": 9.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Semicolon"
+     ],
+     "label": ";",
+     "x": 10.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Quote"
+     ],
+     "label": "'",
+     "x": 11.75,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Enter"
+     ],
+     "label": "Enter",
+     "x": 12.75,
+     "y": 2,
+     "w": 2.25,
+     "row": 2,
+     "kind": "x"
+    },
+    {
+     "codes": [
+      "PageDown"
+     ],
+     "label": "PgDn",
+     "x": 15,
+     "y": 2,
+     "w": 1,
+     "row": 2,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ShiftLeft"
+     ],
+     "label": "Shift",
+     "x": 0,
+     "y": 3,
+     "w": 2.25,
+     "row": 3,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "KeyZ"
+     ],
+     "label": "Z",
+     "x": 2.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyX"
+     ],
+     "label": "X",
+     "x": 3.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyC"
+     ],
+     "label": "C",
+     "x": 4.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyV"
+     ],
+     "label": "V",
+     "x": 5.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyB"
+     ],
+     "label": "B",
+     "x": 6.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyN"
+     ],
+     "label": "N",
+     "x": 7.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyM"
+     ],
+     "label": "M",
+     "x": 8.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Comma"
+     ],
+     "label": ",",
+     "x": 9.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Period"
+     ],
+     "label": ".",
+     "x": 10.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Slash"
+     ],
+     "label": "/",
+     "x": 11.25,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "ShiftRight"
+     ],
+     "label": "Shift",
+     "x": 12.25,
+     "y": 3,
+     "w": 1.75,
+     "row": 3,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ArrowUp"
+     ],
+     "label": "↑",
+     "x": 14,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "End"
+     ],
+     "label": "End",
+     "x": 15,
+     "y": 3,
+     "w": 1,
+     "row": 3,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ControlLeft"
+     ],
+     "label": "Ctrl",
+     "x": 0,
+     "y": 4,
+     "w": 1.25,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "MetaLeft"
+     ],
+     "label": "Win",
+     "x": 1.25,
+     "y": 4,
+     "w": 1.25,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "AltLeft"
+     ],
+     "label": "Alt",
+     "x": 2.5,
+     "y": 4,
+     "w": 1.25,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Space"
+     ],
+     "label": "",
+     "x": 3.75,
+     "y": 4,
+     "w": 6.25,
+     "row": 4,
+     "kind": "sp"
+    },
+    {
+     "codes": [
+      "AltRight"
+     ],
+     "label": "Alt",
+     "x": 10,
+     "y": 4,
+     "w": 1,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ControlRight"
+     ],
+     "label": "Ctrl",
+     "x": 11,
+     "y": 4,
+     "w": 1,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Fn"
+     ],
+     "label": "Fn",
+     "x": 12,
+     "y": 4,
+     "w": 1,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ArrowLeft"
+     ],
+     "label": "←",
+     "x": 13,
+     "y": 4,
+     "w": 1,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ArrowDown"
+     ],
+     "label": "↓",
+     "x": 14,
+     "y": 4,
+     "w": 1,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ArrowRight"
+     ],
+     "label": "→",
+     "x": 15,
+     "y": 4,
+     "w": 1,
+     "row": 4,
+     "kind": "m"
+    }
+   ]
+  },
+  "l75": {
+   "name": "75%",
+   "mult": 1.25,
+   "lvl": 6,
+   "fgap": true,
+   "W": 16,
+   "H": 6.25,
+   "count": 83,
+   "keys": [
+    {
+     "codes": [
+      "Escape"
+     ],
+     "label": "Esc",
+     "x": 0,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "x"
+    },
+    {
+     "codes": [
+      "F1"
+     ],
+     "label": "F1",
+     "x": 1.25,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F2"
+     ],
+     "label": "F2",
+     "x": 2.25,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F3"
+     ],
+     "label": "F3",
+     "x": 3.25,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F4"
+     ],
+     "label": "F4",
+     "x": 4.25,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F5"
+     ],
+     "label": "F5",
+     "x": 5.5,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F6"
+     ],
+     "label": "F6",
+     "x": 6.5,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F7"
+     ],
+     "label": "F7",
+     "x": 7.5,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F8"
+     ],
+     "label": "F8",
+     "x": 8.5,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F9"
+     ],
+     "label": "F9",
+     "x": 9.75,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F10"
+     ],
+     "label": "F10",
+     "x": 10.75,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F11"
+     ],
+     "label": "F11",
+     "x": 11.75,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F12"
+     ],
+     "label": "F12",
+     "x": 12.75,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "PrintScreen"
+     ],
+     "label": "PrtSc",
+     "x": 14,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Pause"
+     ],
+     "label": "Pse",
+     "x": 15,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Backquote"
+     ],
+     "label": "`",
+     "x": 0,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit1"
+     ],
+     "label": "1",
+     "x": 1,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit2"
+     ],
+     "label": "2",
+     "x": 2,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit3"
+     ],
+     "label": "3",
+     "x": 3,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit4"
+     ],
+     "label": "4",
+     "x": 4,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit5"
+     ],
+     "label": "5",
+     "x": 5,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit6"
+     ],
+     "label": "6",
+     "x": 6,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit7"
+     ],
+     "label": "7",
+     "x": 7,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit8"
+     ],
+     "label": "8",
+     "x": 8,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit9"
+     ],
+     "label": "9",
+     "x": 9,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit0"
+     ],
+     "label": "0",
+     "x": 10,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Minus"
+     ],
+     "label": "-",
+     "x": 11,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Equal"
+     ],
+     "label": "=",
+     "x": 12,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Backspace"
+     ],
+     "label": "⌫",
+     "x": 13,
+     "y": 1.25,
+     "w": 2,
+     "row": 1,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Delete"
+     ],
+     "label": "Del",
+     "x": 15,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Tab"
+     ],
+     "label": "Tab",
+     "x": 0,
+     "y": 2.25,
+     "w": 1.5,
+     "row": 2,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "KeyQ"
+     ],
+     "label": "Q",
+     "x": 1.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyW"
+     ],
+     "label": "W",
+     "x": 2.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyE"
+     ],
+     "label": "E",
+     "x": 3.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyR"
+     ],
+     "label": "R",
+     "x": 4.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyT"
+     ],
+     "label": "T",
+     "x": 5.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyY"
+     ],
+     "label": "Y",
+     "x": 6.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyU"
+     ],
+     "label": "U",
+     "x": 7.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyI"
+     ],
+     "label": "I",
+     "x": 8.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyO"
+     ],
+     "label": "O",
+     "x": 9.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyP"
+     ],
+     "label": "P",
+     "x": 10.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "BracketLeft"
+     ],
+     "label": "[",
+     "x": 11.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "BracketRight"
+     ],
+     "label": "]",
+     "x": 12.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Backslash"
+     ],
+     "label": "\\",
+     "x": 13.5,
+     "y": 2.25,
+     "w": 1.5,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "PageUp"
+     ],
+     "label": "PgUp",
+     "x": 15,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "CapsLock"
+     ],
+     "label": "Caps",
+     "x": 0,
+     "y": 3.25,
+     "w": 1.75,
+     "row": 3,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "KeyA"
+     ],
+     "label": "A",
+     "x": 1.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyS"
+     ],
+     "label": "S",
+     "x": 2.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyD"
+     ],
+     "label": "D",
+     "x": 3.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyF"
+     ],
+     "label": "F",
+     "x": 4.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyG"
+     ],
+     "label": "G",
+     "x": 5.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyH"
+     ],
+     "label": "H",
+     "x": 6.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyJ"
+     ],
+     "label": "J",
+     "x": 7.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyK"
+     ],
+     "label": "K",
+     "x": 8.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyL"
+     ],
+     "label": "L",
+     "x": 9.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Semicolon"
+     ],
+     "label": ";",
+     "x": 10.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Quote"
+     ],
+     "label": "'",
+     "x": 11.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Enter"
+     ],
+     "label": "Enter",
+     "x": 12.75,
+     "y": 3.25,
+     "w": 2.25,
+     "row": 3,
+     "kind": "x"
+    },
+    {
+     "codes": [
+      "PageDown"
+     ],
+     "label": "PgDn",
+     "x": 15,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ShiftLeft"
+     ],
+     "label": "Shift",
+     "x": 0,
+     "y": 4.25,
+     "w": 2.25,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "KeyZ"
+     ],
+     "label": "Z",
+     "x": 2.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyX"
+     ],
+     "label": "X",
+     "x": 3.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyC"
+     ],
+     "label": "C",
+     "x": 4.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyV"
+     ],
+     "label": "V",
+     "x": 5.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyB"
+     ],
+     "label": "B",
+     "x": 6.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyN"
+     ],
+     "label": "N",
+     "x": 7.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyM"
+     ],
+     "label": "M",
+     "x": 8.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Comma"
+     ],
+     "label": ",",
+     "x": 9.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Period"
+     ],
+     "label": ".",
+     "x": 10.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Slash"
+     ],
+     "label": "/",
+     "x": 11.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "ShiftRight"
+     ],
+     "label": "Shift",
+     "x": 12.25,
+     "y": 4.25,
+     "w": 1.75,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ArrowUp"
+     ],
+     "label": "↑",
+     "x": 14,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "End"
+     ],
+     "label": "End",
+     "x": 15,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ControlLeft"
+     ],
+     "label": "Ctrl",
+     "x": 0,
+     "y": 5.25,
+     "w": 1.25,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "MetaLeft"
+     ],
+     "label": "Win",
+     "x": 1.25,
+     "y": 5.25,
+     "w": 1.25,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "AltLeft"
+     ],
+     "label": "Alt",
+     "x": 2.5,
+     "y": 5.25,
+     "w": 1.25,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Space"
+     ],
+     "label": "",
+     "x": 3.75,
+     "y": 5.25,
+     "w": 6.25,
+     "row": 5,
+     "kind": "sp"
+    },
+    {
+     "codes": [
+      "AltRight"
+     ],
+     "label": "Alt",
+     "x": 10,
+     "y": 5.25,
+     "w": 1,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ControlRight"
+     ],
+     "label": "Ctrl",
+     "x": 11,
+     "y": 5.25,
+     "w": 1,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Fn"
+     ],
+     "label": "Fn",
+     "x": 12,
+     "y": 5.25,
+     "w": 1,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ArrowLeft"
+     ],
+     "label": "←",
+     "x": 13,
+     "y": 5.25,
+     "w": 1,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ArrowDown"
+     ],
+     "label": "↓",
+     "x": 14,
+     "y": 5.25,
+     "w": 1,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ArrowRight"
+     ],
+     "label": "→",
+     "x": 15,
+     "y": 5.25,
+     "w": 1,
+     "row": 5,
+     "kind": "m"
+    }
+   ]
+  },
+  "tkl": {
+   "name": "TKL",
+   "mult": 1.35,
+   "lvl": 10,
+   "fgap": true,
+   "W": 18.25,
+   "H": 6.25,
+   "count": 87,
+   "keys": [
+    {
+     "codes": [
+      "Escape"
+     ],
+     "label": "Esc",
+     "x": 0,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "x"
+    },
+    {
+     "codes": [
+      "F1"
+     ],
+     "label": "F1",
+     "x": 2,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F2"
+     ],
+     "label": "F2",
+     "x": 3,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F3"
+     ],
+     "label": "F3",
+     "x": 4,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F4"
+     ],
+     "label": "F4",
+     "x": 5,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F5"
+     ],
+     "label": "F5",
+     "x": 6.5,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F6"
+     ],
+     "label": "F6",
+     "x": 7.5,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F7"
+     ],
+     "label": "F7",
+     "x": 8.5,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F8"
+     ],
+     "label": "F8",
+     "x": 9.5,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F9"
+     ],
+     "label": "F9",
+     "x": 11,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F10"
+     ],
+     "label": "F10",
+     "x": 12,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F11"
+     ],
+     "label": "F11",
+     "x": 13,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F12"
+     ],
+     "label": "F12",
+     "x": 14,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "PrintScreen"
+     ],
+     "label": "PrtSc",
+     "x": 15.25,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ScrollLock"
+     ],
+     "label": "ScrLk",
+     "x": 16.25,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Pause"
+     ],
+     "label": "Pse",
+     "x": 17.25,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Backquote"
+     ],
+     "label": "`",
+     "x": 0,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit1"
+     ],
+     "label": "1",
+     "x": 1,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit2"
+     ],
+     "label": "2",
+     "x": 2,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit3"
+     ],
+     "label": "3",
+     "x": 3,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit4"
+     ],
+     "label": "4",
+     "x": 4,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit5"
+     ],
+     "label": "5",
+     "x": 5,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit6"
+     ],
+     "label": "6",
+     "x": 6,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit7"
+     ],
+     "label": "7",
+     "x": 7,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit8"
+     ],
+     "label": "8",
+     "x": 8,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit9"
+     ],
+     "label": "9",
+     "x": 9,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit0"
+     ],
+     "label": "0",
+     "x": 10,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Minus"
+     ],
+     "label": "-",
+     "x": 11,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Equal"
+     ],
+     "label": "=",
+     "x": 12,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Backspace"
+     ],
+     "label": "⌫",
+     "x": 13,
+     "y": 1.25,
+     "w": 2,
+     "row": 1,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Insert"
+     ],
+     "label": "Ins",
+     "x": 15.25,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Home"
+     ],
+     "label": "Home",
+     "x": 16.25,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "PageUp"
+     ],
+     "label": "PgUp",
+     "x": 17.25,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Tab"
+     ],
+     "label": "Tab",
+     "x": 0,
+     "y": 2.25,
+     "w": 1.5,
+     "row": 2,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "KeyQ"
+     ],
+     "label": "Q",
+     "x": 1.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyW"
+     ],
+     "label": "W",
+     "x": 2.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyE"
+     ],
+     "label": "E",
+     "x": 3.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyR"
+     ],
+     "label": "R",
+     "x": 4.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyT"
+     ],
+     "label": "T",
+     "x": 5.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyY"
+     ],
+     "label": "Y",
+     "x": 6.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyU"
+     ],
+     "label": "U",
+     "x": 7.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyI"
+     ],
+     "label": "I",
+     "x": 8.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyO"
+     ],
+     "label": "O",
+     "x": 9.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyP"
+     ],
+     "label": "P",
+     "x": 10.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "BracketLeft"
+     ],
+     "label": "[",
+     "x": 11.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "BracketRight"
+     ],
+     "label": "]",
+     "x": 12.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Backslash"
+     ],
+     "label": "\\",
+     "x": 13.5,
+     "y": 2.25,
+     "w": 1.5,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Delete"
+     ],
+     "label": "Del",
+     "x": 15.25,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "End"
+     ],
+     "label": "End",
+     "x": 16.25,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "PageDown"
+     ],
+     "label": "PgDn",
+     "x": 17.25,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "CapsLock"
+     ],
+     "label": "Caps",
+     "x": 0,
+     "y": 3.25,
+     "w": 1.75,
+     "row": 3,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "KeyA"
+     ],
+     "label": "A",
+     "x": 1.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyS"
+     ],
+     "label": "S",
+     "x": 2.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyD"
+     ],
+     "label": "D",
+     "x": 3.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyF"
+     ],
+     "label": "F",
+     "x": 4.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyG"
+     ],
+     "label": "G",
+     "x": 5.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyH"
+     ],
+     "label": "H",
+     "x": 6.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyJ"
+     ],
+     "label": "J",
+     "x": 7.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyK"
+     ],
+     "label": "K",
+     "x": 8.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyL"
+     ],
+     "label": "L",
+     "x": 9.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Semicolon"
+     ],
+     "label": ";",
+     "x": 10.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Quote"
+     ],
+     "label": "'",
+     "x": 11.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Enter"
+     ],
+     "label": "Enter",
+     "x": 12.75,
+     "y": 3.25,
+     "w": 2.25,
+     "row": 3,
+     "kind": "x"
+    },
+    {
+     "codes": [
+      "ShiftLeft"
+     ],
+     "label": "Shift",
+     "x": 0,
+     "y": 4.25,
+     "w": 2.25,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "KeyZ"
+     ],
+     "label": "Z",
+     "x": 2.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyX"
+     ],
+     "label": "X",
+     "x": 3.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyC"
+     ],
+     "label": "C",
+     "x": 4.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyV"
+     ],
+     "label": "V",
+     "x": 5.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyB"
+     ],
+     "label": "B",
+     "x": 6.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyN"
+     ],
+     "label": "N",
+     "x": 7.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyM"
+     ],
+     "label": "M",
+     "x": 8.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Comma"
+     ],
+     "label": ",",
+     "x": 9.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Period"
+     ],
+     "label": ".",
+     "x": 10.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Slash"
+     ],
+     "label": "/",
+     "x": 11.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "ShiftRight"
+     ],
+     "label": "Shift",
+     "x": 12.25,
+     "y": 4.25,
+     "w": 2.75,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ArrowUp"
+     ],
+     "label": "↑",
+     "x": 16.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ControlLeft"
+     ],
+     "label": "Ctrl",
+     "x": 0,
+     "y": 5.25,
+     "w": 1.25,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "MetaLeft"
+     ],
+     "label": "Win",
+     "x": 1.25,
+     "y": 5.25,
+     "w": 1.25,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "AltLeft"
+     ],
+     "label": "Alt",
+     "x": 2.5,
+     "y": 5.25,
+     "w": 1.25,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Space"
+     ],
+     "label": "",
+     "x": 3.75,
+     "y": 5.25,
+     "w": 6.25,
+     "row": 5,
+     "kind": "sp"
+    },
+    {
+     "codes": [
+      "AltRight"
+     ],
+     "label": "Alt",
+     "x": 10,
+     "y": 5.25,
+     "w": 1.25,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "MetaRight"
+     ],
+     "label": "Win",
+     "x": 11.25,
+     "y": 5.25,
+     "w": 1.25,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ContextMenu"
+     ],
+     "label": "Menu",
+     "x": 12.5,
+     "y": 5.25,
+     "w": 1.25,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ControlRight"
+     ],
+     "label": "Ctrl",
+     "x": 13.75,
+     "y": 5.25,
+     "w": 1.25,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ArrowLeft"
+     ],
+     "label": "←",
+     "x": 15.25,
+     "y": 5.25,
+     "w": 1,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ArrowDown"
+     ],
+     "label": "↓",
+     "x": 16.25,
+     "y": 5.25,
+     "w": 1,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ArrowRight"
+     ],
+     "label": "→",
+     "x": 17.25,
+     "y": 5.25,
+     "w": 1,
+     "row": 5,
+     "kind": "m"
+    }
+   ]
+  },
+  "full": {
+   "name": "Полноразмерная",
+   "mult": 1.55,
+   "lvl": 15,
+   "fgap": true,
+   "W": 22.5,
+   "H": 6.25,
+   "count": 104,
+   "keys": [
+    {
+     "codes": [
+      "Escape"
+     ],
+     "label": "Esc",
+     "x": 0,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "x"
+    },
+    {
+     "codes": [
+      "F1"
+     ],
+     "label": "F1",
+     "x": 2,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F2"
+     ],
+     "label": "F2",
+     "x": 3,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F3"
+     ],
+     "label": "F3",
+     "x": 4,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F4"
+     ],
+     "label": "F4",
+     "x": 5,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F5"
+     ],
+     "label": "F5",
+     "x": 6.5,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F6"
+     ],
+     "label": "F6",
+     "x": 7.5,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F7"
+     ],
+     "label": "F7",
+     "x": 8.5,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F8"
+     ],
+     "label": "F8",
+     "x": 9.5,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F9"
+     ],
+     "label": "F9",
+     "x": 11,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F10"
+     ],
+     "label": "F10",
+     "x": 12,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F11"
+     ],
+     "label": "F11",
+     "x": 13,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "F12"
+     ],
+     "label": "F12",
+     "x": 14,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "PrintScreen"
+     ],
+     "label": "PrtSc",
+     "x": 15.25,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ScrollLock"
+     ],
+     "label": "ScrLk",
+     "x": 16.25,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Pause"
+     ],
+     "label": "Pse",
+     "x": 17.25,
+     "y": 0,
+     "w": 1,
+     "row": 0,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Backquote"
+     ],
+     "label": "`",
+     "x": 0,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit1"
+     ],
+     "label": "1",
+     "x": 1,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit2"
+     ],
+     "label": "2",
+     "x": 2,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit3"
+     ],
+     "label": "3",
+     "x": 3,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit4"
+     ],
+     "label": "4",
+     "x": 4,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit5"
+     ],
+     "label": "5",
+     "x": 5,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit6"
+     ],
+     "label": "6",
+     "x": 6,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit7"
+     ],
+     "label": "7",
+     "x": 7,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit8"
+     ],
+     "label": "8",
+     "x": 8,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit9"
+     ],
+     "label": "9",
+     "x": 9,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Digit0"
+     ],
+     "label": "0",
+     "x": 10,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Minus"
+     ],
+     "label": "-",
+     "x": 11,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Equal"
+     ],
+     "label": "=",
+     "x": 12,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Backspace"
+     ],
+     "label": "⌫",
+     "x": 13,
+     "y": 1.25,
+     "w": 2,
+     "row": 1,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Insert"
+     ],
+     "label": "Ins",
+     "x": 15.25,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Home"
+     ],
+     "label": "Home",
+     "x": 16.25,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "PageUp"
+     ],
+     "label": "PgUp",
+     "x": 17.25,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "NumLock"
+     ],
+     "label": "Num",
+     "x": 18.5,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "NumpadDivide"
+     ],
+     "label": "/",
+     "x": 19.5,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "NumpadMultiply"
+     ],
+     "label": "*",
+     "x": 20.5,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "NumpadSubtract"
+     ],
+     "label": "-",
+     "x": 21.5,
+     "y": 1.25,
+     "w": 1,
+     "row": 1,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Tab"
+     ],
+     "label": "Tab",
+     "x": 0,
+     "y": 2.25,
+     "w": 1.5,
+     "row": 2,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "KeyQ"
+     ],
+     "label": "Q",
+     "x": 1.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyW"
+     ],
+     "label": "W",
+     "x": 2.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyE"
+     ],
+     "label": "E",
+     "x": 3.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyR"
+     ],
+     "label": "R",
+     "x": 4.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyT"
+     ],
+     "label": "T",
+     "x": 5.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyY"
+     ],
+     "label": "Y",
+     "x": 6.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyU"
+     ],
+     "label": "U",
+     "x": 7.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyI"
+     ],
+     "label": "I",
+     "x": 8.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyO"
+     ],
+     "label": "O",
+     "x": 9.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyP"
+     ],
+     "label": "P",
+     "x": 10.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "BracketLeft"
+     ],
+     "label": "[",
+     "x": 11.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "BracketRight"
+     ],
+     "label": "]",
+     "x": 12.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Backslash"
+     ],
+     "label": "\\",
+     "x": 13.5,
+     "y": 2.25,
+     "w": 1.5,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Delete"
+     ],
+     "label": "Del",
+     "x": 15.25,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "End"
+     ],
+     "label": "End",
+     "x": 16.25,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "PageDown"
+     ],
+     "label": "PgDn",
+     "x": 17.25,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Numpad7"
+     ],
+     "label": "7",
+     "x": 18.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Numpad8"
+     ],
+     "label": "8",
+     "x": 19.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Numpad9"
+     ],
+     "label": "9",
+     "x": 20.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "NumpadAdd"
+     ],
+     "label": "+",
+     "x": 21.5,
+     "y": 2.25,
+     "w": 1,
+     "row": 2,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "CapsLock"
+     ],
+     "label": "Caps",
+     "x": 0,
+     "y": 3.25,
+     "w": 1.75,
+     "row": 3,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "KeyA"
+     ],
+     "label": "A",
+     "x": 1.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyS"
+     ],
+     "label": "S",
+     "x": 2.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyD"
+     ],
+     "label": "D",
+     "x": 3.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyF"
+     ],
+     "label": "F",
+     "x": 4.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyG"
+     ],
+     "label": "G",
+     "x": 5.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyH"
+     ],
+     "label": "H",
+     "x": 6.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyJ"
+     ],
+     "label": "J",
+     "x": 7.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyK"
+     ],
+     "label": "K",
+     "x": 8.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyL"
+     ],
+     "label": "L",
+     "x": 9.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Semicolon"
+     ],
+     "label": ";",
+     "x": 10.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Quote"
+     ],
+     "label": "'",
+     "x": 11.75,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Enter"
+     ],
+     "label": "Enter",
+     "x": 12.75,
+     "y": 3.25,
+     "w": 2.25,
+     "row": 3,
+     "kind": "x"
+    },
+    {
+     "codes": [
+      "Numpad4"
+     ],
+     "label": "4",
+     "x": 18.5,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Numpad5"
+     ],
+     "label": "5",
+     "x": 19.5,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Numpad6"
+     ],
+     "label": "6",
+     "x": 20.5,
+     "y": 3.25,
+     "w": 1,
+     "row": 3,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "ShiftLeft"
+     ],
+     "label": "Shift",
+     "x": 0,
+     "y": 4.25,
+     "w": 2.25,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "KeyZ"
+     ],
+     "label": "Z",
+     "x": 2.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyX"
+     ],
+     "label": "X",
+     "x": 3.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyC"
+     ],
+     "label": "C",
+     "x": 4.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyV"
+     ],
+     "label": "V",
+     "x": 5.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyB"
+     ],
+     "label": "B",
+     "x": 6.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyN"
+     ],
+     "label": "N",
+     "x": 7.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "KeyM"
+     ],
+     "label": "M",
+     "x": 8.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Comma"
+     ],
+     "label": ",",
+     "x": 9.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Period"
+     ],
+     "label": ".",
+     "x": 10.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Slash"
+     ],
+     "label": "/",
+     "x": 11.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "ShiftRight"
+     ],
+     "label": "Shift",
+     "x": 12.25,
+     "y": 4.25,
+     "w": 2.75,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ArrowUp"
+     ],
+     "label": "↑",
+     "x": 16.25,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Numpad1"
+     ],
+     "label": "1",
+     "x": 18.5,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Numpad2"
+     ],
+     "label": "2",
+     "x": 19.5,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "Numpad3"
+     ],
+     "label": "3",
+     "x": 20.5,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "NumpadEnter"
+     ],
+     "label": "Ent",
+     "x": 21.5,
+     "y": 4.25,
+     "w": 1,
+     "row": 4,
+     "kind": "x"
+    },
+    {
+     "codes": [
+      "ControlLeft"
+     ],
+     "label": "Ctrl",
+     "x": 0,
+     "y": 5.25,
+     "w": 1.25,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "MetaLeft"
+     ],
+     "label": "Win",
+     "x": 1.25,
+     "y": 5.25,
+     "w": 1.25,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "AltLeft"
+     ],
+     "label": "Alt",
+     "x": 2.5,
+     "y": 5.25,
+     "w": 1.25,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Space"
+     ],
+     "label": "",
+     "x": 3.75,
+     "y": 5.25,
+     "w": 6.25,
+     "row": 5,
+     "kind": "sp"
+    },
+    {
+     "codes": [
+      "AltRight"
+     ],
+     "label": "Alt",
+     "x": 10,
+     "y": 5.25,
+     "w": 1.25,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "MetaRight"
+     ],
+     "label": "Win",
+     "x": 11.25,
+     "y": 5.25,
+     "w": 1.25,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ContextMenu"
+     ],
+     "label": "Menu",
+     "x": 12.5,
+     "y": 5.25,
+     "w": 1.25,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ControlRight"
+     ],
+     "label": "Ctrl",
+     "x": 13.75,
+     "y": 5.25,
+     "w": 1.25,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ArrowLeft"
+     ],
+     "label": "←",
+     "x": 15.25,
+     "y": 5.25,
+     "w": 1,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ArrowDown"
+     ],
+     "label": "↓",
+     "x": 16.25,
+     "y": 5.25,
+     "w": 1,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "ArrowRight"
+     ],
+     "label": "→",
+     "x": 17.25,
+     "y": 5.25,
+     "w": 1,
+     "row": 5,
+     "kind": "m"
+    },
+    {
+     "codes": [
+      "Numpad0"
+     ],
+     "label": "0",
+     "x": 18.5,
+     "y": 5.25,
+     "w": 2,
+     "row": 5,
+     "kind": "a"
+    },
+    {
+     "codes": [
+      "NumpadDecimal"
+     ],
+     "label": ".",
+     "x": 20.5,
+     "y": 5.25,
+     "w": 1,
+     "row": 5,
+     "kind": "m"
+    }
+   ]
+  }
+ },
+ "CASES": [
+  {
+   "id": "c_abs",
+   "name": "Пластик ABS «Старт»",
+   "mat": "ABS-пластик",
+   "price": 2500,
+   "lvl": 1,
+   "q": 20,
+   "deep": 0.3,
+   "hollow": 0.85,
+   "ring": 0.05,
+   "colors": [
+    [
+     "Чёрный",
+     "#1d1f22"
+    ],
+    [
+     "Белый",
+     "#e6e4df"
+    ]
+   ],
+   "look": "plastic"
+  },
+  {
+   "id": "c_acr",
+   "name": "Акрил «Сэндвич»",
+   "mat": "Слоёный акрил",
+   "price": 4800,
+   "lvl": 2,
+   "q": 34,
+   "deep": 0.55,
+   "hollow": 0.5,
+   "ring": 0.1,
+   "colors": [
+    [
+     "Прозрачный",
+     "#a9c7d6"
+    ],
+    [
+     "Дымчатый",
+     "#4a5560"
+    ],
+    [
+     "Мятный",
+     "#9fe0cf"
+    ]
+   ],
+   "look": "acrylic"
+  },
+  {
+   "id": "c_pc",
+   "name": "Поликарбонат «Лёд»",
+   "mat": "Поликарбонат",
+   "price": 9000,
+   "lvl": 4,
+   "q": 46,
+   "deep": 0.6,
+   "hollow": 0.4,
+   "ring": 0.08,
+   "colors": [
+    [
+     "Матовый лёд",
+     "#d7e3ea"
+    ],
+    [
+     "Чёрный дым",
+     "#2b3238"
+    ]
+   ],
+   "look": "acrylic"
+  },
+  {
+   "id": "c_wood",
+   "name": "Орех «Лесник»",
+   "mat": "Массив ореха",
+   "price": 14500,
+   "lvl": 6,
+   "q": 58,
+   "deep": 0.78,
+   "hollow": 0.32,
+   "ring": 0.03,
+   "colors": [
+    [
+     "Орех",
+     "#6b4528"
+    ],
+    [
+     "Дуб",
+     "#a8814f"
+    ],
+    [
+     "Зебрано",
+     "#8a6a3e"
+    ]
+   ],
+   "look": "wood"
+  },
+  {
+   "id": "c_alu",
+   "name": "Алюминий CNC «Монолит»",
+   "mat": "Алюминий 6063",
+   "price": 19000,
+   "lvl": 8,
+   "q": 66,
+   "deep": 0.5,
+   "hollow": 0.28,
+   "ring": 0.38,
+   "colors": [
+    [
+     "Серебро",
+     "#b8bec4"
+    ],
+    [
+     "Графит",
+     "#3b4046"
+    ],
+    [
+     "Синий",
+     "#3a5d8f"
+    ],
+    [
+     "Розовый",
+     "#d99aa8"
+    ]
+   ],
+   "look": "metal"
+  },
+  {
+   "id": "c_heavy",
+   "name": "Алюминий + латунь «Тяжеловес»",
+   "mat": "Алюм. + латунный груз",
+   "price": 32000,
+   "lvl": 13,
+   "q": 79,
+   "deep": 0.68,
+   "hollow": 0.18,
+   "ring": 0.28,
+   "colors": [
+    [
+     "E-white",
+     "#e7e3da"
+    ],
+    [
+     "Тёмно-синий",
+     "#28344a"
+    ],
+    [
+     "Бургунди",
+     "#6b2333"
+    ]
+   ],
+   "look": "metal"
+  },
+  {
+   "id": "c_gasket",
+   "name": "Gasket-mount «Облако»",
+   "mat": "Алюм., gasket-крепление",
+   "price": 46000,
+   "lvl": 19,
+   "q": 88,
+   "deep": 0.82,
+   "hollow": 0.12,
+   "ring": 0.15,
+   "colors": [
+    [
+     "Лаванда",
+     "#b3a5d9"
+    ],
+    [
+     "Олива",
+     "#6e7a52"
+    ],
+    [
+     "Чёрный",
+     "#1e2125"
+    ]
+   ],
+   "look": "metal"
+  },
+  {
+   "id": "c_ti",
+   "name": "Титан «Артефакт»",
+   "mat": "Титан Grade 5",
+   "price": 92000,
+   "lvl": 30,
+   "q": 97,
+   "deep": 0.86,
+   "hollow": 0.06,
+   "ring": 0.2,
+   "colors": [
+    [
+     "Сырой титан",
+     "#8d9196"
+    ],
+    [
+     "Анодированный синий",
+     "#3d5f9e"
+    ]
+   ],
+   "look": "metal"
+  }
+ ],
+ "PLATES": [
+  {
+   "id": "p_fr4",
+   "name": "FR4",
+   "price": 900,
+   "lvl": 1,
+   "q": 32,
+   "pitch": 0,
+   "flex": 0.55,
+   "desc": "Стеклотекстолит: сбалансированный, чуть приглушённый"
+  },
+  {
+   "id": "p_alu",
+   "name": "Алюминий",
+   "price": 1400,
+   "lvl": 1,
+   "q": 40,
+   "pitch": 0.14,
+   "flex": 0.3,
+   "desc": "Жёсткий, звонкий, классика"
+  },
+  {
+   "id": "p_pc",
+   "name": "Поликарбонат",
+   "price": 1900,
+   "lvl": 3,
+   "q": 50,
+   "pitch": -0.26,
+   "flex": 0.85,
+   "desc": "Мягкий флекс, глубокий thock"
+  },
+  {
+   "id": "p_brass",
+   "name": "Латунь",
+   "price": 3600,
+   "lvl": 5,
+   "q": 56,
+   "pitch": 0.36,
+   "flex": 0.15,
+   "desc": "Тяжёлая, яркий звонкий clack"
+  },
+  {
+   "id": "p_pom",
+   "name": "POM",
+   "price": 2700,
+   "lvl": 7,
+   "q": 60,
+   "pitch": -0.32,
+   "flex": 0.7,
+   "desc": "Приглушённый, маслянистый, глубокий"
+  },
+  {
+   "id": "p_cf",
+   "name": "Карбон",
+   "price": 4300,
+   "lvl": 10,
+   "q": 66,
+   "pitch": 0.18,
+   "flex": 0.45,
+   "desc": "Чёткий, «хрустящий» отклик"
+  }
+ ],
+ "PCBS": [
+  {
+   "id": "b_solder",
+   "name": "Под пайку",
+   "price": 1900,
+   "lvl": 1,
+   "q": 36,
+   "hs": false,
+   "rgb": false,
+   "wl": false,
+   "desc": "Надёжно, но свитчи не поменять"
+  },
+  {
+   "id": "b_hs",
+   "name": "Hotswap",
+   "price": 3400,
+   "lvl": 1,
+   "q": 42,
+   "hs": true,
+   "rgb": false,
+   "wl": false,
+   "desc": "Свитчи меняются без пайки"
+  },
+  {
+   "id": "b_rgb",
+   "name": "Hotswap + RGB",
+   "price": 5600,
+   "lvl": 4,
+   "q": 50,
+   "hs": true,
+   "rgb": true,
+   "wl": false,
+   "desc": "Подсветка south-facing"
+  },
+  {
+   "id": "b_wl",
+   "name": "Беспроводная 3-mode",
+   "price": 8700,
+   "lvl": 9,
+   "q": 62,
+   "hs": true,
+   "rgb": true,
+   "wl": true,
+   "desc": "Bluetooth / 2.4 ГГц / кабель, RGB"
+  }
+ ],
+ "STABS": [
+  {
+   "id": "s_basic",
+   "name": "Plate-mount базовые",
+   "price": 600,
+   "lvl": 1,
+   "q": 25,
+   "rattle": 0.75
+  },
+  {
+   "id": "s_screw",
+   "name": "Screw-in PCB",
+   "price": 1500,
+   "lvl": 3,
+   "q": 48,
+   "rattle": 0.45
+  },
+  {
+   "id": "s_prem",
+   "name": "Премиум «Тишина» v3",
+   "price": 3300,
+   "lvl": 10,
+   "q": 75,
+   "rattle": 0.18
+  }
+ ],
+ "SWITCHES": [
+  {
+   "id": "sw_red",
+   "snd": "mxblack",
+   "name": "Рубин",
+   "type": "linear",
+   "force": 45,
+   "price": 18,
+   "lvl": 1,
+   "pitch": 0.1,
+   "loud": 0.62,
+   "scratch": 0.55,
+   "ping": 0.5,
+   "click": 0,
+   "tact": 0,
+   "lube": 0.15,
+   "stem": "#d9423b",
+   "hous": "#2a2a2a",
+   "desc": "Бюджетный линейный, лёгкий"
+  },
+  {
+   "id": "sw_black",
+   "snd": "mxblack",
+   "name": "Обсидиан",
+   "type": "linear",
+   "force": 60,
+   "price": 20,
+   "lvl": 1,
+   "pitch": -0.05,
+   "loud": 0.64,
+   "scratch": 0.55,
+   "ping": 0.6,
+   "click": 0,
+   "tact": 0,
+   "lube": 0.15,
+   "stem": "#1b1b1b",
+   "hous": "#2a2a2a",
+   "desc": "Тугой линейный старой школы"
+  },
+  {
+   "id": "sw_brown",
+   "snd": "mxbrown",
+   "name": "Каштан",
+   "type": "tactile",
+   "force": 45,
+   "price": 20,
+   "lvl": 1,
+   "pitch": 0.05,
+   "loud": 0.6,
+   "scratch": 0.5,
+   "ping": 0.5,
+   "click": 0,
+   "tact": 0.3,
+   "lube": 0.15,
+   "stem": "#7a4a2a",
+   "hous": "#2a2a2a",
+   "desc": "Мягкий тактильный бугорок"
+  },
+  {
+   "id": "sw_blue",
+   "snd": "mxblue",
+   "name": "Лазурь",
+   "type": "clicky",
+   "force": 50,
+   "price": 20,
+   "lvl": 1,
+   "pitch": 0.2,
+   "loud": 0.85,
+   "scratch": 0.5,
+   "ping": 0.45,
+   "click": 0.85,
+   "tact": 0.5,
+   "lube": 0.1,
+   "stem": "#2f6fd6",
+   "hous": "#2a2a2a",
+   "desc": "Классический клик с джекетом"
+  },
+  {
+   "id": "sw_yellow",
+   "snd": "redink",
+   "name": "Янтарь",
+   "type": "linear",
+   "force": 50,
+   "price": 28,
+   "lvl": 2,
+   "pitch": -0.05,
+   "loud": 0.6,
+   "scratch": 0.28,
+   "ping": 0.35,
+   "click": 0,
+   "tact": 0,
+   "lube": 0.4,
+   "stem": "#e7c33e",
+   "hous": "#e8e2d0",
+   "desc": "Народный гладкий линейный"
+  },
+  {
+   "id": "sw_silent",
+   "snd": "mxblack",
+   "name": "Шёпот",
+   "type": "silent",
+   "force": 37,
+   "price": 36,
+   "lvl": 3,
+   "pitch": -0.1,
+   "loud": 0.18,
+   "scratch": 0.3,
+   "ping": 0.2,
+   "click": 0,
+   "tact": 0,
+   "lube": 0.45,
+   "stem": "#c96a6a",
+   "hous": "#3a3a3a",
+   "desc": "Демпферы на штоке: почти беззвучно"
+  },
+  {
+   "id": "sw_milky",
+   "snd": "mxblack",
+   "name": "Молочный",
+   "type": "linear",
+   "force": 45,
+   "price": 32,
+   "lvl": 4,
+   "pitch": -0.32,
+   "loud": 0.66,
+   "scratch": 0.58,
+   "ping": 0.4,
+   "click": 0,
+   "tact": 0,
+   "lube": 0.1,
+   "stem": "#f2efe8",
+   "hous": "#efe9dc",
+   "desc": "Нейлоновый корпус — глубокий звук"
+  },
+  {
+   "id": "sw_panda",
+   "snd": "holypanda",
+   "name": "Енот-тактиль",
+   "type": "tactile",
+   "force": 67,
+   "price": 72,
+   "lvl": 6,
+   "pitch": -0.2,
+   "loud": 0.78,
+   "scratch": 0.35,
+   "ping": 0.3,
+   "click": 0,
+   "tact": 0.92,
+   "lube": 0.2,
+   "stem": "#f0f0f0",
+   "hous": "#d9d4c9",
+   "desc": "Культовый резкий тактильный удар"
+  },
+  {
+   "id": "sw_box",
+   "snd": "boxnavy",
+   "name": "Нефритовый клик-бар",
+   "type": "clicky",
+   "force": 60,
+   "price": 55,
+   "lvl": 6,
+   "pitch": 0.32,
+   "loud": 0.9,
+   "scratch": 0.25,
+   "ping": 0.25,
+   "click": 1,
+   "tact": 0.7,
+   "lube": 0.2,
+   "stem": "#2fa86b",
+   "hous": "#2a2a2a",
+   "desc": "Клик-бар: хрусткий звонкий щелчок"
+  },
+  {
+   "id": "sw_oil",
+   "snd": "blackink",
+   "name": "Масляный",
+   "type": "linear",
+   "force": 55,
+   "price": 60,
+   "lvl": 8,
+   "pitch": -0.36,
+   "loud": 0.66,
+   "scratch": 0.1,
+   "ping": 0.12,
+   "click": 0,
+   "tact": 0,
+   "lube": 0.9,
+   "stem": "#3a2f1a",
+   "hous": "#3b3b3b",
+   "desc": "Обильная заводская смазка, «маслянистый»"
+  },
+  {
+   "id": "sw_classic2a",
+   "snd": "mxblack",
+   "name": "Классик-2",
+   "type": "linear",
+   "force": 48,
+   "price": 50,
+   "lvl": 9,
+   "pitch": 0,
+   "loud": 0.62,
+   "scratch": 0.18,
+   "ping": 0.2,
+   "click": 0,
+   "tact": 0,
+   "lube": 0.55,
+   "stem": "#c9302c",
+   "hous": "#2b2b2b",
+   "desc": "Переработанная классика, ровный ход"
+  },
+  {
+   "id": "sw_ink",
+   "snd": "blackink",
+   "name": "Чернильный",
+   "type": "linear",
+   "force": 60,
+   "price": 95,
+   "lvl": 10,
+   "pitch": 0.22,
+   "loud": 0.72,
+   "scratch": 0.08,
+   "ping": 0.18,
+   "click": 0,
+   "tact": 0,
+   "lube": 0.35,
+   "stem": "#5b3e8e",
+   "hous": "#3d2b5e",
+   "desc": "Плотный корпус, высокий чистый звук"
+  },
+  {
+   "id": "sw_cream",
+   "snd": "cream",
+   "name": "Сливочный POM",
+   "type": "linear",
+   "force": 55,
+   "price": 75,
+   "lvl": 11,
+   "pitch": 0.24,
+   "loud": 0.7,
+   "scratch": 0.62,
+   "ping": 0.15,
+   "click": 0,
+   "tact": 0,
+   "lube": 0.05,
+   "stem": "#f4e3b5",
+   "hous": "#f4e3b5",
+   "desc": "Полностью POM: «мраморный» clack, просит смазки"
+  },
+  {
+   "id": "sw_alpaca",
+   "snd": "alpaca",
+   "name": "Лама",
+   "type": "linear",
+   "force": 62,
+   "price": 85,
+   "lvl": 12,
+   "pitch": -0.15,
+   "loud": 0.68,
+   "scratch": 0.1,
+   "ping": 0.15,
+   "click": 0,
+   "tact": 0,
+   "lube": 0.45,
+   "stem": "#f2b5c6",
+   "hous": "#f2f0ee",
+   "desc": "Шелковистый, сбалансированный"
+  },
+  {
+   "id": "sw_boba",
+   "snd": "holypanda",
+   "name": "Тапиока",
+   "type": "tactile",
+   "force": 62,
+   "price": 80,
+   "lvl": 13,
+   "pitch": -0.4,
+   "loud": 0.74,
+   "scratch": 0.18,
+   "ping": 0.15,
+   "click": 0,
+   "tact": 0.85,
+   "lube": 0.3,
+   "stem": "#2a2a2a",
+   "hous": "#1f1f1f",
+   "desc": "Округлый тактильный, очень глубокий"
+  },
+  {
+   "id": "sw_zilent",
+   "snd": "mxbrown",
+   "name": "Тихий Зил",
+   "type": "silent",
+   "force": 67,
+   "price": 110,
+   "lvl": 14,
+   "pitch": -0.15,
+   "loud": 0.22,
+   "scratch": 0.15,
+   "ping": 0.1,
+   "click": 0,
+   "tact": 0.8,
+   "lube": 0.5,
+   "stem": "#8a1fb0",
+   "hous": "#2a2a2a",
+   "desc": "Тихий тактильный для офиса"
+  },
+  {
+   "id": "sw_tang",
+   "snd": "turquoise",
+   "name": "Мандарин",
+   "type": "linear",
+   "force": 62,
+   "price": 90,
+   "lvl": 15,
+   "pitch": -0.22,
+   "loud": 0.66,
+   "scratch": 0.08,
+   "ping": 0.1,
+   "click": 0,
+   "tact": 0,
+   "lube": 0.55,
+   "stem": "#ff8c2a",
+   "hous": "#f6f1e7",
+   "desc": "Длинная пружина, мягкое возвращение"
+  },
+  {
+   "id": "sw_thunder",
+   "snd": "buckling",
+   "name": "Гром",
+   "type": "clicky",
+   "force": 80,
+   "price": 65,
+   "lvl": 16,
+   "pitch": 0.12,
+   "loud": 0.95,
+   "scratch": 0.3,
+   "ping": 0.25,
+   "click": 1,
+   "tact": 0.8,
+   "lube": 0.15,
+   "stem": "#1c5e9e",
+   "hous": "#2a2a2a",
+   "desc": "Тяжёлый клик, как у старых IBM"
+  },
+  {
+   "id": "sw_laven",
+   "snd": "redink",
+   "name": "Лаванда Long-pole",
+   "type": "linear",
+   "force": 50,
+   "price": 72,
+   "lvl": 18,
+   "pitch": 0.46,
+   "loud": 0.86,
+   "scratch": 0.2,
+   "ping": 0.18,
+   "click": 0,
+   "tact": 0,
+   "lube": 0.4,
+   "stem": "#b9a6e8",
+   "hous": "#e8e2f6",
+   "desc": "Длинный шток: резкий высокий clack"
+  },
+  {
+   "id": "sw_polar",
+   "snd": "turquoise",
+   "name": "Полярный UHMWPE",
+   "type": "linear",
+   "force": 63,
+   "price": 120,
+   "lvl": 22,
+   "pitch": -0.12,
+   "loud": 0.66,
+   "scratch": 0.04,
+   "ping": 0.08,
+   "click": 0,
+   "tact": 0,
+   "lube": 0.5,
+   "stem": "#e8f4ff",
+   "hous": "#cfe3f1",
+   "desc": "Сверхгладкий стем, «мраморный» тон"
+  },
+  {
+   "id": "sw_hall",
+   "snd": "alpaca",
+   "name": "Магнитный Холл",
+   "type": "linear",
+   "force": 40,
+   "price": 140,
+   "lvl": 28,
+   "pitch": -0.05,
+   "loud": 0.55,
+   "scratch": 0.02,
+   "ping": 0.05,
+   "click": 0,
+   "tact": 0,
+   "lube": 0.6,
+   "stem": "#9fb3c8",
+   "hous": "#4a5260",
+   "desc": "Датчик Холла, регулируемое срабатывание"
+  },
+  {
+   "id": "sw_topre",
+   "snd": "topre",
+   "name": "Купол (электроёмкостный)",
+   "type": "tactile",
+   "force": 45,
+   "price": 130,
+   "lvl": 20,
+   "pitch": -0.42,
+   "loud": 0.58,
+   "scratch": 0.02,
+   "ping": 0,
+   "click": 0,
+   "tact": 0.55,
+   "lube": 0.6,
+   "stem": "#d8d8d8",
+   "hous": "#3a3a3a",
+   "desc": "Купол + конусная пружина: мягкий глубокий «топ»"
+  },
+  {
+   "id": "sw_aurora",
+   "snd": "cream",
+   "name": "Северное сияние",
+   "type": "linear",
+   "force": 58,
+   "price": 160,
+   "lvl": 1,
+   "pitch": -0.3,
+   "loud": 0.66,
+   "scratch": 0.03,
+   "ping": 0.05,
+   "click": 0,
+   "tact": 0,
+   "lube": 0.7,
+   "stem": "#6ee7d0",
+   "hous": "#d5f5ef",
+   "desc": "Лимитка: мраморный глубокий thock",
+   "gb": true
+  },
+  {
+   "id": "sw_dragon",
+   "snd": "holypanda",
+   "name": "Драконий",
+   "type": "tactile",
+   "force": 65,
+   "price": 180,
+   "lvl": 1,
+   "pitch": -0.34,
+   "loud": 0.76,
+   "scratch": 0.06,
+   "ping": 0.06,
+   "click": 0,
+   "tact": 1,
+   "lube": 0.5,
+   "stem": "#c2272d",
+   "hous": "#2b1414",
+   "desc": "Лимитка: самый резкий тактиль",
+   "gb": true
+  },
+  {
+   "id": "sw_crystal",
+   "snd": "bluealps",
+   "name": "Хрусталь",
+   "type": "clicky",
+   "force": 58,
+   "price": 150,
+   "lvl": 1,
+   "pitch": 0.44,
+   "loud": 0.88,
+   "scratch": 0.05,
+   "ping": 0.1,
+   "click": 0.95,
+   "tact": 0.6,
+   "lube": 0.4,
+   "stem": "#c9f1ff",
+   "hous": "#eaf9ff",
+   "desc": "Лимитка: стеклянный клик",
+   "gb": true
+  },
+  {
+   "id": "sw_ember",
+   "snd": "blackink",
+   "name": "Тлеющий уголь",
+   "type": "linear",
+   "force": 52,
+   "price": 170,
+   "lvl": 1,
+   "pitch": -0.44,
+   "loud": 0.7,
+   "scratch": 0.03,
+   "ping": 0.04,
+   "click": 0,
+   "tact": 0,
+   "lube": 0.75,
+   "stem": "#ff5a1f",
+   "hous": "#1a1a1a",
+   "desc": "Лимитка: тёмный «пузатый» thock",
+   "gb": true
+  }
+ ],
+ "KEYCAPS": [
+  {
+   "id": "k_stock",
+   "name": "Стоковые ABS",
+   "prof": "oem",
+   "mat": "ABS",
+   "price": 1500,
+   "lvl": 1,
+   "tags": [
+    "dark",
+    "minimal"
+   ],
+   "c": {
+    "a": "#202226",
+    "al": "#e8e8e8",
+    "m": "#202226",
+    "ml": "#e8e8e8",
+    "x": "#202226",
+    "xl": "#e8e8e8",
+    "sp": "m"
+   }
+  },
+  {
+   "id": "k_wob",
+   "name": "WoB PBT",
+   "prof": "cherry",
+   "mat": "PBT",
+   "price": 3400,
+   "lvl": 1,
+   "tags": [
+    "dark",
+    "minimal"
+   ],
+   "c": {
+    "a": "#1b1c1f",
+    "al": "#f2f2f2",
+    "m": "#1b1c1f",
+    "ml": "#f2f2f2",
+    "x": "#1b1c1f",
+    "xl": "#f2f2f2",
+    "sp": "m"
+   }
+  },
+  {
+   "id": "k_bow",
+   "name": "BoW Классика",
+   "prof": "cherry",
+   "mat": "PBT",
+   "price": 3400,
+   "lvl": 2,
+   "tags": [
+    "light",
+    "minimal"
+   ],
+   "c": {
+    "a": "#f1efe9",
+    "al": "#1c1c1c",
+    "m": "#f1efe9",
+    "ml": "#1c1c1c",
+    "x": "#f1efe9",
+    "xl": "#1c1c1c",
+    "sp": "a"
+   }
+  },
+  {
+   "id": "k_miami",
+   "name": "Прибой",
+   "prof": "oem",
+   "mat": "ABS",
+   "price": 5500,
+   "lvl": 3,
+   "tags": [
+    "bright",
+    "retro"
+   ],
+   "c": {
+    "a": "#f4f1ea",
+    "al": "#20b4a8",
+    "m": "#21b3a7",
+    "ml": "#fcefe9",
+    "x": "#f07ba6",
+    "xl": "#ffffff",
+    "sp": "x"
+   }
+  },
+  {
+   "id": "k_matcha",
+   "name": "Матча",
+   "prof": "cherry",
+   "mat": "PBT",
+   "price": 6000,
+   "lvl": 4,
+   "tags": [
+    "nature",
+    "pastel"
+   ],
+   "c": {
+    "a": "#e8e3cf",
+    "al": "#4f6b3c",
+    "m": "#8aa66a",
+    "ml": "#f3f0e2",
+    "x": "#4f6b3c",
+    "xl": "#e8e3cf",
+    "sp": "a"
+   }
+  },
+  {
+   "id": "k_sakura",
+   "name": "Сакура",
+   "prof": "xda",
+   "mat": "PBT",
+   "price": 6500,
+   "lvl": 5,
+   "tags": [
+    "pastel",
+    "nature"
+   ],
+   "c": {
+    "a": "#fbe9ee",
+    "al": "#c25b7a",
+    "m": "#f1b8c8",
+    "ml": "#7a2f45",
+    "x": "#c25b7a",
+    "xl": "#fbe9ee",
+    "sp": "m"
+   }
+  },
+  {
+   "id": "k_dolch",
+   "name": "Графит",
+   "prof": "cherry",
+   "mat": "ABS",
+   "price": 8200,
+   "lvl": 5,
+   "tags": [
+    "dark",
+    "retro"
+   ],
+   "c": {
+    "a": "#5b5f64",
+    "al": "#e7e7e7",
+    "m": "#2d3034",
+    "ml": "#d9d9d9",
+    "x": "#b8312f",
+    "xl": "#f0f0f0",
+    "sp": "a"
+   }
+  },
+  {
+   "id": "k_retro",
+   "name": "Бежевый офис",
+   "prof": "cherry",
+   "mat": "PBT",
+   "price": 7000,
+   "lvl": 6,
+   "tags": [
+    "retro",
+    "light"
+   ],
+   "c": {
+    "a": "#e6dfcf",
+    "al": "#2b2b2b",
+    "m": "#9a978d",
+    "ml": "#2b2b2b",
+    "x": "#3b4f86",
+    "xl": "#e6dfcf",
+    "sp": "a"
+   }
+  },
+  {
+   "id": "k_honey",
+   "name": "Мёд и молоко",
+   "prof": "cherry",
+   "mat": "PBT",
+   "price": 8000,
+   "lvl": 6,
+   "tags": [
+    "pastel",
+    "light"
+   ],
+   "c": {
+    "a": "#f6efdf",
+    "al": "#a0702a",
+    "m": "#e9b949",
+    "ml": "#3d2a10",
+    "x": "#e9b949",
+    "xl": "#3d2a10",
+    "sp": "a"
+   }
+  },
+  {
+   "id": "k_nord",
+   "name": "Норд",
+   "prof": "cherry",
+   "mat": "PBT",
+   "price": 7500,
+   "lvl": 7,
+   "tags": [
+    "light",
+    "minimal"
+   ],
+   "c": {
+    "a": "#e5e9f0",
+    "al": "#4c566a",
+    "m": "#a3b1c6",
+    "ml": "#2e3440",
+    "x": "#5e81ac",
+    "xl": "#eceff4",
+    "sp": "a"
+   }
+  },
+  {
+   "id": "k_olivia",
+   "name": "Пудра",
+   "prof": "cherry",
+   "mat": "ABS",
+   "price": 12500,
+   "lvl": 8,
+   "tags": [
+    "pastel",
+    "elegant"
+   ],
+   "c": {
+    "a": "#f2dcd6",
+    "al": "#2a2a2a",
+    "m": "#222222",
+    "ml": "#e8bfb6",
+    "x": "#e8bfb6",
+    "xl": "#222222",
+    "sp": "a"
+   }
+  },
+  {
+   "id": "k_botanic",
+   "name": "Оранжерея",
+   "prof": "cherry",
+   "mat": "PBT",
+   "price": 9000,
+   "lvl": 9,
+   "tags": [
+    "nature",
+    "light"
+   ],
+   "c": {
+    "a": "#f0ecd8",
+    "al": "#3d6b47",
+    "m": "#3d6b47",
+    "ml": "#f0ecd8",
+    "x": "#c79a3c",
+    "xl": "#2d3e2a",
+    "sp": "a"
+   }
+  },
+  {
+   "id": "k_bento",
+   "name": "Ланч",
+   "prof": "cherry",
+   "mat": "ABS",
+   "price": 11000,
+   "lvl": 10,
+   "tags": [
+    "bright",
+    "elegant"
+   ],
+   "c": {
+    "a": "#f2efe6",
+    "al": "#1f2f4f",
+    "m": "#1f2f4f",
+    "ml": "#f2efe6",
+    "x": "#f06b54",
+    "xl": "#ffffff",
+    "sp": "a"
+   }
+  },
+  {
+   "id": "k_mono",
+   "name": "Моно",
+   "prof": "kat",
+   "mat": "PBT",
+   "price": 10000,
+   "lvl": 12,
+   "tags": [
+    "minimal",
+    "light"
+   ],
+   "c": {
+    "a": "#dcdcdc",
+    "al": "#dcdcdc",
+    "m": "#bdbdbd",
+    "ml": "#bdbdbd",
+    "x": "#f04c3e",
+    "xl": "#f04c3e",
+    "sp": "a"
+   }
+  },
+  {
+   "id": "k_laser",
+   "name": "Неон",
+   "prof": "sa",
+   "mat": "ABS",
+   "price": 14500,
+   "lvl": 12,
+   "tags": [
+    "cyber",
+    "bright"
+   ],
+   "c": {
+    "a": "#2b1b4f",
+    "al": "#ff3fb4",
+    "m": "#5b2a9d",
+    "ml": "#56e6ff",
+    "x": "#ff3fb4",
+    "xl": "#1a0f33",
+    "sp": "m"
+   }
+  },
+  {
+   "id": "k_space",
+   "name": "Космос",
+   "prof": "sa",
+   "mat": "PBT",
+   "price": 13000,
+   "lvl": 14,
+   "tags": [
+    "dark",
+    "cyber"
+   ],
+   "c": {
+    "a": "#1a1f33",
+    "al": "#e8e6ff",
+    "m": "#2e3a66",
+    "ml": "#e8e6ff",
+    "x": "#f2c14e",
+    "xl": "#1a1f33",
+    "sp": "m"
+   }
+  },
+  {
+   "id": "k_carbon",
+   "name": "Карбон",
+   "prof": "sa",
+   "mat": "ABS",
+   "price": 16000,
+   "lvl": 16,
+   "tags": [
+    "dark",
+    "retro"
+   ],
+   "c": {
+    "a": "#2c2c2c",
+    "al": "#ff7a1a",
+    "m": "#4a4a4a",
+    "ml": "#ff7a1a",
+    "x": "#ff7a1a",
+    "xl": "#2c2c2c",
+    "sp": "a"
+   }
+  },
+  {
+   "id": "k_terminal",
+   "name": "Терминал",
+   "prof": "mt3",
+   "mat": "ABS",
+   "price": 15500,
+   "lvl": 18,
+   "tags": [
+    "retro",
+    "dark",
+    "cyber"
+   ],
+   "c": {
+    "a": "#151a14",
+    "al": "#39ff6a",
+    "m": "#232a21",
+    "ml": "#39ff6a",
+    "x": "#39ff6a",
+    "xl": "#151a14",
+    "sp": "a"
+   }
+  },
+  {
+   "id": "k_ocean",
+   "name": "Глубина",
+   "prof": "cherry",
+   "mat": "ABS",
+   "price": 18000,
+   "lvl": 20,
+   "tags": [
+    "nature",
+    "dark"
+   ],
+   "c": {
+    "a": "#123a4f",
+    "al": "#9fe3f0",
+    "m": "#0b2533",
+    "ml": "#9fe3f0",
+    "x": "#2fc6c0",
+    "xl": "#0b2533",
+    "sp": "a"
+   }
+  },
+  {
+   "id": "k_royal",
+   "name": "Королевский",
+   "prof": "mt3",
+   "mat": "ABS",
+   "price": 24000,
+   "lvl": 26,
+   "tags": [
+    "elegant",
+    "dark"
+   ],
+   "c": {
+    "a": "#1d1a2e",
+    "al": "#e3c06d",
+    "m": "#3a1f3d",
+    "ml": "#e3c06d",
+    "x": "#e3c06d",
+    "xl": "#1d1a2e",
+    "sp": "a"
+   }
+  },
+  {
+   "id": "k_aurora",
+   "name": "Аврора",
+   "prof": "sa",
+   "mat": "ABS",
+   "price": 29000,
+   "lvl": 1,
+   "tags": [
+    "cyber",
+    "bright",
+    "elegant"
+   ],
+   "c": {
+    "a": "#13253a",
+    "al": "#7ff0d0",
+    "m": "#1c3d5a",
+    "ml": "#c39bff",
+    "x": "#7ff0d0",
+    "xl": "#13253a",
+    "sp": "m"
+   },
+   "gb": true
+  },
+  {
+   "id": "k_samurai",
+   "name": "Самурай",
+   "prof": "cherry",
+   "mat": "ABS",
+   "price": 27000,
+   "lvl": 1,
+   "tags": [
+    "elegant",
+    "retro",
+    "dark"
+   ],
+   "c": {
+    "a": "#efe7d6",
+    "al": "#1d1d1d",
+    "m": "#1d1d1d",
+    "ml": "#efe7d6",
+    "x": "#c4262e",
+    "xl": "#efe7d6",
+    "sp": "a"
+   },
+   "gb": true
+  },
+  {
+   "id": "k_vapor",
+   "name": "Вейпорвейв",
+   "prof": "xda",
+   "mat": "PBT",
+   "price": 22000,
+   "lvl": 1,
+   "tags": [
+    "pastel",
+    "bright",
+    "retro"
+   ],
+   "c": {
+    "a": "#f6d6f0",
+    "al": "#6a4bd6",
+    "m": "#9ad6f2",
+    "ml": "#5a2f8a",
+    "x": "#ff7ac6",
+    "xl": "#ffffff",
+    "sp": "m"
+   },
+   "gb": true
+  },
+  {
+   "id": "k_forest",
+   "name": "Туманный лес",
+   "prof": "kat",
+   "mat": "PBT",
+   "price": 24000,
+   "lvl": 1,
+   "tags": [
+    "nature",
+    "dark",
+    "minimal"
+   ],
+   "c": {
+    "a": "#2b3a33",
+    "al": "#cfe0c6",
+    "m": "#1b2722",
+    "ml": "#cfe0c6",
+    "x": "#d9a441",
+    "xl": "#1b2722",
+    "sp": "a"
+   },
+   "gb": true
+  }
+ ],
+ "PROF": {
+  "cherry": {
+   "name": "Cherry",
+   "pitch": 0,
+   "loud": 0
+  },
+  "oem": {
+   "name": "OEM",
+   "pitch": 0.06,
+   "loud": 0.03
+  },
+  "sa": {
+   "name": "SA",
+   "pitch": -0.12,
+   "loud": 0.12
+  },
+  "xda": {
+   "name": "XDA",
+   "pitch": 0.08,
+   "loud": 0.02
+  },
+  "mt3": {
+   "name": "MT3",
+   "pitch": -0.14,
+   "loud": 0.1
+  },
+  "kat": {
+   "name": "KAT",
+   "pitch": -0.05,
+   "loud": 0.05
+  }
+ },
+ "KMAT": {
+  "ABS": {
+   "pitch": 0.12,
+   "q": 0
+  },
+  "PBT": {
+   "pitch": -0.14,
+   "q": 6
+  }
+ },
+ "CONS": [
+  {
+   "id": "lube",
+   "name": "Смазка «Трибо 205»",
+   "price": 1200,
+   "lvl": 1,
+   "desc": "Банка на одну сборку. Убирает царапание и звон пружин"
+  },
+  {
+   "id": "stablube",
+   "name": "Диэлектрическая смазка",
+   "price": 500,
+   "lvl": 1,
+   "desc": "Для стабилизаторов: меньше дребезга"
+  },
+  {
+   "id": "films",
+   "name": "Плёнки для свитчей",
+   "price": 900,
+   "lvl": 3,
+   "desc": "Убирают люфт корпуса, звук плотнее"
+  },
+  {
+   "id": "foam",
+   "name": "Пенка в корпус",
+   "price": 700,
+   "lvl": 2,
+   "desc": "Гасит гулкость и «пустоту»"
+  },
+  {
+   "id": "pefoam",
+   "name": "PE-фоам (поп-мод)",
+   "price": 450,
+   "lvl": 5,
+   "desc": "«Попкорновый» мраморный звук, тон выше"
+  },
+  {
+   "id": "tape",
+   "name": "Малярный скотч (tape-mod)",
+   "price": 150,
+   "lvl": 4,
+   "desc": "Скотч на плату снизу: звук глубже"
+  }
+ ],
+ "RARITY": {
+  "common": {
+   "name": "Обычный",
+   "c": "rar-common",
+   "val": 1
+  },
+  "rare": {
+   "name": "Редкий",
+   "c": "rar-rare",
+   "val": 2.6
+  },
+  "epic": {
+   "name": "Эпический",
+   "c": "rar-epic",
+   "val": 7
+  },
+  "legendary": {
+   "name": "Легендарный",
+   "c": "rar-legendary",
+   "val": 20
+  }
+ },
+ "ARTISANS": [
+  {
+   "id": "a_paw",
+   "name": "Кошачья лапка",
+   "r": "common",
+   "g": "✦",
+   "art": "linear-gradient(135deg,#f6c1cf,#e98aa4)"
+  },
+  {
+   "id": "a_coffee",
+   "name": "Кофейное зерно",
+   "r": "common",
+   "g": "●",
+   "art": "linear-gradient(135deg,#7a4a2a,#3d2414)"
+  },
+  {
+   "id": "a_cactus",
+   "name": "Кактус",
+   "r": "common",
+   "g": "✚",
+   "art": "linear-gradient(135deg,#7cc47a,#3c7a3a)"
+  },
+  {
+   "id": "a_sushi",
+   "name": "Суши-ролл",
+   "r": "common",
+   "g": "◉",
+   "art": "radial-gradient(circle,#ff8a65 30%,#fff 32% 55%,#1b1b1b 57%)"
+  },
+  {
+   "id": "a_pixel",
+   "name": "Ламповый пиксель",
+   "r": "common",
+   "g": "▣",
+   "art": "linear-gradient(135deg,#39ff6a,#0f3b1a)"
+  },
+  {
+   "id": "a_moon",
+   "name": "Лунный кролик",
+   "r": "rare",
+   "g": "☾",
+   "art": "linear-gradient(135deg,#2a3560,#9aa7e8)"
+  },
+  {
+   "id": "a_jelly",
+   "name": "Медуза",
+   "r": "rare",
+   "g": "❋",
+   "art": "linear-gradient(135deg,#4ee2ec,#8c5cff)"
+  },
+  {
+   "id": "a_lava",
+   "name": "Лавовый камень",
+   "r": "rare",
+   "g": "▲",
+   "art": "linear-gradient(135deg,#2b2b2b,#ff4d1c)"
+  },
+  {
+   "id": "a_sakura",
+   "name": "Сакура в смоле",
+   "r": "rare",
+   "g": "✿",
+   "art": "linear-gradient(135deg,#ffe3ec,#ff8fb1)"
+  },
+  {
+   "id": "a_raccoon",
+   "name": "Енот-ниндзя",
+   "r": "rare",
+   "g": "◆",
+   "art": "linear-gradient(135deg,#8d8d8d,#2b2b2b)"
+  },
+  {
+   "id": "a_kraken",
+   "name": "Кракен",
+   "r": "epic",
+   "g": "✺",
+   "art": "linear-gradient(135deg,#1a5b6b,#7c2fd1)"
+  },
+  {
+   "id": "a_galaxy",
+   "name": "Галактика",
+   "r": "epic",
+   "g": "✧",
+   "art": "radial-gradient(circle at 30% 30%,#fff 0 4%,#6b4cff 20%,#120a33 70%)"
+  },
+  {
+   "id": "a_skull",
+   "name": "Череп из смолы",
+   "r": "epic",
+   "g": "☠",
+   "art": "linear-gradient(135deg,#e8e2d0,#7f7a6b)"
+  },
+  {
+   "id": "a_phantom",
+   "name": "Фантом",
+   "r": "epic",
+   "g": "◌",
+   "art": "linear-gradient(135deg,rgba(255,255,255,.75),#7fa6c9)"
+  },
+  {
+   "id": "a_dragon",
+   "name": "Золотой дракон",
+   "r": "legendary",
+   "g": "龍",
+   "art": "linear-gradient(135deg,#ffe08a,#b07a12)"
+  },
+  {
+   "id": "a_phoenix",
+   "name": "Феникс",
+   "r": "legendary",
+   "g": "♨",
+   "art": "linear-gradient(135deg,#ffcf3f,#ff3d1f 60%,#7a0e0e)"
+  }
+ ],
+ "ART_BASE": 2500,
+ "TAGS": {
+  "pastel": "пастель",
+  "dark": "тёмная гамма",
+  "light": "светлая гамма",
+  "retro": "ретро",
+  "bright": "яркие цвета",
+  "nature": "природа",
+  "cyber": "киберпанк",
+  "minimal": "минимализм",
+  "elegant": "элегантность"
+ },
+ "TAG_ASK": {
+  "pastel": "в пастельных тонах",
+  "dark": "в тёмной гамме",
+  "light": "светлую, воздушную",
+  "retro": "в ретро-стиле",
+  "bright": "поярче, чтобы радовала глаз",
+  "nature": "с природными мотивами",
+  "cyber": "в духе киберпанка",
+  "minimal": "строгую и минималистичную",
+  "elegant": "элегантную, чтобы смотрелась дорого"
+ },
+ "STYPE": {
+  "linear": "линейные",
+  "tactile": "тактильные",
+  "clicky": "кликающие",
+  "silent": "тихие"
+ },
+ "FIRST": [
+  "Дима",
+  "Аня",
+  "Саша",
+  "Маша",
+  "Олег",
+  "Лиза",
+  "Егор",
+  "Катя",
+  "Илья",
+  "Соня",
+  "Никита",
+  "Вика",
+  "Артём",
+  "Полина",
+  "Женя",
+  "Миша",
+  "Ксюша",
+  "Тимур",
+  "Алина",
+  "Глеб",
+  "Даша",
+  "Рома",
+  "Юля",
+  "Паша",
+  "Варя",
+  "Лёша",
+  "Надя",
+  "Стас",
+  "Ира",
+  "Костя"
+ ],
+ "LAST": [
+  "К.",
+  "С.",
+  "М.",
+  "В.",
+  "Р.",
+  "Т.",
+  "Л.",
+  "Б.",
+  "Н.",
+  "Ж.",
+  "Г.",
+  "П.",
+  "Ш.",
+  "Ф.",
+  "Д."
+ ],
+ "PERSONA": [
+  {
+   "t": "Я программист, печатаю по десять часов в день.",
+   "w": 1
+  },
+  {
+   "t": "Стримлю по вечерам, зрители слышат каждую клавишу.",
+   "w": 1
+  },
+  {
+   "t": "Работаю в опенспейсе, коллеги косо смотрят.",
+   "w": 1,
+   "pref": "silent"
+  },
+  {
+   "t": "Пишу романы, мне важно ощущение под пальцами.",
+   "w": 1
+  },
+  {
+   "t": "Играю в шутеры на соревновательном уровне.",
+   "w": 1,
+   "stype": "linear"
+  },
+  {
+   "t": "Собираю сетап мечты, хочу, чтобы всё было идеально.",
+   "w": 1
+  },
+  {
+   "t": "Ищу подарок на день рождения.",
+   "w": 1
+  },
+  {
+   "t": "Студент, первая механика в жизни.",
+   "w": 1
+  },
+  {
+   "t": "Дизайнер, для меня важна эстетика.",
+   "w": 1
+  },
+  {
+   "t": "Фанат ретро-железа, люблю, когда клавиатура говорит.",
+   "w": 1,
+   "pref": "clicky"
+  },
+  {
+   "t": "Монтирую видео ночами, соседи спят.",
+   "w": 1,
+   "pref": "silent"
+  },
+  {
+   "t": "Видел обзоры на YouTube и заболел thock-ом.",
+   "w": 1,
+   "pref": "thock"
+  }
+ ],
+ "SOUND_ASK": {
+  "thock": "Хочу глубокий, «пузатый» звук — настоящий thock.",
+  "clack": "Люблю звонкий, высокий clack.",
+  "silent": "Нужна максимально тихая клавиатура.",
+  "clicky": "Хочу громкие щелчки, чтобы каждое нажатие было слышно."
+ },
+ "AVA_COL": [
+  "#ef9a7a",
+  "#8fd3c7",
+  "#e8c66c",
+  "#b4a5e6",
+  "#9ccc7a",
+  "#f2a7c0",
+  "#7fb6e8",
+  "#e0b48a"
+ ],
+ "VIPS": [
+  {
+   "id": "kirill",
+   "name": "Кирилл «Thock» Волков",
+   "role": "стример",
+   "lvl": 4,
+   "col": "#ff8160",
+   "stages": [
+    {
+     "text": "Привет! У меня канал про сетапы. Зрители жалуются, что моя клавиатура звучит как пластиковая коробка. Нужен честный thock.",
+     "req": {
+      "sound": "thock",
+      "thockMin": 62
+     },
+     "pay": 1.6,
+     "reward": {
+      "art": "common"
+     }
+    },
+    {
+     "text": "Ролик с твоей сборкой набрал миллион! Хочу вторую — 65%, с подсветкой для стрима, thock ещё глубже.",
+     "req": {
+      "layout": "l65",
+      "sound": "thock",
+      "thockMin": 72,
+      "rgb": true
+     },
+     "pay": 1.8,
+     "reward": {
+      "art": "rare"
+     }
+    },
+    {
+     "text": "Финал: делаем клавиатуру для юбилейного стрима. Беспроводная, thock на максимум, качество — без компромиссов.",
+     "req": {
+      "sound": "thock",
+      "thockMin": 82,
+      "qMin": 80,
+      "wl": true
+     },
+     "pay": 2.4,
+     "reward": {
+      "art": "epic",
+      "money": 60000
+     }
+    }
+   ]
+  },
+  {
+   "id": "vera",
+   "name": "Вера Лунная",
+   "role": "писательница",
+   "lvl": 7,
+   "col": "#b4a5e6",
+   "stages": [
+    {
+     "text": "Я пишу по ночам, а муж спит в соседней комнате. Мне нужна тишина и мягкость.",
+     "req": {
+      "sound": "silent",
+      "loudMax": 38
+     },
+     "pay": 1.6,
+     "reward": {
+      "art": "common"
+     }
+    },
+    {
+     "text": "Новая книга, новая клавиатура. Хочу ещё тише и непременно в пастельных тонах.",
+     "req": {
+      "sound": "silent",
+      "loudMax": 28,
+      "tag": "pastel"
+     },
+     "pay": 1.8,
+     "reward": {
+      "art": "rare"
+     }
+    },
+    {
+     "text": "Издательство подарило мне кабинет. Хочу полноразмерную TKL, почти беззвучную и безупречную.",
+     "req": {
+      "layout": "tkl",
+      "sound": "silent",
+      "loudMax": 22,
+      "qMin": 84
+     },
+     "pay": 2.4,
+     "reward": {
+      "art": "epic",
+      "money": 70000
+     }
+    }
+   ]
+  },
+  {
+   "id": "dan",
+   "name": "Даня «Flick» Орлов",
+   "role": "киберспортсмен",
+   "lvl": 10,
+   "col": "#7fb6e8",
+   "stages": [
+    {
+     "text": "Турнир через неделю. Нужна компактная 60% на линейных, лёгкая и быстрая.",
+     "req": {
+      "layout": "l60",
+      "stype": "linear"
+     },
+     "pay": 1.6,
+     "reward": {
+      "art": "rare"
+     }
+    },
+    {
+     "text": "Хочу идеальную гладкость хода — ни одного царапания. Линейные, гладкость от 85.",
+     "req": {
+      "stype": "linear",
+      "smoothMin": 85
+     },
+     "pay": 1.9,
+     "reward": {
+      "art": "rare"
+     }
+    },
+    {
+     "text": "Чемпионат мира. Только магнитные свитчи Холла, качество от 88.",
+     "req": {
+      "switch": "sw_hall",
+      "qMin": 88
+     },
+     "pay": 2.6,
+     "reward": {
+      "art": "legendary"
+     }
+    }
+   ]
+  },
+  {
+   "id": "arkady",
+   "name": "Аркадий Петрович",
+   "role": "коллекционер",
+   "lvl": 14,
+   "col": "#e8c66c",
+   "stages": [
+    {
+     "text": "Молодой человек, я помню клавиатуры 80-х. Сделайте мне кликающую, в ретро-стиле.",
+     "req": {
+      "stype": "clicky",
+      "tag": "retro"
+     },
+     "pay": 1.7,
+     "reward": {
+      "art": "rare"
+     }
+    },
+    {
+     "text": "Для моей коллекции — полноразмерная, ретро, качество от 80. Цифровой блок обязателен.",
+     "req": {
+      "layout": "full",
+      "tag": "retro",
+      "qMin": 80
+     },
+     "pay": 2,
+     "reward": {
+      "art": "epic"
+     }
+    },
+    {
+     "text": "Последний экспонат. С артизаном на Esc и качеством от 92. Это будет жемчужина.",
+     "req": {
+      "artisan": true,
+      "qMin": 92
+     },
+     "pay": 2.8,
+     "reward": {
+      "art": "legendary",
+      "money": 120000
+     }
+    }
+   ]
+  }
+ ],
+ "CONTESTS": [
+  {
+   "id": "thock",
+   "name": "Король thock",
+   "desc": "Самый глубокий звук. Учитывается thock, качество, отсутствие звона."
+  },
+  {
+   "id": "silent",
+   "name": "Тише воды",
+   "desc": "Самая тихая сборка без потери качества."
+  },
+  {
+   "id": "smooth",
+   "name": "Шёлковый ход",
+   "desc": "Максимальная гладкость и качество."
+  },
+  {
+   "id": "aesthetic",
+   "name": "Эстетика",
+   "desc": "Самая красивая и дорогая на вид сборка: кейкапы, корпус, артизан."
+  },
+  {
+   "id": "clack",
+   "name": "Звонкий clack",
+   "desc": "Высокий, чистый, мраморный звук."
+  }
+ ],
+ "CITIES": [
+  "Москва",
+  "Санкт-Петербург",
+  "Казань",
+  "Новосибирск",
+  "Сеул",
+  "Токио",
+  "Шэньчжэнь",
+  "Берлин",
+  "Сан-Франциско",
+  "Нью-Йорк",
+  "Лондон",
+  "Сидней"
+ ],
+ "SND_SETS": {
+  "mxblack": {
+   "p": 0,
+   "n": "линейный классический"
+  },
+  "redink": {
+   "p": 0.25,
+   "n": "линейный звонкий"
+  },
+  "blackink": {
+   "p": 0.15,
+   "n": "линейный плотный"
+  },
+  "alpaca": {
+   "p": -0.1,
+   "n": "линейный шелковистый"
+  },
+  "cream": {
+   "p": 0.25,
+   "n": "линейный POM"
+  },
+  "turquoise": {
+   "p": -0.1,
+   "n": "линейный мягкий"
+  },
+  "holypanda": {
+   "p": -0.2,
+   "n": "тактильный резкий"
+  },
+  "mxbrown": {
+   "p": 0.05,
+   "n": "тактильный мягкий"
+  },
+  "mxblue": {
+   "p": 0.2,
+   "n": "кликающий с джекетом"
+  },
+  "boxnavy": {
+   "p": 0.3,
+   "n": "кликающий клик-бар"
+  },
+  "bluealps": {
+   "p": 0.4,
+   "n": "кликающий старой школы"
+  },
+  "buckling": {
+   "p": 0.1,
+   "n": "изгибная пружина"
+  },
+  "topre": {
+   "p": -0.4,
+   "n": "электроёмкостный купол"
+  }
+ }
+}

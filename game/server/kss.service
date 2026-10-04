@@ -1,0 +1,14 @@
+[Unit]
+Description=Keyboard Seller Simulator online server
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/kss
+ExecStart=/usr/bin/node /opt/kss/server.mjs
+Environment=PORT=8787
+Environment=DB=/opt/kss/kss.db
+Restart=always
+User=kss
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,1296 @@
+{
+ "artisans": [
+  {
+   "art": "linear-gradient(135deg,#f6c1cf,#e98aa4)",
+   "g": "✦",
+   "id": "a_paw",
+   "name": "Кошачья лапка",
+   "r": "common"
+  },
+  {
+   "art": "linear-gradient(135deg,#7a4a2a,#3d2414)",
+   "g": "●",
+   "id": "a_coffee",
+   "name": "Кофейное зерно",
+   "r": "common"
+  },
+  {
+   "art": "linear-gradient(135deg,#7cc47a,#3c7a3a)",
+   "g": "✚",
+   "id": "a_cactus",
+   "name": "Кактус",
+   "r": "common"
+  },
+  {
+   "art": "radial-gradient(circle,#ff8a65 30%,#fff 32% 55%,#1b1b1b 57%)",
+   "g": "◉",
+   "id": "a_sushi",
+   "name": "Суши-ролл",
+   "r": "common"
+  },
+  {
+   "art": "linear-gradient(135deg,#39ff6a,#0f3b1a)",
+   "g": "▣",
+   "id": "a_pixel",
+   "name": "Ламповый пиксель",
+   "r": "common"
+  },
+  {
+   "art": "linear-gradient(135deg,#2a3560,#9aa7e8)",
+   "g": "☾",
+   "id": "a_moon",
+   "name": "Лунный кролик",
+   "r": "rare"
+  },
+  {
+   "art": "linear-gradient(135deg,#4ee2ec,#8c5cff)",
+   "g": "❋",
+   "id": "a_jelly",
+   "name": "Медуза",
+   "r": "rare"
+  },
+  {
+   "art": "linear-gradient(135deg,#2b2b2b,#ff4d1c)",
+   "g": "▲",
+   "id": "a_lava",
+   "name": "Лавовый камень",
+   "r": "rare"
+  },
+  {
+   "art": "linear-gradient(135deg,#ffe3ec,#ff8fb1)",
+   "g": "✿",
+   "id": "a_sakura",
+   "name": "Сакура в смоле",
+   "r": "rare"
+  },
+  {
+   "art": "linear-gradient(135deg,#8d8d8d,#2b2b2b)",
+   "g": "◆",
+   "id": "a_raccoon",
+   "name": "Енот-ниндзя",
+   "r": "rare"
+  },
+  {
+   "art": "linear-gradient(135deg,#1a5b6b,#7c2fd1)",
+   "g": "✺",
+   "id": "a_kraken",
+   "name": "Кракен",
+   "r": "epic"
+  },
+  {
+   "art": "radial-gradient(circle at 30% 30%,#fff 0 4%,#6b4cff 20%,#120a33 70%)",
+   "g": "✧",
+   "id": "a_galaxy",
+   "name": "Галактика",
+   "r": "epic"
+  },
+  {
+   "art": "linear-gradient(135deg,#e8e2d0,#7f7a6b)",
+   "g": "☠",
+   "id": "a_skull",
+   "name": "Череп из смолы",
+   "r": "epic"
+  },
+  {
+   "art": "linear-gradient(135deg,rgba(255,255,255,.75),#7fa6c9)",
+   "g": "◌",
+   "id": "a_phantom",
+   "name": "Фантом",
+   "r": "epic"
+  },
+  {
+   "art": "linear-gradient(135deg,#ffe08a,#b07a12)",
+   "g": "龍",
+   "id": "a_dragon",
+   "name": "Золотой дракон",
+   "r": "legendary"
+  },
+  {
+   "art": "linear-gradient(135deg,#ffcf3f,#ff3d1f 60%,#7a0e0e)",
+   "g": "♨",
+   "id": "a_phoenix",
+   "name": "Феникс",
+   "r": "legendary"
+  }
+ ],
+ "boxes": [
+  {
+   "id": "box_sw",
+   "name": "Коробка свитчей",
+   "pool": "sw"
+  },
+  {
+   "id": "box_kc",
+   "name": "Коробка кейкапов",
+   "pool": "kc"
+  },
+  {
+   "id": "box_art",
+   "name": "Коробка артизанов",
+   "pool": "art"
+  },
+  {
+   "id": "box_pro",
+   "name": "Сундук мастера",
+   "pool": "mix"
+  }
+ ],
+ "keycaps": [
+  {
+   "c": {
+    "a": "#202226",
+    "al": "#e8e8e8",
+    "m": "#202226",
+    "ml": "#e8e8e8",
+    "sp": "m",
+    "x": "#202226",
+    "xl": "#e8e8e8"
+   },
+   "id": "k_stock",
+   "lvl": 1.0,
+   "mat": "ABS",
+   "name": "Стоковые ABS",
+   "price": 1500.0,
+   "prof": "oem",
+   "tags": [
+    "dark",
+    "minimal"
+   ]
+  },
+  {
+   "c": {
+    "a": "#1b1c1f",
+    "al": "#f2f2f2",
+    "m": "#1b1c1f",
+    "ml": "#f2f2f2",
+    "sp": "m",
+    "x": "#1b1c1f",
+    "xl": "#f2f2f2"
+   },
+   "id": "k_wob",
+   "lvl": 1.0,
+   "mat": "PBT",
+   "name": "WoB PBT",
+   "price": 3400.0,
+   "prof": "cherry",
+   "tags": [
+    "dark",
+    "minimal"
+   ]
+  },
+  {
+   "c": {
+    "a": "#f1efe9",
+    "al": "#1c1c1c",
+    "m": "#f1efe9",
+    "ml": "#1c1c1c",
+    "sp": "a",
+    "x": "#f1efe9",
+    "xl": "#1c1c1c"
+   },
+   "id": "k_bow",
+   "lvl": 2.0,
+   "mat": "PBT",
+   "name": "BoW Классика",
+   "price": 3400.0,
+   "prof": "cherry",
+   "tags": [
+    "light",
+    "minimal"
+   ]
+  },
+  {
+   "c": {
+    "a": "#f4f1ea",
+    "al": "#20b4a8",
+    "m": "#21b3a7",
+    "ml": "#fcefe9",
+    "sp": "x",
+    "x": "#f07ba6",
+    "xl": "#ffffff"
+   },
+   "id": "k_miami",
+   "lvl": 3.0,
+   "mat": "ABS",
+   "name": "Прибой",
+   "price": 5500.0,
+   "prof": "oem",
+   "tags": [
+    "bright",
+    "retro"
+   ]
+  },
+  {
+   "c": {
+    "a": "#e8e3cf",
+    "al": "#4f6b3c",
+    "m": "#8aa66a",
+    "ml": "#f3f0e2",
+    "sp": "a",
+    "x": "#4f6b3c",
+    "xl": "#e8e3cf"
+   },
+   "id": "k_matcha",
+   "lvl": 4.0,
+   "mat": "PBT",
+   "name": "Матча",
+   "price": 6000.0,
+   "prof": "cherry",
+   "tags": [
+    "nature",
+    "pastel"
+   ]
+  },
+  {
+   "c": {
+    "a": "#fbe9ee",
+    "al": "#c25b7a",
+    "m": "#f1b8c8",
+    "ml": "#7a2f45",
+    "sp": "m",
+    "x": "#c25b7a",
+    "xl": "#fbe9ee"
+   },
+   "id": "k_sakura",
+   "lvl": 5.0,
+   "mat": "PBT",
+   "name": "Сакура",
+   "price": 6500.0,
+   "prof": "xda",
+   "tags": [
+    "pastel",
+    "nature"
+   ]
+  },
+  {
+   "c": {
+    "a": "#5b5f64",
+    "al": "#e7e7e7",
+    "m": "#2d3034",
+    "ml": "#d9d9d9",
+    "sp": "a",
+    "x": "#b8312f",
+    "xl": "#f0f0f0"
+   },
+   "id": "k_dolch",
+   "lvl": 5.0,
+   "mat": "ABS",
+   "name": "Графит",
+   "price": 8200.0,
+   "prof": "cherry",
+   "tags": [
+    "dark",
+    "retro"
+   ]
+  },
+  {
+   "c": {
+    "a": "#e6dfcf",
+    "al": "#2b2b2b",
+    "m": "#9a978d",
+    "ml": "#2b2b2b",
+    "sp": "a",
+    "x": "#3b4f86",
+    "xl": "#e6dfcf"
+   },
+   "id": "k_retro",
+   "lvl": 6.0,
+   "mat": "PBT",
+   "name": "Бежевый офис",
+   "price": 7000.0,
+   "prof": "cherry",
+   "tags": [
+    "retro",
+    "light"
+   ]
+  },
+  {
+   "c": {
+    "a": "#f6efdf",
+    "al": "#a0702a",
+    "m": "#e9b949",
+    "ml": "#3d2a10",
+    "sp": "a",
+    "x": "#e9b949",
+    "xl": "#3d2a10"
+   },
+   "id": "k_honey",
+   "lvl": 6.0,
+   "mat": "PBT",
+   "name": "Мёд и молоко",
+   "price": 8000.0,
+   "prof": "cherry",
+   "tags": [
+    "pastel",
+    "light"
+   ]
+  },
+  {
+   "c": {
+    "a": "#e5e9f0",
+    "al": "#4c566a",
+    "m": "#a3b1c6",
+    "ml": "#2e3440",
+    "sp": "a",
+    "x": "#5e81ac",
+    "xl": "#eceff4"
+   },
+   "id": "k_nord",
+   "lvl": 7.0,
+   "mat": "PBT",
+   "name": "Норд",
+   "price": 7500.0,
+   "prof": "cherry",
+   "tags": [
+    "light",
+    "minimal"
+   ]
+  },
+  {
+   "c": {
+    "a": "#f2dcd6",
+    "al": "#2a2a2a",
+    "m": "#222222",
+    "ml": "#e8bfb6",
+    "sp": "a",
+    "x": "#e8bfb6",
+    "xl": "#222222"
+   },
+   "id": "k_olivia",
+   "lvl": 8.0,
+   "mat": "ABS",
+   "name": "Пудра",
+   "price": 12500.0,
+   "prof": "cherry",
+   "tags": [
+    "pastel",
+    "elegant"
+   ]
+  },
+  {
+   "c": {
+    "a": "#f0ecd8",
+    "al": "#3d6b47",
+    "m": "#3d6b47",
+    "ml": "#f0ecd8",
+    "sp": "a",
+    "x": "#c79a3c",
+    "xl": "#2d3e2a"
+   },
+   "id": "k_botanic",
+   "lvl": 9.0,
+   "mat": "PBT",
+   "name": "Оранжерея",
+   "price": 9000.0,
+   "prof": "cherry",
+   "tags": [
+    "nature",
+    "light"
+   ]
+  },
+  {
+   "c": {
+    "a": "#f2efe6",
+    "al": "#1f2f4f",
+    "m": "#1f2f4f",
+    "ml": "#f2efe6",
+    "sp": "a",
+    "x": "#f06b54",
+    "xl": "#ffffff"
+   },
+   "id": "k_bento",
+   "lvl": 10.0,
+   "mat": "ABS",
+   "name": "Ланч",
+   "price": 11000.0,
+   "prof": "cherry",
+   "tags": [
+    "bright",
+    "elegant"
+   ]
+  },
+  {
+   "c": {
+    "a": "#dcdcdc",
+    "al": "#dcdcdc",
+    "m": "#bdbdbd",
+    "ml": "#bdbdbd",
+    "sp": "a",
+    "x": "#f04c3e",
+    "xl": "#f04c3e"
+   },
+   "id": "k_mono",
+   "lvl": 12.0,
+   "mat": "PBT",
+   "name": "Моно",
+   "price": 10000.0,
+   "prof": "kat",
+   "tags": [
+    "minimal",
+    "light"
+   ]
+  },
+  {
+   "c": {
+    "a": "#2b1b4f",
+    "al": "#ff3fb4",
+    "m": "#5b2a9d",
+    "ml": "#56e6ff",
+    "sp": "m",
+    "x": "#ff3fb4",
+    "xl": "#1a0f33"
+   },
+   "id": "k_laser",
+   "lvl": 12.0,
+   "mat": "ABS",
+   "name": "Неон",
+   "price": 14500.0,
+   "prof": "sa",
+   "tags": [
+    "cyber",
+    "bright"
+   ]
+  },
+  {
+   "c": {
+    "a": "#1a1f33",
+    "al": "#e8e6ff",
+    "m": "#2e3a66",
+    "ml": "#e8e6ff",
+    "sp": "m",
+    "x": "#f2c14e",
+    "xl": "#1a1f33"
+   },
+   "id": "k_space",
+   "lvl": 14.0,
+   "mat": "PBT",
+   "name": "Космос",
+   "price": 13000.0,
+   "prof": "sa",
+   "tags": [
+    "dark",
+    "cyber"
+   ]
+  },
+  {
+   "c": {
+    "a": "#2c2c2c",
+    "al": "#ff7a1a",
+    "m": "#4a4a4a",
+    "ml": "#ff7a1a",
+    "sp": "a",
+    "x": "#ff7a1a",
+    "xl": "#2c2c2c"
+   },
+   "id": "k_carbon",
+   "lvl": 16.0,
+   "mat": "ABS",
+   "name": "Карбон",
+   "price": 16000.0,
+   "prof": "sa",
+   "tags": [
+    "dark",
+    "retro"
+   ]
+  },
+  {
+   "c": {
+    "a": "#151a14",
+    "al": "#39ff6a",
+    "m": "#232a21",
+    "ml": "#39ff6a",
+    "sp": "a",
+    "x": "#39ff6a",
+    "xl": "#151a14"
+   },
+   "id": "k_terminal",
+   "lvl": 18.0,
+   "mat": "ABS",
+   "name": "Терминал",
+   "price": 15500.0,
+   "prof": "mt3",
+   "tags": [
+    "retro",
+    "dark",
+    "cyber"
+   ]
+  },
+  {
+   "c": {
+    "a": "#123a4f",
+    "al": "#9fe3f0",
+    "m": "#0b2533",
+    "ml": "#9fe3f0",
+    "sp": "a",
+    "x": "#2fc6c0",
+    "xl": "#0b2533"
+   },
+   "id": "k_ocean",
+   "lvl": 20.0,
+   "mat": "ABS",
+   "name": "Глубина",
+   "price": 18000.0,
+   "prof": "cherry",
+   "tags": [
+    "nature",
+    "dark"
+   ]
+  },
+  {
+   "c": {
+    "a": "#1d1a2e",
+    "al": "#e3c06d",
+    "m": "#3a1f3d",
+    "ml": "#e3c06d",
+    "sp": "a",
+    "x": "#e3c06d",
+    "xl": "#1d1a2e"
+   },
+   "id": "k_royal",
+   "lvl": 26.0,
+   "mat": "ABS",
+   "name": "Королевский",
+   "price": 24000.0,
+   "prof": "mt3",
+   "tags": [
+    "elegant",
+    "dark"
+   ]
+  },
+  {
+   "c": {
+    "a": "#13253a",
+    "al": "#7ff0d0",
+    "m": "#1c3d5a",
+    "ml": "#c39bff",
+    "sp": "m",
+    "x": "#7ff0d0",
+    "xl": "#13253a"
+   },
+   "gb": true,
+   "id": "k_aurora",
+   "lvl": 1.0,
+   "mat": "ABS",
+   "name": "Аврора",
+   "price": 29000.0,
+   "prof": "sa",
+   "tags": [
+    "cyber",
+    "bright",
+    "elegant"
+   ]
+  },
+  {
+   "c": {
+    "a": "#efe7d6",
+    "al": "#1d1d1d",
+    "m": "#1d1d1d",
+    "ml": "#efe7d6",
+    "sp": "a",
+    "x": "#c4262e",
+    "xl": "#efe7d6"
+   },
+   "gb": true,
+   "id": "k_samurai",
+   "lvl": 1.0,
+   "mat": "ABS",
+   "name": "Самурай",
+   "price": 27000.0,
+   "prof": "cherry",
+   "tags": [
+    "elegant",
+    "retro",
+    "dark"
+   ]
+  },
+  {
+   "c": {
+    "a": "#f6d6f0",
+    "al": "#6a4bd6",
+    "m": "#9ad6f2",
+    "ml": "#5a2f8a",
+    "sp": "m",
+    "x": "#ff7ac6",
+    "xl": "#ffffff"
+   },
+   "gb": true,
+   "id": "k_vapor",
+   "lvl": 1.0,
+   "mat": "PBT",
+   "name": "Вейпорвейв",
+   "price": 22000.0,
+   "prof": "xda",
+   "tags": [
+    "pastel",
+    "bright",
+    "retro"
+   ]
+  },
+  {
+   "c": {
+    "a": "#2b3a33",
+    "al": "#cfe0c6",
+    "m": "#1b2722",
+    "ml": "#cfe0c6",
+    "sp": "a",
+    "x": "#d9a441",
+    "xl": "#1b2722"
+   },
+   "gb": true,
+   "id": "k_forest",
+   "lvl": 1.0,
+   "mat": "PBT",
+   "name": "Туманный лес",
+   "price": 24000.0,
+   "prof": "kat",
+   "tags": [
+    "nature",
+    "dark",
+    "minimal"
+   ]
+  },
+  {
+   "box": "epic",
+   "c": {
+    "a": "#e9e3ff",
+    "al": "#6b4cff",
+    "m": "#b8f2ff",
+    "ml": "#3a2a8f",
+    "sp": "m",
+    "x": "#ff9de2",
+    "xl": "#ffffff"
+   },
+   "id": "k_holo",
+   "lvl": 1,
+   "mat": "ABS",
+   "name": "Голографическая серия",
+   "price": 38000,
+   "prof": "sa",
+   "tags": [
+    "cyber",
+    "bright",
+    "elegant"
+   ]
+  },
+  {
+   "box": "legendary",
+   "c": {
+    "a": "#1c1a17",
+    "al": "#e8c26a",
+    "m": "#2b2620",
+    "ml": "#e8c26a",
+    "sp": "a",
+    "x": "#e8c26a",
+    "xl": "#1c1a17"
+   },
+   "id": "k_gold",
+   "lvl": 1,
+   "mat": "ABS",
+   "name": "Золотой век",
+   "price": 52000,
+   "prof": "mt3",
+   "tags": [
+    "elegant",
+    "retro",
+    "dark"
+   ]
+  },
+  {
+   "box": "rare",
+   "c": {
+    "a": "#f4f8fb",
+    "al": "#7a96ad",
+    "m": "#d6e4ee",
+    "ml": "#3d5466",
+    "sp": "a",
+    "x": "#9ad0f5",
+    "xl": "#18324a"
+   },
+   "id": "k_frost",
+   "lvl": 1,
+   "mat": "PBT",
+   "name": "Иней",
+   "price": 21000,
+   "prof": "cherry",
+   "tags": [
+    "light",
+    "minimal",
+    "pastel"
+   ]
+  }
+ ],
+ "l65": 68,
+ "odds": {
+  "common": 0.7,
+  "epic": 0.065,
+  "legendary": 0.015,
+  "rare": 0.22
+ },
+ "odds_pro": {
+  "common": 0.4,
+  "epic": 0.17,
+  "legendary": 0.05,
+  "rare": 0.38
+ },
+ "switches": [
+  {
+   "click": 0.0,
+   "desc": "Бюджетный линейный, лёгкий",
+   "force": 45.0,
+   "hous": "#2a2a2a",
+   "id": "sw_red",
+   "loud": 0.62,
+   "lube": 0.15,
+   "lvl": 1.0,
+   "name": "Рубин",
+   "ping": 0.5,
+   "pitch": 0.1,
+   "price": 18.0,
+   "scratch": 0.55,
+   "snd": "mxblack",
+   "stem": "#d9423b",
+   "tact": 0.0,
+   "type": "linear"
+  },
+  {
+   "click": 0.0,
+   "desc": "Тугой линейный старой школы",
+   "force": 60.0,
+   "hous": "#2a2a2a",
+   "id": "sw_black",
+   "loud": 0.64,
+   "lube": 0.15,
+   "lvl": 1.0,
+   "name": "Обсидиан",
+   "ping": 0.6,
+   "pitch": -0.05,
+   "price": 20.0,
+   "scratch": 0.55,
+   "snd": "mxblack",
+   "stem": "#1b1b1b",
+   "tact": 0.0,
+   "type": "linear"
+  },
+  {
+   "click": 0.0,
+   "desc": "Мягкий тактильный бугорок",
+   "force": 45.0,
+   "hous": "#2a2a2a",
+   "id": "sw_brown",
+   "loud": 0.6,
+   "lube": 0.15,
+   "lvl": 1.0,
+   "name": "Каштан",
+   "ping": 0.5,
+   "pitch": 0.05,
+   "price": 20.0,
+   "scratch": 0.5,
+   "snd": "mxbrown",
+   "stem": "#7a4a2a",
+   "tact": 0.3,
+   "type": "tactile"
+  },
+  {
+   "click": 0.85,
+   "desc": "Классический клик с джекетом",
+   "force": 50.0,
+   "hous": "#2a2a2a",
+   "id": "sw_blue",
+   "loud": 0.85,
+   "lube": 0.1,
+   "lvl": 1.0,
+   "name": "Лазурь",
+   "ping": 0.45,
+   "pitch": 0.2,
+   "price": 20.0,
+   "scratch": 0.5,
+   "snd": "mxblue",
+   "stem": "#2f6fd6",
+   "tact": 0.5,
+   "type": "clicky"
+  },
+  {
+   "click": 0.0,
+   "desc": "Народный гладкий линейный",
+   "force": 50.0,
+   "hous": "#e8e2d0",
+   "id": "sw_yellow",
+   "loud": 0.6,
+   "lube": 0.4,
+   "lvl": 2.0,
+   "name": "Янтарь",
+   "ping": 0.35,
+   "pitch": -0.05,
+   "price": 28.0,
+   "scratch": 0.28,
+   "snd": "redink",
+   "stem": "#e7c33e",
+   "tact": 0.0,
+   "type": "linear"
+  },
+  {
+   "click": 0.0,
+   "desc": "Демпферы на штоке: почти беззвучно",
+   "force": 37.0,
+   "hous": "#3a3a3a",
+   "id": "sw_silent",
+   "loud": 0.18,
+   "lube": 0.45,
+   "lvl": 3.0,
+   "name": "Шёпот",
+   "ping": 0.2,
+   "pitch": -0.1,
+   "price": 36.0,
+   "scratch": 0.3,
+   "snd": "mxblack",
+   "stem": "#c96a6a",
+   "tact": 0.0,
+   "type": "silent"
+  },
+  {
+   "click": 0.0,
+   "desc": "Нейлоновый корпус — глубокий звук",
+   "force": 45.0,
+   "hous": "#efe9dc",
+   "id": "sw_milky",
+   "loud": 0.66,
+   "lube": 0.1,
+   "lvl": 4.0,
+   "name": "Молочный",
+   "ping": 0.4,
+   "pitch": -0.32,
+   "price": 32.0,
+   "scratch": 0.58,
+   "snd": "mxblack",
+   "stem": "#f2efe8",
+   "tact": 0.0,
+   "type": "linear"
+  },
+  {
+   "click": 0.0,
+   "desc": "Культовый резкий тактильный удар",
+   "force": 67.0,
+   "hous": "#d9d4c9",
+   "id": "sw_panda",
+   "loud": 0.78,
+   "lube": 0.2,
+   "lvl": 6.0,
+   "name": "Енот-тактиль",
+   "ping": 0.3,
+   "pitch": -0.2,
+   "price": 72.0,
+   "scratch": 0.35,
+   "snd": "holypanda",
+   "stem": "#f0f0f0",
+   "tact": 0.92,
+   "type": "tactile"
+  },
+  {
+   "click": 1.0,
+   "desc": "Клик-бар: хрусткий звонкий щелчок",
+   "force": 60.0,
+   "hous": "#2a2a2a",
+   "id": "sw_box",
+   "loud": 0.9,
+   "lube": 0.2,
+   "lvl": 6.0,
+   "name": "Нефритовый клик-бар",
+   "ping": 0.25,
+   "pitch": 0.32,
+   "price": 55.0,
+   "scratch": 0.25,
+   "snd": "boxnavy",
+   "stem": "#2fa86b",
+   "tact": 0.7,
+   "type": "clicky"
+  },
+  {
+   "click": 0.0,
+   "desc": "Обильная заводская смазка, «маслянистый»",
+   "force": 55.0,
+   "hous": "#3b3b3b",
+   "id": "sw_oil",
+   "loud": 0.66,
+   "lube": 0.9,
+   "lvl": 8.0,
+   "name": "Масляный",
+   "ping": 0.12,
+   "pitch": -0.36,
+   "price": 60.0,
+   "scratch": 0.1,
+   "snd": "blackink",
+   "stem": "#3a2f1a",
+   "tact": 0.0,
+   "type": "linear"
+  },
+  {
+   "click": 0.0,
+   "desc": "Переработанная классика, ровный ход",
+   "force": 48.0,
+   "hous": "#2b2b2b",
+   "id": "sw_classic2a",
+   "loud": 0.62,
+   "lube": 0.55,
+   "lvl": 9.0,
+   "name": "Классик-2",
+   "ping": 0.2,
+   "pitch": 0.0,
+   "price": 50.0,
+   "scratch": 0.18,
+   "snd": "mxblack",
+   "stem": "#c9302c",
+   "tact": 0.0,
+   "type": "linear"
+  },
+  {
+   "click": 0.0,
+   "desc": "Плотный корпус, высокий чистый звук",
+   "force": 60.0,
+   "hous": "#3d2b5e",
+   "id": "sw_ink",
+   "loud": 0.72,
+   "lube": 0.35,
+   "lvl": 10.0,
+   "name": "Чернильный",
+   "ping": 0.18,
+   "pitch": 0.22,
+   "price": 95.0,
+   "scratch": 0.08,
+   "snd": "blackink",
+   "stem": "#5b3e8e",
+   "tact": 0.0,
+   "type": "linear"
+  },
+  {
+   "click": 0.0,
+   "desc": "Полностью POM: «мраморный» clack, просит смазки",
+   "force": 55.0,
+   "hous": "#f4e3b5",
+   "id": "sw_cream",
+   "loud": 0.7,
+   "lube": 0.05,
+   "lvl": 11.0,
+   "name": "Сливочный POM",
+   "ping": 0.15,
+   "pitch": 0.24,
+   "price": 75.0,
+   "scratch": 0.62,
+   "snd": "cream",
+   "stem": "#f4e3b5",
+   "tact": 0.0,
+   "type": "linear"
+  },
+  {
+   "click": 0.0,
+   "desc": "Шелковистый, сбалансированный",
+   "force": 62.0,
+   "hous": "#f2f0ee",
+   "id": "sw_alpaca",
+   "loud": 0.68,
+   "lube": 0.45,
+   "lvl": 12.0,
+   "name": "Лама",
+   "ping": 0.15,
+   "pitch": -0.15,
+   "price": 85.0,
+   "scratch": 0.1,
+   "snd": "alpaca",
+   "stem": "#f2b5c6",
+   "tact": 0.0,
+   "type": "linear"
+  },
+  {
+   "click": 0.0,
+   "desc": "Округлый тактильный, очень глубокий",
+   "force": 62.0,
+   "hous": "#1f1f1f",
+   "id": "sw_boba",
+   "loud": 0.74,
+   "lube": 0.3,
+   "lvl": 13.0,
+   "name": "Тапиока",
+   "ping": 0.15,
+   "pitch": -0.4,
+   "price": 80.0,
+   "scratch": 0.18,
+   "snd": "holypanda",
+   "stem": "#2a2a2a",
+   "tact": 0.85,
+   "type": "tactile"
+  },
+  {
+   "click": 0.0,
+   "desc": "Тихий тактильный для офиса",
+   "force": 67.0,
+   "hous": "#2a2a2a",
+   "id": "sw_zilent",
+   "loud": 0.22,
+   "lube": 0.5,
+   "lvl": 14.0,
+   "name": "Тихий Зил",
+   "ping": 0.1,
+   "pitch": -0.15,
+   "price": 110.0,
+   "scratch": 0.15,
+   "snd": "mxbrown",
+   "stem": "#8a1fb0",
+   "tact": 0.8,
+   "type": "silent"
+  },
+  {
+   "click": 0.0,
+   "desc": "Длинная пружина, мягкое возвращение",
+   "force": 62.0,
+   "hous": "#f6f1e7",
+   "id": "sw_tang",
+   "loud": 0.66,
+   "lube": 0.55,
+   "lvl": 15.0,
+   "name": "Мандарин",
+   "ping": 0.1,
+   "pitch": -0.22,
+   "price": 90.0,
+   "scratch": 0.08,
+   "snd": "turquoise",
+   "stem": "#ff8c2a",
+   "tact": 0.0,
+   "type": "linear"
+  },
+  {
+   "click": 1.0,
+   "desc": "Тяжёлый клик, как у старых IBM",
+   "force": 80.0,
+   "hous": "#2a2a2a",
+   "id": "sw_thunder",
+   "loud": 0.95,
+   "lube": 0.15,
+   "lvl": 16.0,
+   "name": "Гром",
+   "ping": 0.25,
+   "pitch": 0.12,
+   "price": 65.0,
+   "scratch": 0.3,
+   "snd": "buckling",
+   "stem": "#1c5e9e",
+   "tact": 0.8,
+   "type": "clicky"
+  },
+  {
+   "click": 0.0,
+   "desc": "Длинный шток: резкий высокий clack",
+   "force": 50.0,
+   "hous": "#e8e2f6",
+   "id": "sw_laven",
+   "loud": 0.86,
+   "lube": 0.4,
+   "lvl": 18.0,
+   "name": "Лаванда Long-pole",
+   "ping": 0.18,
+   "pitch": 0.46,
+   "price": 72.0,
+   "scratch": 0.2,
+   "snd": "redink",
+   "stem": "#b9a6e8",
+   "tact": 0.0,
+   "type": "linear"
+  },
+  {
+   "click": 0.0,
+   "desc": "Сверхгладкий стем, «мраморный» тон",
+   "force": 63.0,
+   "hous": "#cfe3f1",
+   "id": "sw_polar",
+   "loud": 0.66,
+   "lube": 0.5,
+   "lvl": 22.0,
+   "name": "Полярный UHMWPE",
+   "ping": 0.08,
+   "pitch": -0.12,
+   "price": 120.0,
+   "scratch": 0.04,
+   "snd": "turquoise",
+   "stem": "#e8f4ff",
+   "tact": 0.0,
+   "type": "linear"
+  },
+  {
+   "click": 0.0,
+   "desc": "Датчик Холла, регулируемое срабатывание",
+   "force": 40.0,
+   "hous": "#4a5260",
+   "id": "sw_hall",
+   "loud": 0.55,
+   "lube": 0.6,
+   "lvl": 28.0,
+   "name": "Магнитный Холл",
+   "ping": 0.05,
+   "pitch": -0.05,
+   "price": 140.0,
+   "scratch": 0.02,
+   "snd": "alpaca",
+   "stem": "#9fb3c8",
+   "tact": 0.0,
+   "type": "linear"
+  },
+  {
+   "click": 0.0,
+   "desc": "Купол + конусная пружина: мягкий глубокий «топ»",
+   "force": 45.0,
+   "hous": "#3a3a3a",
+   "id": "sw_topre",
+   "loud": 0.58,
+   "lube": 0.6,
+   "lvl": 20.0,
+   "name": "Купол (электроёмкостный)",
+   "ping": 0.0,
+   "pitch": -0.42,
+   "price": 130.0,
+   "scratch": 0.02,
+   "snd": "topre",
+   "stem": "#d8d8d8",
+   "tact": 0.55,
+   "type": "tactile"
+  },
+  {
+   "click": 0.0,
+   "desc": "Лимитка: мраморный глубокий thock",
+   "force": 58.0,
+   "gb": true,
+   "hous": "#d5f5ef",
+   "id": "sw_aurora",
+   "loud": 0.66,
+   "lube": 0.7,
+   "lvl": 1.0,
+   "name": "Северное сияние",
+   "ping": 0.05,
+   "pitch": -0.3,
+   "price": 160.0,
+   "scratch": 0.03,
+   "snd": "cream",
+   "stem": "#6ee7d0",
+   "tact": 0.0,
+   "type": "linear"
+  },
+  {
+   "click": 0.0,
+   "desc": "Лимитка: самый резкий тактиль",
+   "force": 65.0,
+   "gb": true,
+   "hous": "#2b1414",
+   "id": "sw_dragon",
+   "loud": 0.76,
+   "lube": 0.5,
+   "lvl": 1.0,
+   "name": "Драконий",
+   "ping": 0.06,
+   "pitch": -0.34,
+   "price": 180.0,
+   "scratch": 0.06,
+   "snd": "holypanda",
+   "stem": "#c2272d",
+   "tact": 1.0,
+   "type": "tactile"
+  },
+  {
+   "click": 0.95,
+   "desc": "Лимитка: стеклянный клик",
+   "force": 58.0,
+   "gb": true,
+   "hous": "#eaf9ff",
+   "id": "sw_crystal",
+   "loud": 0.88,
+   "lube": 0.4,
+   "lvl": 1.0,
+   "name": "Хрусталь",
+   "ping": 0.1,
+   "pitch": 0.44,
+   "price": 150.0,
+   "scratch": 0.05,
+   "snd": "bluealps",
+   "stem": "#c9f1ff",
+   "tact": 0.6,
+   "type": "clicky"
+  },
+  {
+   "click": 0.0,
+   "desc": "Лимитка: тёмный «пузатый» thock",
+   "force": 52.0,
+   "gb": true,
+   "hous": "#1a1a1a",
+   "id": "sw_ember",
+   "loud": 0.7,
+   "lube": 0.75,
+   "lvl": 1.0,
+   "name": "Тлеющий уголь",
+   "ping": 0.04,
+   "pitch": -0.44,
+   "price": 170.0,
+   "scratch": 0.03,
+   "snd": "blackink",
+   "stem": "#ff5a1f",
+   "tact": 0.0,
+   "type": "linear"
+  },
+  {
+   "box": "epic",
+   "click": 0,
+   "desc": "Эксклюзив из коробок: мраморный тон, переливающийся корпус",
+   "force": 55,
+   "hous": "#e6f7ff",
+   "id": "sw_holo",
+   "loud": 0.64,
+   "lube": 0.8,
+   "lvl": 1,
+   "name": "Голограмма",
+   "ping": 0.03,
+   "pitch": -0.2,
+   "price": 190,
+   "scratch": 0.02,
+   "snd": "cream",
+   "stem": "#d8b4ff",
+   "tact": 0,
+   "type": "linear"
+  },
+  {
+   "box": "legendary",
+   "click": 0,
+   "desc": "Эксклюзив из коробок: глубокий резкий тактиль",
+   "force": 68,
+   "hous": "#2a1a2e",
+   "id": "sw_obsid",
+   "loud": 0.78,
+   "lube": 0.6,
+   "lvl": 1,
+   "name": "Вулканическое стекло",
+   "ping": 0.03,
+   "pitch": -0.38,
+   "price": 210,
+   "scratch": 0.03,
+   "snd": "holypanda",
+   "stem": "#151515",
+   "tact": 0.95,
+   "type": "tactile"
+  },
+  {
+   "box": "rare",
+   "click": 0,
+   "desc": "Эксклюзив из коробок: лёгкий и гладкий",
+   "force": 48,
+   "hous": "#f2fffa",
+   "id": "sw_mint",
+   "loud": 0.6,
+   "lube": 0.65,
+   "lvl": 1,
+   "name": "Мятный ветер",
+   "ping": 0.06,
+   "pitch": -0.08,
+   "price": 120,
+   "scratch": 0.05,
+   "snd": "alpaca",
+   "stem": "#8ff0c8",
+   "tact": 0,
+   "type": "linear"
+  }
+ ],
+ "tkl": 87
+}

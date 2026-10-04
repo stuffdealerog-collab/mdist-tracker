@@ -1,0 +1,54 @@
+// End-to-end API test: two players open boxes and trade.
+import { spawn } from "node:child_process";
+import { rmSync } from "node:fs";
+const PORT = 8899, B = `http://127.0.0.1:${PORT}`;
+rmSync("/tmp/kss_test.db", { force: true }); rmSync("/tmp/kss_test.db-wal", { force: true }); rmSync("/tmp/kss_test.db-shm", { force: true });
+const srv = spawn(process.execPath, ["server.mjs"], { env: { ...process.env, PORT, DB: "/tmp/kss_test.db" }, stdio: "inherit" });
+await new Promise((r) => setTimeout(r, 700));
+const call = async (m, p, tok, body) => { const r = await fetch(B + p, { method: m, headers: { "Content-Type": "application/json", ...(tok ? { Authorization: "Bearer " + tok } : {}) }, body: body ? JSON.stringify(body) : undefined }); return { code: r.status, data: await r.json() }; };
+const ok = (c, msg) => { if (!c) { console.error("FAIL:", msg); srv.kill(); process.exit(1); } console.log("ok -", msg); };
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+try {
+  const a = (await call("POST", "/auth", null, { device: "devA", name: "Алиса" })).data;
+  const b = (await call("POST", "/auth", null, { device: "devB", name: "Боб" })).data;
+  ok(a.token && b.token && a.pid !== b.pid, "auth two players");
+  const a2 = (await call("POST", "/auth", null, { device: "devA", token: a.token, name: "Алиса" })).data;
+  ok(a2.pid === a.pid, "re-auth keeps pid");
+  ok((await call("GET", "/market", "bad")).code === 401, "bad token rejected");
+  const ia = (await call("POST", "/boxes/open", a.token, { box: "box_art", luck: 0 })).data.item;
+  ok(ia && ia.uid && ia.kind === "art", "A opens art box: " + ia.name + " (" + ia.rarity + ")");
+  ok((await call("POST", "/boxes/open", a.token, { box: "box_art" })).code === 429, "open rate limit");
+  await sleep(1600);
+  const ib = (await call("POST", "/boxes/open", b.token, { box: "box_art", luck: 0 })).data.item;
+  ok(ib.kind === "art", "B opens art box: " + ib.name);
+  const off = await call("POST", "/market", a.token, { give_uid: ia.uid, want: { kind: "art", rarity: "common" } });
+  ok(off.code === 200, "A lists offer");
+  ok((await call("POST", "/market", a.token, { give_uid: ia.uid, want: { kind: "art", rarity: "common" } })).code === 400, "cannot list twice");
+  const mb = (await call("GET", "/market", b.token)).data;
+  ok(mb.offers.length === 1 && mb.offers[0].seller === "Алиса", "B sees A's offer");
+  ok((await call("GET", "/market", a.token)).data.mine.length === 1, "A sees own offer in mine");
+  ok((await call("POST", `/market/${off.data.id}/accept`, a.token, { give_uid: ib.uid })).code === 400, "A cannot accept own offer");
+  const acc = await call("POST", `/market/${off.data.id}/accept`, b.token, { give_uid: ib.uid });
+  ok(acc.code === 200 && acc.data.item.uid === ia.uid, "B accepts and receives A's item");
+  ok((await call("POST", `/market/${off.data.id}/accept`, b.token, { give_uid: ib.uid })).code === 404, "offer closed after trade");
+  const inbA = (await call("GET", "/inbox", a.token)).data.items;
+  ok(inbA.length === 1 && inbA[0].uid === ib.uid && inbA[0].via === "trade", "A receives B's item via inbox");
+  ok((await call("GET", "/inbox", a.token)).data.items.length === 0, "inbox delivered once");
+  // cancel flow
+  const off2 = (await call("POST", "/market", a.token, { give_uid: ib.uid, want: { kind: "sw", rarity: "epic" } })).data;
+  ok((await call("DELETE", `/market/${off2.id}`, b.token)).code === 404, "B cannot cancel A's offer");
+  ok((await call("DELETE", `/market/${off2.id}`, a.token)).code === 200, "A cancels");
+  ok((await call("GET", "/inbox", a.token)).data.items[0].via === "cancel", "cancelled item returns");
+  ok((await call("POST", `/items/${ib.uid}/consume`, a.token)).data.ok === true, "consume item");
+  ok((await call("POST", "/market", a.token, { give_uid: ib.uid, want: { kind: "art", rarity: "common" } })).code === 400, "consumed item cannot be listed");
+  await call("POST", "/score", a.token, { name: "Алиса", earned: 123456, level: 7, built: 12, city: "Москва" });
+  await call("POST", "/score", b.token, { name: "Боб", earned: 999999, level: 12, built: 40, city: "Казань" });
+  const lb = (await call("GET", "/leaderboard")).data.top;
+  ok(lb.length === 2 && lb[0].name === "Боб", "leaderboard sorted");
+  await call("POST", "/contest", a.token, { week: 100, score: 77.5, name: "Алиса" });
+  await call("POST", "/contest", a.token, { week: 100, score: 50, name: "Алиса" });
+  const ct = (await call("GET", "/leaderboard?week=100")).data.contest;
+  ok(ct[0].score === 77.5, "contest keeps best score");
+  ok((await call("GET", "/health")).data.ok, "health");
+  console.log("ALL SERVER TESTS PASSED");
+} finally { srv.kill(); }

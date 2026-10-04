@@ -1,0 +1,50 @@
+; Engine configuration file.
+config_version=5
+
+[application]
+config/name="Keyboard Seller Simulator"
+config/features=PackedStringArray("4.4", "Forward Plus")
+run/main_scene="res://scenes/main.tscn"
+config/version="1.0.0"
+config/description="Симулятор мастерской кастомных механических клавиатур"
+config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
+boot_splash/bg_color=Color(0.043, 0.059, 0.071, 1)
+boot_splash/image="res://icon_256.png"
+boot_splash/fullsize=false
+boot_splash/use_filter=true
+
+[display]
+window/size/viewport_width=1600
+window/size/viewport_height=900
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/size/window_width_override=1600
+window/size/window_height_override=900
+
+[rendering]
+anti_aliasing/quality/msaa_3d=2
+anti_aliasing/quality/screen_space_aa=1
+
+[autoload]
+
+Data="*res://autoload/data.gd"
+Audio="*res://autoload/audio.gd"
+SteamBridge="*res://autoload/steam.gd"
+Online="*res://autoload/online.gd"
+Game="*res://autoload/game.gd"
+
+[debug]
+
+gdscript/warnings/inference_on_variant=0
+gdscript/warnings/unused_variable=0
+gdscript/warnings/unused_local_constant=0
+gdscript/warnings/shadowed_variable=0
+gdscript/warnings/shadowed_variable_base_class=0
+gdscript/warnings/integer_division=0
+gdscript/warnings/narrowing_conversion=0
+gdscript/warnings/unused_parameter=0
+gdscript/warnings/return_value_discarded=0
+gdscript/warnings/untyped_declaration=0
+gdscript/warnings/confusable_local_declaration=0
+gdscript/warnings/shadowed_global_identifier=0
