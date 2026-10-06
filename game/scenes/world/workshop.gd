@@ -188,7 +188,7 @@ func _desk_props() -> void:
 	var tray := _box(Vector3(0.16, 0.018, 0.1), Vector3(-0.62, 0.018, 0.02), Mats.std(Color("2a2f36"), 0.6), 0.006)
 	tray.rotation_degrees.y = 8
 	for i in 8:
-		var p := MeshInstance3D.new(); p.mesh = MeshGen.keycap_final(1.0, "sa", 2); p.scale = Vector3.ONE * U
+		var p := MeshInstance3D.new(); p.mesh = KbParts.cap(1.0, "sa", 2); p.scale = Vector3.ONE * U
 		p.set_surface_override_material(0, Mats.cap_side()); p.set_surface_override_material(1, Mats.cap_top())
 		p.set_instance_shader_parameter("base_color", Color.from_hsv(i * 0.12, 0.45, 0.9)); p.set_instance_shader_parameter("rough", 0.4)
 		p.position = Vector3(-0.68 + (i % 4) * 0.022, 0.02, -0.005 + (i / 4) * 0.025); p.rotation_degrees.y = randf() * 30

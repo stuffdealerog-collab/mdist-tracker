@@ -11,29 +11,25 @@ import bpy, bmesh
 from mathutils import Vector
 import kbd_spec as S
 
-N = 64                                       # outline samples (same count on every ring so they loft cleanly)
 
-def rrect(w, d, r, n=N, shift_z=0.0):
-	"""n points around a rounded rectangle (w along X, d along Z), sampled evenly by arc length, starting at +X middle."""
+SIDE_N, CORNER_N = 7, 5                       # samples per side / per corner: identical on every ring, so corners
+N = 4 * (SIDE_N + CORNER_N)                  # loft to corners (arc-length sampling twisted the skirt into ridges)
+
+def rrect(w, d, r, n=None, shift_z=0.0):
+	"""Points around a rounded rectangle (w along X, d along Z): for each of the 4 sides SIDE_N points, then CORNER_N
+	points on the following corner arc; starts on the +X side. The same structure for every size."""
 	r = min(r, w / 2 - 0.01, d / 2 - 0.01)
 	hw, hd = w / 2 - r, d / 2 - r
-	segs = [("l", (hw + r, -hd), (hw + r, hd)), ("a", (hw, hd), 0.0), ("l", (hw, hd + r), (-hw, hd + r)), ("a", (-hw, hd), 0.5 * math.pi),
-		("l", (-hw - r, hd), (-hw - r, -hd)), ("a", (-hw, -hd), math.pi), ("l", (-hw, -hd - r), (hw, -hd - r)), ("a", (hw, -hd), 1.5 * math.pi)]
-	lens = [(2 * hd if i % 4 == 0 else 2 * hw) if s[0] == "l" else 0.5 * math.pi * r for i, s in enumerate(segs)]
-	total = sum(lens); pts = []
-	start = lens[0] / 2                                          # start at the middle of the +X side
-	for k in range(n):
-		t = (start + total * k / n) % total
-		for s, L in zip(segs, lens):
-			if t <= L or s is segs[-1]:
-				if s[0] == "l":
-					f = t / max(L, 1e-9); a, b = s[1], s[2]
-					pts.append((a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f + shift_z))
-				else:
-					ang = s[2] + (t / max(L, 1e-9)) * 0.5 * math.pi
-					pts.append((s[1][0] + r * math.cos(ang), s[1][1] + r * math.sin(ang) + shift_z))
-				break
-			t -= L
+	sides = [((hw + r, -hd), (hw + r, hd)), ((hw, hd + r), (-hw, hd + r)), ((-hw - r, hd), (-hw - r, -hd)), ((-hw, -hd - r), (hw, -hd - r))]
+	corners = [((hw, hd), 0.0), ((-hw, hd), 0.5 * math.pi), ((-hw, -hd), math.pi), ((hw, -hd), 1.5 * math.pi)]
+	pts = []
+	for (a, b2), (c, a0) in zip(sides, corners):
+		for k in range(SIDE_N):
+			f = k / SIDE_N
+			pts.append((a[0] + (b2[0] - a[0]) * f, a[1] + (b2[1] - a[1]) * f + shift_z))
+		for k in range(CORNER_N):
+			ang = a0 + 0.5 * math.pi * k / CORNER_N
+			pts.append((c[0] + r * math.cos(ang), c[1] + r * math.sin(ang) + shift_z))
 	return pts
 
 def gv(x, y, z):                             # cap mm (X, Y up, Z to typist) -> Blender, in key units
@@ -47,23 +43,34 @@ def cap(prof, row, w):
 	h = P["h"][row]
 	# rim height: tallest point at the back for typist-facing rows; plane through the top outline
 	def rim_y(z): return h - math.tan(tilt) * (z + td / 2) if tilt > 0 else h + math.tan(tilt) * (td / 2 - z) if tilt < 0 else h
+	hw, hd = tw / 2, td / 2
+	def dish(x, z):
+		"""Depth of the dish cut at (x, z) on the top: a cylinder along Z (Cherry/OEM 1u; along X for wide keys) or a
+		sphere; the rim follows it, exactly like a real cap milled with a round cutter."""
+		zz = z - back
+		if P["dish"] == "cyl":
+			u = x / hw if w < 1.75 else zz / hd
+			return P["depth"] * max(0.0, 1 - u * u)
+		ex = max(abs(x) - max(hw - hd, 0), 0)
+		return P["depth"] * max(0.0, 1 - (ex / hd) ** 2 - (zz / hd) ** 2)
+	def top_y(x, z): return rim_y(z) - dish(x, z)
 	bm = bmesh.new(); uv = bm.loops.layers.uv.new("UVMap")
 	bot = rrect(bw, bd, P["rb"]); topo = rrect(tw, td, P["rt"], shift_z=back)
 	# ---- outer skirt: rings with a slight belly and a fillet into the top
 	ts = [0.0, 0.18, 0.4, 0.62, 0.8, 0.9, 0.95, 0.98, 1.0]
 	rings = []
 	for t in ts:
-		e = 1 - (1 - t) ** 1.5
+		e = t ** 0.92                                             # near-linear draft (no flange at the bottom)
 		ring = []
 		for (bx, bz), (tx, tz) in zip(bot, topo):
 			x = bx + (tx - bx) * e; z = bz + (tz - bz) * e
 			belly = math.sin(t * math.pi) * 0.25
 			ln = math.hypot(x, z) or 1.0
 			x += x / ln * belly; z += z / ln * belly
-			y = rim_y(z) * t
+			y = top_y(tx, tz) * t
 			if t > 0.9:                                           # fillet: approach the rim rounded, not as a crease
 				k = (t - 0.9) / 0.1
-				y = rim_y(tz) - 0.55 * (1 - k) ** 2
+				y = top_y(tx, tz) - 0.55 * (1 - k) ** 2
 			ring.append(bm.verts.new(gv(x, y, z)))
 		rings.append(ring)
 	side = []
@@ -71,25 +78,16 @@ def cap(prof, row, w):
 		for i in range(N):
 			j = (i + 1) % N
 			side.append(bm.faces.new([a[i], a[j], b[j], b[i]]))
-	# ---- top with the dish: rings shrinking to the centre
-	hw, hd = tw / 2, td / 2
-	M = 10; top_rings = [rings[-1]]
+	# ---- top: rings shrinking to the centre, every point on the dish surface
+	M = 8; top_rings = [rings[-1]]
 	for m in range(1, M + 1):
-		s = 1 - m / M
+		sc = 1 - m / M
+		if m == M:
+			c = bm.verts.new(gv(0, top_y(0, back), back)); top_rings.append([c] * N); break
 		ring = []
 		for (tx, tz) in topo:
-			x = tx * s; z = (tz - back) * s + back
-			if P["dish"] == "cyl":
-				u = x / hw if w < 1.75 else (z - back) / hd
-				dd = P["depth"] * max(0.0, 1 - u * u)
-			else:
-				ex = max(abs(x) - max(hw - hd, 0), 0)
-				dd = P["depth"] * max(0.0, 1 - (ex / hd) ** 2 - ((z - back) / hd) ** 2)
-			y = rim_y(z) - dd * (1 - s ** 6)
-			ring.append(bm.verts.new(gv(x, y, z)) if m < M else None)
-		if m == M:
-			cy = rim_y(back) - P["depth"]
-			c = bm.verts.new(gv(0, cy, back)); ring = [c] * N
+			x = tx * sc; z = (tz - back) * sc + back
+			ring.append(bm.verts.new(gv(x, top_y(x, z), z)))
 		top_rings.append(ring)
 	topf = []
 	for a, b in zip(top_rings, top_rings[1:]):
@@ -106,7 +104,7 @@ def cap(prof, row, w):
 	ibot = rrect(bw - 2 * wall, bd - 2 * wall, max(P["rb"] - wall * 0.5, 0.3))
 	itop = rrect(tw - 2 * wall, td - 2 * wall, max(P["rt"] - wall * 0.5, 0.3), shift_z=back)
 	ceil_y = lambda z: rim_y(z) - P["depth"] - 1.3
-	inner = []
+	inner = []; inner_f = []; ceil_f = []; lip_f = []; post_f = []
 	for t in (0.0, 0.5, 1.0):
 		ring = []
 		for (bx, bz), (tx, tz) in zip(ibot, itop):
@@ -116,14 +114,14 @@ def cap(prof, row, w):
 	for a, b in zip(inner, inner[1:]):
 		for i in range(N):
 			j = (i + 1) % N
-			bm.faces.new([a[j], a[i], b[i], b[j]])               # facing inwards
+			inner_f.append(bm.faces.new([a[j], a[i], b[i], b[j]]))
 	cc = bm.verts.new(gv(0, ceil_y(back), back))
 	for i in range(N):
 		j = (i + 1) % N
-		bm.faces.new([inner[-1][j], inner[-1][i], cc])
+		ceil_f.append(bm.faces.new([inner[-1][j], inner[-1][i], cc]))
 	for i in range(N):                                          # lip between outer and inner skirt bottoms
 		j = (i + 1) % N
-		bm.faces.new([rings[0][j], rings[0][i], inner[0][i], inner[0][j]])
+		lip_f.append(bm.faces.new([rings[0][j], rings[0][i], inner[0][i], inner[0][j]]))
 	# ---- stem post(s) with the cross slot: four quarter blocks around the cross
 	posts = [0.0]
 	if w >= 2.0:
@@ -143,19 +141,28 @@ def cap(prof, row, w):
 			n2 = len(pts2)
 			for i in range(n2):
 				j = (i + 1) % n2
-				bm.faces.new([lo[i], lo[j], hi[j], hi[i]])
-			bm.faces.new(list(reversed(lo)))
-	bmesh.ops.recalc_face_normals(bm, faces=list(bm.faces))     # closed shell: inner walls face into the hollow
+				post_f.append((bm.faces.new([lo[i], lo[j], hi[j], hi[i]]), px))
+			lip_f.append(bm.faces.new(list(reversed(lo))))
+	# explicit orientation per group (a global recalc gets confused by the open hollow and the posts)
+	def orient(f, want):
+		f.normal_update()
+		if f.normal.dot(want) < 0: f.normal_flip()
+	for f in side:
+		c = f.calc_center_median(); orient(f, Vector((c.x, c.y, 0)))
+	for f in topf: orient(f, Vector((0, 0, 1)))
+	for f in inner_f:
+		c = f.calc_center_median(); orient(f, Vector((-c.x, -c.y, 0)))
+	for f in ceil_f: orient(f, Vector((0, 0, -1)))
+	for f in lip_f: orient(f, Vector((0, 0, -1)))
+	for f, px in post_f:
+		c = f.calc_center_median(); orient(f, Vector((c.x - px / S.U, c.y, 0)))
 	me = bpy.data.meshes.new("cap"); bm.to_mesh(me); bm.free()
 	name = "cap_r%d_%s" % (row, ("%.2f" % w).rstrip("0").rstrip("."))
 	o = bpy.data.objects.new(name, me); bpy.context.scene.collection.objects.link(o)
 	for mn in ("cap_side", "cap_top"):
 		m = bpy.data.materials.get(mn) or bpy.data.materials.new(mn); o.data.materials.append(m)
+	# plain smooth shading: weighted normals streak on the thin rings of the dish
 	o.data.polygons.foreach_set("use_smooth", [True] * len(o.data.polygons))
-	wn = o.modifiers.new("wn", "WEIGHTED_NORMAL"); wn.keep_sharp = True
-	bpy.context.view_layer.objects.active = o
-	for s2 in bpy.context.scene.objects: s2.select_set(s2 == o)
-	bpy.ops.object.modifier_apply(modifier="wn")
 	return o
 
 def build(profile):

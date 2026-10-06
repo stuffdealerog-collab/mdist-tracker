@@ -173,7 +173,7 @@ func _package(it: Dictionary) -> Dictionary:
 			var tray = Node3D.new(); tray.position.y = 0.03; root.add_child(tray)
 			_mi(_bm(Vector3(W4 - 0.008, 0.004, D4 - 0.008)), Mats.std(Color("1d1f22"), 0.5), Vector3.ZERO, tray)
 			var k: Dictionary = Data.kc(it.id); var prof: String = k.prof
-			var cap = MeshGen.keycap_final(1.0, prof, 2)
+			var cap = KbParts.cap(1.0, prof, 2)
 			var cols = ["a", "a", "a", "m", "a", "a", "x", "a", "a", "m"]
 			for r in 3:
 				for c in 10:

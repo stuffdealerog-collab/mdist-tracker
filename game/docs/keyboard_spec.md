@@ -58,7 +58,7 @@ Budgets: 1u cap ≤ 1.2k tris (LOD 300), switch ≤ 2k (LOD 400), 65% board tota
 
 ## Order
 1. `tools/blender/kit/kbd_spec.py`: all numbers above as data (done with this document).
-2. Keycaps (6 profiles): generator written (`tools/blender/kit/kbd_caps.py`), not run yet (GPU busy) → review renders against reference photos → Godot swap.
-3. Switch + stabs → swap; node count measured before/after.
+2. Keycaps (6 profiles): **done** — `kbd_caps.py` → `assets/kb/caps_*.glb`, ~2k tris per cap, in the game via KbParts.
+3. Switch: **done** — `kbd_switch.py` → `assets/kb/switch_mx.glb` (housing 1.0k tris + metal pins, stem 104). Node count per key 7 → 3 (65%: 456 → 252 mesh instances). Stabs: next.
 4. Plate + PCB per layout → swap.
 5. Cases → swap; close-up shots for the TikTok photo mode.

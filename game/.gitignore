@@ -11,3 +11,4 @@ art/
 *.unwrap_cache
 # lightmap bake: the night scene is only an input of the editor bake (tools/bake_lighting.sh)
 bake/room_night.scn
+__pycache__/

@@ -32,6 +32,7 @@ var _key := ""
 var _bent_mat: StandardMaterial3D
 var _strip_mat: StandardMaterial3D
 var _screw_mat: StandardMaterial3D
+var _pin_mat := Mats.std(Color("c9a45c"), 0.3, 1.0)
 var _lit := {}               # key -> glow color (keytest)
 
 static func screw_positions(lay: Dictionary) -> Array:
@@ -146,19 +147,18 @@ func build(sp: Dictionary) -> void:
 		var o := {"k": k, "i": i, "x": x, "z": z, "w": float(k.w), "pv": 0.0, "down": false, "drop": 1.0, "cdrop": 1.0, "glow": Color(0, 0, 0, 0)}
 		# switch
 		var swn := Node3D.new(); swn.position = Vector3(x, 0, z)
-		var bot := _mi(MeshGen.rounded_box(0.735, 0.27, 0.735, 0.05), hm); bot.position.y = PLATE_Y - 0.26; swn.add_child(bot)
-		var top := _mi(MeshGen.tapered_box(0.82, 0.82, 0.6, 0.64, 0.34, 0.06, 0.08), hm); top.position.y = PLATE_Y + PLATE_TH; swn.add_child(top)
-		var stem := Node3D.new(); stem.position.y = PLATE_Y + PLATE_TH + 0.34
-		var s1 := _mi(MeshGen.rounded_box(0.21, 0.19, 0.065, 0.01), smt); stem.add_child(s1)
-		var s2 := _mi(MeshGen.rounded_box(0.065, 0.19, 0.21, 0.01), smt); stem.add_child(s2)
-		var s3 := _mi(MeshGen.rounded_box(0.3, 0.06, 0.3, 0.04), smt); s3.position.y = -0.05; stem.add_child(s3)
+		# housing and stem are one mesh each (KbParts: Blender hero parts, or merged MeshGen fallbacks)
+		var hous := MeshInstance3D.new(); hous.mesh = KbParts.housing(PLATE_Y, PLATE_TH); swn.add_child(hous)
+		hous.set_surface_override_material(0, hm)
+		if hous.mesh.get_surface_count() > 1: hous.set_surface_override_material(1, _pin_mat)
+		var stem := _mi(KbParts.stem(), smt); stem.position.y = PLATE_Y + PLATE_TH + 0.34
 		swn.add_child(stem)
 		board.add_child(swn)
-		o.sw = swn; o.stem = stem; o.hous = [bot, top]
+		o.sw = swn; o.stem = stem; o.hous = [hous]
 		# keycap
 		var cap := Node3D.new(); cap.position = Vector3(x, CAP_Y, z)
 		var srow := srow_of(L, int(k.row))
-		var cmi := MeshInstance3D.new(); cmi.mesh = MeshGen.keycap_final(float(k.w), kc.prof, srow)
+		var cmi := MeshInstance3D.new(); cmi.mesh = KbParts.cap(float(k.w), kc.prof, srow)
 		cmi.set_surface_override_material(0, Mats.cap_side()); cmi.set_surface_override_material(1, Mats.cap_top())
 		var cc := cap_colors(sp.kc, str(k.kind))
 		cmi.set_instance_shader_parameter("base_color", cc[0])
