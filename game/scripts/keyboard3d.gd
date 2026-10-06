@@ -124,8 +124,12 @@ func build(sp: Dictionary) -> void:
 	var mcu := _mi(MeshGen.rounded_box(0.5, 0.04, 0.5, 0.02), Mats.std(Color("0c0d0f"), 0.35)); mcu.position = Vector3(0.9, 0.05, -H / 2.0 + 0.55); pcb_node.add_child(mcu)
 	parts.pcb = pcb_node
 	parts.pefoam = _mi(MeshGen.slab(W, H, 0.02, 0.05), Mats.std(Color("f1f1ec"), 0.95))
-	var pl_tex := _plate_tex()
-	parts.plate = _mi(MeshGen.slab(W + 0.12, H + 0.12, PLATE_TH, 0.06), Mats.plate_mat(sp.plate, pl_tex))
+	var real_plate: Mesh = KbParts.plate(str(sp.layout))
+	if real_plate:                                 # Blender plate: real switch and stab cut-outs, no holes texture
+		var pm := Mats.plate_mat(sp.plate, null); pm.transparency = BaseMaterial3D.TRANSPARENCY_DISABLED if sp.plate != "p_pc" else BaseMaterial3D.TRANSPARENCY_ALPHA
+		parts.plate = _mi(real_plate, pm)
+	else:
+		parts.plate = _mi(MeshGen.slab(W + 0.12, H + 0.12, PLATE_TH, 0.06), Mats.plate_mat(sp.plate, _plate_tex()))
 	for n in parts:
 		var o: Node3D = parts[n]; o.position.y = HOME[n]; o.set_meta("home", HOME[n]); o.name = n; board.add_child(o)
 	if rgb:
@@ -207,11 +211,20 @@ func _housing_mat(sw: Dictionary) -> Material:
 
 func _stab_obj(w: float) -> Node3D:
 	var g := Node3D.new()
-	var hm := Mats.std(Color("f1f1ee"), 0.5); var wm := Mats.std(Color("c4c8cc"), 0.25, 0.9)
+	var kind := str(spec.get("stab", "s_basic"))
+	var m: Mesh = KbParts.stab(w, kind != "s_basic")
+	if m:                                          # Blender stabs: real spacing, housings, stems and the bent wire
+		var mi := MeshInstance3D.new(); mi.mesh = m; g.add_child(mi)
+		var hc := {"s_basic": Color("f1f1ee"), "s_screw": Color(0.9, 0.93, 0.95, 0.55), "s_prem": Color("17181a")}.get(kind, Color("f1f1ee"))
+		var hm := Mats.std(hc, 0.4)
+		if hc.a < 1.0: hm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_DEPTH_PRE_PASS; hm.roughness = 0.12
+		mi.set_surface_override_material(0, hm); mi.set_surface_override_material(1, Mats.std(Color("c4c8cc"), 0.22, 0.95))
+		return g
+	var hm2 := Mats.std(Color("f1f1ee"), 0.5); var wm := Mats.std(Color("c4c8cc"), 0.25, 0.9)
 	var dx := w / 2.0 - 0.62
 	for sx in [-1.0, 1.0]:
-		var hb := _mi(MeshGen.rounded_box(0.22, 0.2, 0.42, 0.04), hm); hb.position = Vector3(sx * dx, 0, 0.02); g.add_child(hb)
-		var st := _mi(MeshGen.rounded_box(0.1, 0.18, 0.1, 0.02), hm); st.position = Vector3(sx * dx, 0.2, 0.02); g.add_child(st)
+		var hb := _mi(MeshGen.rounded_box(0.22, 0.2, 0.42, 0.04), hm2); hb.position = Vector3(sx * dx, 0, 0.02); g.add_child(hb)
+		var st := _mi(MeshGen.rounded_box(0.1, 0.18, 0.1, 0.02), hm2); st.position = Vector3(sx * dx, 0.2, 0.02); g.add_child(st)
 	var wire := MeshInstance3D.new(); var cy := CylinderMesh.new(); cy.top_radius = 0.018; cy.bottom_radius = 0.018; cy.height = 2.0 * dx; cy.radial_segments = 8
 	wire.mesh = cy; wire.material_override = wm; wire.rotation_degrees.z = 90; wire.position = Vector3(0, 0.05, -0.22); g.add_child(wire)
 	return g

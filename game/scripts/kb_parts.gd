@@ -67,3 +67,29 @@ static func stem() -> Mesh:
 		m = st.commit()
 	_cache["stem"] = m
 	return m
+
+## Stabilizer for a key of width w (key units): two housings at the real stem spacing (23.8 mm, 100 mm for 6.25u),
+## two stems and the bent wire, as ONE mesh with origin at the key centre on the plate top.
+## Surface 0 = plastic (housings + stems), 1 = metal (wire, screws). screw = PCB screw-in housings.
+static func stab(w: float, screw: bool) -> Mesh:
+	var key = "stab|%.2f|%d" % [w, int(screw)]
+	if _cache.has(key): return _cache[key]
+	var hous: Mesh = _glb_mesh("stabs.glb", "housing_screw" if screw else "housing_plate")
+	var st_m: Mesh = _glb_mesh("stabs.glb", "stem")
+	var wire: Mesh = _glb_mesh("stabs.glb", "wire_long" if w >= 6.0 else "wire_short")
+	if hous == null or st_m == null or wire == null: return null
+	var dx: float = (100.0 if w >= 6.0 else 23.8) / 2.0 / 19.05
+	var plastic := SurfaceTool.new(); plastic.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var metal := SurfaceTool.new(); metal.begin(Mesh.PRIMITIVE_TRIANGLES)
+	for sx in [-1.0, 1.0]:
+		var t := Transform3D(Basis(), Vector3(sx * dx, 0, 0))
+		plastic.append_from(hous, 0, t); plastic.append_from(st_m, 0, t)
+		if hous.get_surface_count() > 1: metal.append_from(hous, 1, t)
+	metal.append_from(wire, 0, Transform3D())
+	var am := ArrayMesh.new(); plastic.commit(am); metal.commit(am)
+	_cache[key] = am
+	return am
+
+## Switch plate with real cut-outs for a layout (assets/kb/plate_<layout>.glb), or null (game falls back to the slab).
+static func plate(layout_id: String) -> Mesh:
+	return _glb_mesh("plate_%s.glb" % layout_id, "plate")
