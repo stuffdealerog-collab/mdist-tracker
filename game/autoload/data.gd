@@ -22,7 +22,7 @@ var CITIES: Array = []
 var SND_SETS: Dictionary = {}
 var _idx: Dictionary = {}
 
-const DAY_SEC := 150.0
+const DAY_SEC := 1020.0       # 07:00 → 24:00, one real second per game minute
 const SALE_TICK := 10.0
 const ART_BASE := 2500.0
 

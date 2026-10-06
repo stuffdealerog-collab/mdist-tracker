@@ -1,0 +1,227 @@
+{
+	"_style": "Extract only the {what} from this photo and show it as a clean e-commerce product photo: the complete object fully visible and centered with margin around it, complete any parts that are cut off or hidden behind other things, three-quarter front view from slightly above, plain light grey seamless studio background, soft even diffused lighting, remove every other object, no logos, no brand names, no text, photorealistic, sharp focus, high detail",
+	"wardrobe": {
+		"photo": 3,
+		"crop": [
+			0.52,
+			0.31,
+			0.9,
+			0.68
+		],
+		"what": "tall cream white wooden three-door wardrobe with vertical grooves and long white handles, arched top cornice",
+		"size": 2.15,
+		"axis": "h",
+		"faces": 40000,
+		"tex": 2048
+	},
+	"bookshelf": {
+		"photo": 3,
+		"crop": [
+			0.41,
+			0.33,
+			0.56,
+			0.66
+		],
+		"what": "tall narrow cream white wooden bookshelf with five shelves filled with books and small items, arched top",
+		"size": 1.95,
+		"axis": "h",
+		"faces": 50000,
+		"tex": 2048
+	},
+	"chest_drawers": {
+		"photo": 2,
+		"crop": [
+			0.52,
+			0.55,
+			0.85,
+			0.77
+		],
+		"what": "cream white wooden chest of four drawers with long white bar handles and a glossy beige top, with nothing on top",
+		"size": 1.0,
+		"axis": "max",
+		"faces": 30000,
+		"tex": 2048
+	},
+	"aquarium": {
+		"photo": 2,
+		"crop": [
+			0.61,
+			0.48,
+			0.77,
+			0.62
+		],
+		"what": "small desktop fish aquarium with a white lid, green water plants, colourful gravel and two fish",
+		"size": 0.42,
+		"axis": "max",
+		"faces": 30000,
+		"tex": 1024
+	},
+	"speaker": {
+		"photo": 2,
+		"crop": [
+			0.45,
+			0.57,
+			0.57,
+			0.74
+		],
+		"what": "tall black party loudspeaker with red accents, standing on the floor",
+		"size": 0.62,
+		"axis": "h",
+		"faces": 20000,
+		"tex": 1024
+	},
+	"gaming_chair": {
+		"photo": 4,
+		"crop": [
+			0.49,
+			0.45,
+			0.71,
+			0.74
+		],
+		"what": "black and red racing style gaming chair with headrest pillow, armrests and five-star base with red casters",
+		"size": 1.32,
+		"axis": "h",
+		"faces": 50000,
+		"tex": 2048
+	},
+	"pc_white": {
+		"photo": 4,
+		"crop": [
+			0.72,
+			0.46,
+			0.91,
+			0.61
+		],
+		"what": "white mid-tower gaming computer case with tempered glass side panel and three front RGB fans glowing purple",
+		"size": 0.47,
+		"axis": "h",
+		"faces": 30000,
+		"tex": 2048
+	},
+	"printer3d": {
+		"photo": 6,
+		"crop": [
+			0.68,
+			0.46,
+			0.9,
+			0.73
+		],
+		"what": "black enclosed desktop 3D printer with a glass front door and a black multi-spool filament box on top",
+		"size": 0.66,
+		"axis": "h",
+		"faces": 40000,
+		"tex": 2048
+	},
+	"ring_light": {
+		"photo": 1,
+		"crop": [
+			0.14,
+			0.36,
+			0.3,
+			0.8
+		],
+		"what": "white LED ring light on a tall black tripod floor stand",
+		"size": 1.85,
+		"axis": "h",
+		"faces": 20000,
+		"tex": 1024
+	},
+	"valet_stand": {
+		"photo": 1,
+		"crop": [
+			0.46,
+			0.5,
+			0.61,
+			0.74
+		],
+		"what": "cream wooden clothes valet stand with a small shelf, a white shirt and dark trousers hanging on it",
+		"size": 1.2,
+		"axis": "h",
+		"faces": 40000,
+		"tex": 2048
+	},
+	"bed_single": {
+		"photo": 6,
+		"crop": [
+			0.0,
+			0.53,
+			0.49,
+			0.84
+		],
+		"what": "single bed with a cream white wooden frame, curved headboard and footboard, a pull-out trundle drawer below, light blue checked blanket and one grey marble pattern pillow",
+		"size": 2.05,
+		"axis": "max",
+		"faces": 60000,
+		"tex": 2048
+	},
+	"ac_unit": {
+		"photo": 6,
+		"crop": [
+			0.11,
+			0.26,
+			0.27,
+			0.36
+		],
+		"what": "white wall-mounted split air conditioner indoor unit",
+		"size": 0.85,
+		"axis": "max",
+		"faces": 10000,
+		"tex": 1024
+	},
+	"projector": {
+		"photo": 4,
+		"crop": [
+			0.8,
+			0.53,
+			0.93,
+			0.62
+		],
+		"what": "small white home video projector",
+		"size": 0.31,
+		"axis": "max",
+		"faces": 10000,
+		"tex": 1024
+	},
+	"gaming_desk": {
+		"photo": 4,
+		"crop": [
+			0.57,
+			0.46,
+			0.8,
+			0.75
+		],
+		"what": "compact white computer desk with a black desk mat on top and small open shelves on the right side under the top, empty with nothing on it",
+		"size": 1.0,
+		"axis": "max",
+		"faces": 30000,
+		"tex": 2048
+	},
+	"plant_lily": {
+		"photo": 2,
+		"crop": [
+			0.74,
+			0.5,
+			0.85,
+			0.61
+		],
+		"what": "peace lily house plant in a white ceramic pot",
+		"size": 0.45,
+		"axis": "h",
+		"faces": 25000,
+		"tex": 1024
+	},
+	"plant_bamboo": {
+		"photo": 2,
+		"crop": [
+			0.69,
+			0.51,
+			0.77,
+			0.61
+		],
+		"what": "lucky bamboo plant in a round light green ceramic bowl",
+		"size": 0.34,
+		"axis": "h",
+		"faces": 15000,
+		"tex": 1024
+	}
+}

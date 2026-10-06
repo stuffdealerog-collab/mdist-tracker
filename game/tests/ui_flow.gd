@@ -37,6 +37,7 @@ func run() -> void:
 	ok(Game.buy_switch("sw_brown", 70), "buy switches")
 	Game.buy_gb("sw"); Game.buy_gb("kc"); Game.buy_gb("art")
 	ok(S.gb.pending.size() == 3, "group buy pending")
+	Game.debug_receive_all()
 	# quick-build a board through the API (first build is short)
 	var it := func(cat, id): for x in S.inv.items: if x.cat == cat and x.id == id: return x.uid
 	var started := Game.start_build({"layout": "l65", "case": it.call("case", "c_alu"), "plate": it.call("plate", "p_pc"), "pcb": it.call("pcb", "b_rgb"), "stab": it.call("stab", "s_screw"), "kc": it.call("kc", "k_bow"), "sw": "sw_brown", "mods": {}, "art": null})

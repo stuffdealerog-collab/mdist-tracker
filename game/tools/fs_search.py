@@ -3,7 +3,7 @@ def search(q, pages=1):
     out=[]
     for p in range(1,pages+1):
         url='https://freesound.org/search/?q=%s&f=license%%3A%%22Creative+Commons+0%%22&page=%d' % (urllib.parse.quote_plus(q), p)
-        h=subprocess.run(['curl','-sS','-m','25',url],capture_output=True,text=True).stdout
+        h=subprocess.run(['curl','-sS','-m','25',url],capture_output=True,text=True,encoding='utf-8',errors='replace').stdout
         for m in re.finditer(r'class="bw-player"(.*?)tabindex', h, re.S):
             b=m.group(1)
             g=lambda k: (re.search(k+r'="([^"]*)"', b) or [None,''])[1]

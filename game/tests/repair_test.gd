@@ -2,11 +2,12 @@ extends Node
 ## Plays the two opening story repairs through the real UI: diagnosis by key presses, fixing by screen-space tool clicks.
 var main
 var f := 0
-var out := "/tmp/claude-0/-home-user-mdist-tracker/28c0084d-b286-5cd8-9401-8ae7cf7cb680/scratchpad/rep"
+var out := ProjectSettings.globalize_path("user://test_rep")
 var busy := false
 var job := 0
 
 func _ready() -> void:
+	if OS.get_cmdline_user_args().size() > 0 and not OS.get_cmdline_user_args()[0] in ["first", "noshots", "keep", "low"]: out = OS.get_cmdline_user_args()[0]
 	DirAccess.make_dir_recursive_absolute(out)
 	DirAccess.remove_absolute(ProjectSettings.globalize_path("user://save.json"))
 	main = load("res://scenes/main.tscn").instantiate()

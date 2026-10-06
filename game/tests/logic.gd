@@ -8,6 +8,7 @@ func _process(_d):
 	G.boot()
 	print("money ", G.S.money, " orders ", G.S.orders.size(), " items ", G.S.inv.items.size())
 	var items = G.S.inv.items
+	for it in items: it.loc = "bench"   # parts are brought from the shelf to the bench first
 	var d = {"layout":"l60","case":items[0].uid,"plate":items[1].uid,"pcb":items[2].uid,"stab":items[3].uid,"kc":items[4].uid,"sw":"sw_red","mods":{},"art":null}
 	print("start ", G.start_build(d), " steps ", G.S.build.steps)
 	for k in G.S.build.ks: k.s=1; k.c=1; k.t=1; k.so=1

@@ -12,8 +12,8 @@ func content(first: bool) -> Control:
 		var gr = UIK.grid(grid_cols())
 		for o in S.orders: gr.add_child(_card(o))
 		v.add_child(gr)
-	if S.boards.is_empty() and S.orders.any(func(o): return o.kind != "repair"):
-		v.add_child(UIK.note("На складе нет готовых клавиатур. Соберите клавиатуру в «Мастерской» под требования клиента.", UIK.WARN))
+	if Game.free_boards().is_empty() and S.orders.any(func(o): return o.kind != "repair" and not o.get("shipping", false)):
+		v.add_child(UIK.note("Готовых клавиатур нет. Закажите детали в KeyMarket, распакуйте посылки и соберите клавиатуру на верстаке.", UIK.WARN))
 	v.add_child(UIK.label("Звёзды зависят от того, сколько требований выполнено, и от качества сборки. За 5★ — чаевые и шанс получить артизан. Просроченные заказы бьют по репутации.", "SmallMuted", true))
 	return v
 
@@ -46,13 +46,15 @@ func _card(o: Dictionary) -> Control:
 		chips.add_child(UIK.chip("Дефектов: %d" % (o.faults as Array).size(), UIK.GOLD))
 		v.add_child(chips)
 		var row0 = UIK.hbox(6)
-		var busy: bool = S.build != null and not o.get("taken", false)
-		var take = UIK.button("Продолжить ремонт" if o.get("taken", false) else "Взять в ремонт", "BtnPri", func():
-			if o.get("taken", false) or Game.start_repair(o.id): main.open_tab("workshop"), "wrench")
-		take.disabled = busy
-		if busy: take.tooltip_text = "Верстак занят текущей работой"
+		var taken: bool = o.get("taken", false); var coming: bool = o.get("coming", false)
+		var t_txt := "Продолжить ремонт" if taken else ("Клавиатура едет к вам" if coming else "Принять в ремонт")
+		var take = UIK.button(t_txt, "BtnPri", func():
+			if taken: main.open_tab("workshop")
+			elif not coming: Game.accept_repair(o.id), "wrench")
+		take.disabled = coming and not taken
+		if coming and not taken: take.tooltip_text = "Клиент отправил клавиатуру: коробка появится у двери, распакуйте её на верстаке"
 		row0.add_child(take)
-		if not story and not o.get("taken", false): row0.add_child(UIK.button("Отклонить", "BtnGhost", func(): Game.decline_order(o.id)))
+		if not story and not taken and not coming: row0.add_child(UIK.button("Отклонить", "BtnGhost", func(): Game.decline_order(o.id)))
 		row0.add_child(UIK.spacer())
 		row0.add_child(UIK.button("", "BtnGhost", func(): main.sub["map_focus"] = o.id; main.open_tab("map"), "map"))
 		v.add_child(row0)
@@ -70,9 +72,12 @@ func _card(o: Dictionary) -> Control:
 	if chips.get_child_count() == 0: chips.add_child(UIK.chip("Без особых требований"))
 	v.add_child(chips)
 	var row = UIK.hbox(6)
-	var give = UIK.button("Отдать клавиатуру", "BtnPri", func(): _deliver_modal(o), "truck"); give.disabled = S.boards.is_empty()
-	row.add_child(give)
-	if not vip: row.add_child(UIK.button("Отклонить", "BtnGhost", func(): Game.decline_order(o.id)))
+	if o.get("shipping", false):
+		row.add_child(UIK.chip("Ждёт упаковки и курьера", UIK.TEAL))
+	else:
+		var give = UIK.button("Выбрать клавиатуру", "BtnPri", func(): _deliver_modal(o), "truck"); give.disabled = Game.free_boards().is_empty()
+		row.add_child(give)
+		if not vip: row.add_child(UIK.button("Отклонить", "BtnGhost", func(): Game.decline_order(o.id)))
 	row.add_child(UIK.spacer())
 	row.add_child(UIK.button("", "BtnGhost", func(): main.sub["map_focus"] = o.id; main.open_tab("map"), "map"))
 	v.add_child(row)
@@ -80,7 +85,7 @@ func _card(o: Dictionary) -> Control:
 
 func _deliver_modal(o: Dictionary) -> void:
 	var rows = []
-	for b in g().boards: rows.append({"b": b, "r": Game.eval_order(o, b)})
+	for b in Game.free_boards(): rows.append({"b": b, "r": Game.eval_order(o, b)})
 	rows.sort_custom(func(a, c): return a.r.stars > c.r.stars or (a.r.stars == c.r.stars and a.r.pay > c.r.pay))
 	var v = UIK.vbox(12, [main.modal_head("Заказ: " + o.name), UIK.card("Note", UIK.label("«%s»" % o.text, "Small", true)), UIK.label("Бюджет %s. Выберите клавиатуру со склада:" % Game.rub(o.budget), "Muted")])
 	for x in rows:
@@ -92,13 +97,13 @@ func _deliver_modal(o: Dictionary) -> void:
 		for ch in r.ch: chips.add_child(UIK.chip(("✓ " if ch.ok else "✕ ") + ch.label, UIK.GOOD if ch.ok else UIK.BAD))
 		c.add_child(chips)
 		var pay = "Оплата [color=#ebc66c]%s[/color]" % Game.rub(r.pay) + (" + чаевые [color=#ebc66c]%s[/color]" % Game.rub(r.tip) if r.tip > 0 else "") + " · рыночная цена " + Game.rub(Game.board_value(b))
-		c.add_child(UIK.hbox(8, [UIK.expand(UIK.rich(pay, 13)), UIK.button("Отдать", "BtnPri", func(): _deliver(o, b), "check")]))
+		c.add_child(UIK.hbox(8, [UIK.expand(UIK.rich(pay, 13)), UIK.button("Отправить ему", "BtnPri", func(): _deliver(o, b), "check")]))
 		v.add_child(UIK.card("Card", c))
 	main.open_modal(v, 760)
 
 func _deliver(o: Dictionary, b: Dictionary) -> void:
 	main.close_modal()
-	var r = Game.deliver_order(o.id, b.uid)
-	if r.is_empty(): return
-	main.sub["courier"] = o.get("district", Vector2(0.5, 0.5))
-	if int(r.stars) >= 5: main.flash(Color(1, 0.85, 0.4, 0.2))
+	var s = Game.ship_order(o.id, b.uid)
+	if s.is_empty(): return
+	Game.toast("«%s» ждёт упаковки: упакуйте её на упаковочном столе в фирменную коробку и поставьте у двери. %s заплатит, когда курьер заберёт посылку." % [b.name, o.name], "gold")
+	build_screen(false)

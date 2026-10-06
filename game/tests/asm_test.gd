@@ -2,7 +2,7 @@ extends Node
 ## Drives a full hands-on build through every stage using real screen-space picking.
 var main
 var f := 0
-var out := "/tmp/claude-0/-home-user-mdist-tracker/28c0084d-b286-5cd8-9401-8ae7cf7cb680/scratchpad/asm"
+var out := ProjectSettings.globalize_path("user://test_asm")
 var phase := 0
 var wait := 0
 var shots := true
@@ -10,6 +10,7 @@ var log_lines := []
 var busy := false
 
 func _ready() -> void:
+	if OS.get_cmdline_user_args().size() > 0 and not OS.get_cmdline_user_args()[0] in ["first", "noshots", "keep", "low"]: out = OS.get_cmdline_user_args()[0]
 	DirAccess.make_dir_recursive_absolute(out)
 	DirAccess.remove_absolute(ProjectSettings.globalize_path("user://save.json"))
 	shots = not ("noshots" in OS.get_cmdline_user_args())
@@ -47,7 +48,7 @@ func _process(_d: float) -> void:
 			Game.S.stats.built = 1; Game.S.money = 500000; L("a")
 			Game.buy_part("case", "c_alu", "l60", 1); Game.buy_part("plate", "p_alu", "l60"); Game.buy_part("pcb", "b_solder", "l60")
 			Game.buy_part("stab", "s_screw"); Game.buy_part("kc", "k_miami"); Game.buy_switch("sw_yellow", 70)
-			L("b"); Game.buy_cons("lube", 1); Game.buy_cons("foam", 1); L("c")
+			L("b"); Game.buy_cons("lube", 1); Game.buy_cons("foam", 1); Game.debug_receive_all(); L("c")
 			main.open_tab("workshop", false); L("d")
 			var items: Array = Game.S.inv.items
 			var pick := func(cat, id): for it in items: if it.cat == cat and it.id == id: return it.uid

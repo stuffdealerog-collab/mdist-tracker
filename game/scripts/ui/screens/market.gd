@@ -16,6 +16,7 @@ func content(first: bool) -> Control:
 		sf.add_child(b)
 	v.add_child(sf)
 	v.add_child(UIK.label(sup.desc + " Поставщика можно сменить и на карте города.", "SmallMuted", true))
+	v.add_child(_transit())
 	v.add_child(subtabs("market", MCATS, "case"))
 	var cat = cur_sub("market", "case")
 	if cat != "gb" and not Game.available_here(cat):
@@ -29,6 +30,21 @@ func content(first: bool) -> Control:
 		"cons": _cons(v)
 		"gb": _gb(v)
 	return v
+
+## Deliveries on their way: courier brings them to the door during the day.
+func _transit() -> Control:
+	var S = g()
+	var box = UIK.vbox(6, [UIK.hbox(8, [UIK.icon_rect("truck", 18, UIK.TEAL), UIK.label("Доставка к двери · курьер 09:00–21:00 · сейчас %s" % Game.clock_str(), "H3")])])
+	if S.deliveries.is_empty():
+		box.add_child(UIK.label("Посылок в пути нет. Заказы, сделанные в течение 12 минут, приедут одной коробкой.", "SmallMuted", true))
+	for d in S.deliveries:
+		var names = []
+		for it in d.items:
+			var nm: String = "клавиатура клиента" if it.cat == "client" else str(Data.item(it.cat, it.id).get("name", it.id))
+			if it.has("n"): nm += " ×%d" % int(it.n)
+			names.append(nm)
+		box.add_child(UIK.hbox(8, [UIK.expand(UIK.label(", ".join(names), "Small", true)), UIK.label(Game.eta_str(float(d.eta)), "Price")]))
+	return UIK.card("Card", box)
 
 func _trend(id: String) -> Control:
 	var m = float(g().market.mult.get(id, 1.0))
@@ -78,7 +94,7 @@ func _layout_parts(v: VBoxContainer, cat: String) -> void:
 			if it.wl: f.add_child(UIK.chip("беспроводная", UIK.CORAL))
 			c.add_child(f)
 		c.add_child(UIK.vspace(2))
-		var buy = UIK.button("Купить · " + Data.LAYOUTS[lay].name, "BtnTeal", func(): Game.buy_part(cat, it.id, lay, col_i), "cart"); buy.disabled = lock
+		var buy = UIK.button("Заказать · " + Data.LAYOUTS[lay].name, "BtnTeal", func(): Game.buy_part(cat, it.id, lay, col_i), "cart"); buy.disabled = lock
 		c.add_child(UIK.hbox(8, [UIK.label(Game.rub(p), "Price"), UIK.spacer(), buy]))
 		var card = UIK.card("Card", c)
 		if lock: card.modulate = Color(1, 1, 1, 0.55)
@@ -97,7 +113,7 @@ func _simple(v: VBoxContainer, cat: String) -> void:
 	var gr = UIK.grid(grid_cols())
 	for it in Data.STABS:
 		var lock = _lock(it)
-		var buy = UIK.button("Купить", "BtnTeal", func(): Game.buy_part("stab", it.id), "cart"); buy.disabled = lock
+		var buy = UIK.button("Заказать", "BtnTeal", func(): Game.buy_part("stab", it.id), "cart"); buy.disabled = lock
 		var c = UIK.vbox(8, [_head(it), UIK.flow(5, [UIK.chip("дребезг %d" % int(float(it.rattle) * 100)), UIK.chip("качество %d" % int(it.q))]), UIK.label("Подходят к любой раскладке", "SmallMuted"), UIK.hbox(8, [UIK.label(Game.rub(Game.price_of("stab", it.id)), "Price"), UIK.spacer(), buy])])
 		gr.add_child(UIK.card("Card", c))
 	v.add_child(gr)
@@ -138,7 +154,7 @@ func _keycaps(v: VBoxContainer) -> void:
 		for it in g().inv.items: if it.cat == "kc" and it.id == k.id: own += 1
 		var tags = UIK.flow(5, [UIK.chip(Data.PROF[k.prof].name), UIK.chip(k.mat)])
 		for t in k.tags: tags.add_child(UIK.chip(Data.TAGS[t], UIK.VIOLET))
-		var buy = UIK.button("Купить", "BtnTeal", func(): Game.buy_part("kc", k.id), "cart"); buy.disabled = lock
+		var buy = UIK.button("Заказать", "BtnTeal", func(): Game.buy_part("kc", k.id), "cart"); buy.disabled = lock
 		var c = UIK.vbox(8, [_head(k), CapsRow.make(k.id, 30), tags, UIK.hbox(8, [UIK.label(Game.rub(Game.price_of("kc", k.id)), "Price"), UIK.label("есть %d" % own if own else "", "SmallMuted"), UIK.spacer(), buy])])
 		var card = UIK.card("Card", c)
 		if lock: card.modulate = Color(1, 1, 1, 0.55)

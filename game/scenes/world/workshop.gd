@@ -18,6 +18,7 @@ var style := ""
 var sun: DirectionalLight3D
 var lamp: SpotLight3D
 var probe: ReflectionProbe
+var home: Home
 
 # camera rig (spherical around target)
 var orb := {"theta": -0.18, "phi": 0.92, "dist": 0.62, "target": Vector3(0, 0.01, 0.0)}
@@ -76,7 +77,8 @@ func apply_quality() -> void:
 	if OS.has_environment("KSS_GFX"): q = OS.get_environment("KSS_GFX")
 	var hi := q == "high"; var mid := q != "low"
 	env.ssao_enabled = mid; env.ssil_enabled = hi; env.ssr_enabled = mid; env.volumetric_fog_enabled = mid
-	env.sdfgi_enabled = hi and OS.get_name() != "Web"
+	if home: home.set_baked(not hi or OS.has_environment("KSS_BAKE_ALWAYS"))
+	env.sdfgi_enabled = hi and OS.get_name() != "Web" and not (home != null and home.baked)
 	if env.sdfgi_enabled:
 		env.sdfgi_use_occlusion = true; env.sdfgi_cascades = 4; env.sdfgi_min_cell_size = 0.02; env.sdfgi_energy = 0.9; env.sdfgi_bounce_feedback = 0.4
 	cam_attr.dof_blur_far_enabled = false
@@ -89,6 +91,16 @@ func apply_quality() -> void:
 
 # -------------------------------------------------------------------- room
 func set_style(st: String) -> void:
+	# the flat is the main location now; office / boutique interiors come next (old room builders kept below)
+	if home != null: return
+	style = "home"
+	home = Home.new(env); room.add_child(home)
+	sun = home.sun; lamp = home.desk_lamp
+	if home.baked: env.sdfgi_enabled = false   # baked GI replaces SDFGI
+	Audio.set_room("studio")
+	(env.sky.sky_material as PanoramaSkyMaterial).panorama = Mats.room_panorama("studio")
+
+func _set_style_legacy(st: String) -> void:
 	var s: String = str(Data.prop(st).get("style", st))
 	if s == style: return
 	style = s

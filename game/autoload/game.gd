@@ -8,6 +8,9 @@ signal level_up(level: int, unlocked: Array)
 signal item_won(entry: Dictionary)   # box/trade reward (for big reveal)
 signal day_passed(day: int)
 signal board_built(board: Dictionary)
+signal parcel_arrived(p: Dictionary)   # a courier left a parcel at the door
+signal courier_came(p: Dictionary)     # an outgoing box was picked up
+signal passed_out                      # midnight: the player falls asleep wherever they are
 
 const SAVE_PATH := "user://save.json"
 const VERSION := 1
@@ -18,6 +21,7 @@ var _save_timer = 0.0
 var _sale_acc = 0.0
 var _daily_acc = 0.0
 var paused = false
+var _home_acc = 0.0
 
 # ------------------------------------------------------------------ helpers
 func fmt(n) -> String:
@@ -80,6 +84,8 @@ func new_state(prev: Dictionary = {}) -> Dictionary:
 		"traders": {"day":-1, "offers":[]},
 		"online": {"token":"", "pid":"", "name":""},
 		"build": null, "tut": 0, "tutv": 2, "uid": 100, "seenIntro": false, "hints": {},
+		# home life: deliveries in transit, physical parcels, outgoing shipments, what the player carries
+		"deliveries": [], "parcels": [], "ship": [], "carry": null, "home": {"v": 1, "woke": false, "brand": prev.get("home", {}).get("brand", "")},
 		"settings": {"vol":0.8, "music":0.4, "sound":true, "gfx":"high", "server":"http://localhost:8787"},
 	}
 	if not prev.is_empty():
@@ -97,7 +103,7 @@ func new_state(prev: Dictionary = {}) -> Dictionary:
 func starter_kit(st: Dictionary) -> void:
 	var add = func(cat: String, id: String, extra: Dictionary):
 		st.uid = int(st.uid) + 1
-		var it = {"uid": st.uid, "cat": cat, "id": id, "cost": price_base(cat, id, extra.get("layout", ""))}
+		var it = {"uid": st.uid, "cat": cat, "id": id, "cost": price_base(cat, id, extra.get("layout", "")), "loc": "shelf"}
 		it.merge(extra)
 		st.inv.items.append(it)
 	add.call("case", "c_abs", {"layout":"l60", "color":0})
@@ -223,11 +229,14 @@ func finish_repair() -> Dictionary:
 	var tip: float = round(budget * (0.12 + 0.05 * skl("charm"))) if stars == 5 else 0.0
 	S.build = null
 	if o: S.orders.erase(o)
-	earn(pay + tip, "ремонт: " + str(b.client)); add_rep((stars - 3) * 0.05)
+	# the client pays when the courier picks the keyboard up from the door
+	S.ship.append({"id": "s%d" % uid(), "kind": "repair", "name": b.client, "pay": pay, "tip": tip, "rep": (stars - 3) * 0.05, "stars": stars,
+		"status": "ready", "brand": false, "spec": {"layout": b.layout, "case": b.parts.case.id, "color": b.parts.case.get("color", 0), "plate": b.parts.plate.id,
+		"pcb": b.parts.pcb.id, "stab": b.parts.stab.id, "kc": b.parts.kc.id, "sw": b.sw, "mods": {}}})
 	S.stats.repairs = int(S.stats.get("repairs", 0)) + 1; track("repair", 1)
 	add_xp(22 + stars * 8 + total * 3)
-	Audio.ui("coin")
-	var lines = ["%s%s — %s забрал(а) клавиатуру и заплатил(а) %s%s" % ["★".repeat(stars), "☆".repeat(5 - stars), b.client, rub(pay), (" + чаевые " + rub(tip)) if tip > 0 else ""]]
+	Audio.ui("good")
+	var lines = ["%s%s — ремонт для %s готов. Упакуйте клавиатуру и поставьте у двери: оплата %s%s придёт, когда курьер заберёт" % ["★".repeat(stars), "☆".repeat(5 - stars), b.client, rub(pay), (" + чаевые " + rub(tip)) if tip > 0 else ""]]
 	if int(S.stats.repairs) == REPAIR_STORY.size() and int(S.stats.built) == 0:
 		S.orders.append(dima_build_order())
 		lines.append("Открыта сборка на заказ! Дима ждёт свою первую клавиатуру.")
@@ -407,7 +416,7 @@ func art_base_id(s: String) -> String: return s.split("#")[0]
 func give_switches(id: String, n: int) -> void:
 	S.inv.sw[id] = int(S.inv.sw.get(id, 0)) + n; S.col.sw[id] = 1; mark()
 func give_item(cat: String, id: String, extra := {}) -> Dictionary:
-	var it = {"uid": uid(), "cat": cat, "id": id, "cost": price_base(cat, id, extra.get("layout","")) * part_city_k()}
+	var it = {"uid": uid(), "cat": cat, "id": id, "cost": price_base(cat, id, extra.get("layout","")) * part_city_k(), "loc": "shelf"}
 	it.merge(extra)
 	S.inv.items.append(it)
 	if cat == "kc": S.col.kc[id] = 1
@@ -416,30 +425,29 @@ func give_item(cat: String, id: String, extra := {}) -> Dictionary:
 # ------------------------------------------------------------------ purchase
 func buy_part(cat: String, id: String, layout := "", color := 0) -> bool:
 	if used_storage() >= storage_cap():
-		toast("Склад заполнен: расширьте стеллажи или продайте клавиатуры", "bad"); Audio.ui("bad"); return false
+		toast("Склад заполнен: расширьте шкафи или продайте клавиатуры", "bad"); Audio.ui("bad"); return false
 	var p = price_of(cat, id, layout)
 	if not spend(p): return false
-	var it = {"uid": uid(), "cat": cat, "id": id, "cost": p}
+	var it = {"cat": cat, "id": id, "cost": p}
 	if layout != "": it.layout = layout
 	if cat == "case": it.color = color
-	S.inv.items.append(it)
-	if cat == "kc": S.col.kc[id] = 1
+	var d := queue_delivery([it])
 	S.stats.bought += 1; track("buy", 1); Audio.ui("buy")
-	toast("Куплено: %s%s · −%s" % [Data.item(cat,id).name, (" (" + Data.LAYOUTS[layout].name + ")") if layout != "" else "", rub(p)])
+	toast("Заказано: %s%s · −%s. Доставка %s" % [Data.item(cat,id).name, (" (" + Data.LAYOUTS[layout].name + ")") if layout != "" else "", rub(p), eta_str(float(d.eta))])
 	mark(); return true
 func buy_switch(id: String, n: int) -> bool:
 	var p = round(sw_price(id) * n)
 	if not spend(p): return false
-	var is_new: bool = not S.col.sw.has(id)
-	give_switches(id, n)
+	var d := queue_delivery([{"cat": "sw", "id": id, "n": n, "cost": p}])
 	S.stats.bought += 1; track("buy", 1); Audio.ui("buy")
-	toast("Куплено %d шт. «%s» · −%s%s" % [n, Data.sw(id).name, rub(p), " · новый свитч в коллекции" if is_new else ""])
-	return true
+	toast("Заказано %d шт. «%s» · −%s. Доставка %s" % [n, Data.sw(id).name, rub(p), eta_str(float(d.eta))])
+	mark(); return true
 func buy_cons(id: String, n := 1) -> bool:
 	var p = cons_price(id) * n
 	if not spend(p): return false
-	S.inv.cons[id] = int(S.inv.cons.get(id, 0)) + n; S.stats.bought += 1; Audio.ui("buy")
-	toast("Куплено: %s ×%d" % [Data.cons(id).name, n]); mark(); return true
+	var d := queue_delivery([{"cat": "cons", "id": id, "n": n, "cost": p}])
+	S.stats.bought += 1; Audio.ui("buy")
+	toast("Заказано: %s ×%d. Доставка %s" % [Data.cons(id).name, n, eta_str(float(d.eta))]); mark(); return true
 
 # ------------------------------------------------------------------ build
 func item_by_uid(u) -> Dictionary:
@@ -460,6 +468,9 @@ func stab_targets(layout: String) -> Array:
 
 func start_build(d: Dictionary) -> bool:
 	var L: Dictionary = Data.LAYOUTS[d.layout]; var need: int = L.count
+	for key in ["case", "plate", "pcb", "stab", "kc"]:
+		if item_loc(item_by_uid(d[key])) != "bench":
+			toast("Сначала принесите детали из шкафа на верстак", "bad"); return false
 	if int(S.inv.sw.get(d.sw, 0)) < need:
 		toast("Не хватает свитчей", "bad"); return false
 	var m = {}
@@ -504,7 +515,7 @@ func cancel_build() -> void:
 	if b.get("kind", "") == "repair":
 		for o in S.orders: if o.id == b.oid: o.erase("taken")
 		S.build = null; toast("Ремонт отложен: клавиатура ждёт на доске заказов"); mark(); return
-	for k in b.parts: S.inv.items.append(b.parts[k])
+	for k in b.parts: b.parts[k].loc = "bench"; S.inv.items.append(b.parts[k])
 	S.inv.sw[b.sw] = int(S.inv.sw.get(b.sw,0)) + int(Data.LAYOUTS[b.layout].count)
 	for k in b.mods:
 		if not (k == "lube" and (b.lubeQ != null or int(b.lubeR) > 0)): S.inv.cons[k] = int(S.inv.cons.get(k,0)) + 1
@@ -546,7 +557,7 @@ func disassemble(u) -> void:
 				toast("Сначала снимите с витрины", "bad"); return
 		S.boards.remove_at(i)
 		for k in b.parts:
-			var p: Dictionary = b.parts[k].duplicate(); p.uid = uid(); S.inv.items.append(p)
+			var p: Dictionary = b.parts[k].duplicate(); p.uid = uid(); p.loc = "bench"; S.inv.items.append(p)
 		give_switches(b.sw, int(Data.LAYOUTS[b.layout].count))
 		if b.get("art_full"): S.inv.art.append(b.art_full)
 		toast("Разобрано: детали и свитчи вернулись на склад (расходники израсходованы)"); mark(); return
@@ -723,13 +734,12 @@ func consume_board(b: Dictionary) -> void:
 func sell_listing(l: Dictionary, offline := false) -> float:
 	var b = find_board(l.uid)
 	if b.is_empty(): return 0.0
-	S.boards.erase(b); S.listings.erase(l)
-	earn(float(l.price), "продажа с витрины: " + b.name)
-	S.stats.sold += 1; S.stats.maxSale = max(S.stats.maxSale, float(l.price)); track("sell", 1); weekly_track("sell", 1)
-	add_xp(22 + b.st.quality*0.25); add_rep(0.015)
-	consume_board(b)
+	S.listings.erase(l)
+	# online store sale: the buyer paid, money is released after the courier picks the box up
+	S.ship.append({"id": "s%d" % uid(), "kind": "sale", "buid": b.uid, "price": float(l.price), "name": Data.C.FIRST.pick_random() + " " + Data.C.LAST.pick_random(), "status": "ready", "brand": true})
 	if not offline:
-		Audio.ui("coin"); toast("Продано с витрины: «%s» за %s" % [b.name, rub(l.price)], "gold")
+		Audio.ui("sale"); toast("Заказ в интернет-магазине: «%s» за %s. Упакуйте и отправьте" % [b.name, rub(l.price)], "gold")
+	mark()
 	return float(l.price)
 func sale_tick() -> void:
 	for l in S.listings.duplicate():
@@ -757,9 +767,10 @@ func new_day() -> void:
 		if e.id == "press": add_rep(0.1)
 		S.market.event = {"id":e.id, "n":e.n, "until":int(S.day) + int(e.len)}
 		toast("Событие: " + e.n, "vio")
-	var expired = S.orders.filter(func(o): return int(o.expires) < int(S.day) and not o.get("taken", false))
+	var busy = func(o): return o.get("taken", false) or o.get("coming", false) or o.get("shipping", false)
+	var expired = S.orders.filter(func(o): return int(o.expires) < int(S.day) and not busy.call(o))
 	if expired.size() > 0:
-		S.orders = S.orders.filter(func(o): return int(o.expires) >= int(S.day) or o.get("taken", false))
+		S.orders = S.orders.filter(func(o): return int(o.expires) >= int(S.day) or busy.call(o))
 		add_rep(-0.03 * expired.size())
 		toast("%d клиент(а) не дождались и ушли к конкурентам" % expired.size(), "bad")
 	refill_orders(randi_range(1, 2))
@@ -792,7 +803,11 @@ func repair_payout(sec: float) -> float:
 func _process(delta: float) -> void:
 	if S.is_empty() or paused: return
 	S.dayT += delta
-	if S.dayT >= Data.DAY_SEC: new_day()
+	if S.dayT >= Data.DAY_SEC:
+		new_day(); passed_out.emit()
+	_home_acc += delta
+	if _home_acc >= 0.5:
+		_home_acc = 0.0; home_tick()
 	_sale_acc += delta
 	if _sale_acc >= Data.SALE_TICK:
 		_sale_acc = 0.0; sale_tick()
@@ -810,6 +825,234 @@ func _process(delta: float) -> void:
 	_save_timer += delta
 	if dirty and _save_timer > 2.0:
 		_save_timer = 0.0; save_game()
+
+# ------------------------------------------------------------------ home life
+## Game clock: one real second = one game minute, the day runs 07:00 → 24:00 (Data.DAY_SEC = 1020).
+## Parts bought online travel as deliveries, arrive as parcels at the door, get unboxed on the bench,
+## live on the shelf or the bench (item.loc), finished keyboards are packed and handed to the courier.
+const DAY_START_MIN := 420.0
+const COURIER_FROM := 540.0      # 09:00
+const COURIER_TO := 1260.0       # 21:00
+const BENCH_CAP := 10
+const PARCEL_SIZE := {           # outer shipping box (m) per biggest item inside
+	"case": Vector3(0.50, 0.16, 0.26), "kb": Vector3(0.52, 0.14, 0.24), "plate": Vector3(0.40, 0.06, 0.18), "pcb": Vector3(0.38, 0.06, 0.17),
+	"kc": Vector3(0.40, 0.10, 0.19), "sw": Vector3(0.24, 0.10, 0.16), "stab": Vector3(0.18, 0.07, 0.12), "cons": Vector3(0.20, 0.10, 0.14), "art": Vector3(0.14, 0.10, 0.12),
+}
+const SIZE_ORDER := ["art", "stab", "cons", "sw", "pcb", "plate", "kc", "case", "kb"]
+
+func clock_min() -> float: return DAY_START_MIN + float(S.dayT) if not S.is_empty() else DAY_START_MIN
+func now_min() -> float: return (int(S.day) - 1) * 1440.0 + clock_min()
+func clock_str(m := -1.0) -> String:
+	if m < 0: m = clock_min()
+	var cm := int(fposmod(m, 1440.0))
+	return "%02d:%02d" % [cm / 60, cm % 60]
+func courier_hours(m: float) -> bool:
+	var cm := fposmod(m, 1440.0)
+	return cm >= COURIER_FROM and cm <= COURIER_TO
+## Human ETA for an absolute game minute: "сегодня 14:30" / "завтра 09:10".
+func eta_str(m: float) -> String:
+	var dd := int(floor(m / 1440.0)) - (int(S.day) - 1)
+	var when := "сегодня" if dd <= 0 else ("завтра" if dd == 1 else "через %d дн." % dd)
+	return "%s %s" % [when, clock_str(m)]
+## Next moment a courier can actually come (not at night).
+func courier_time(m: float) -> float:
+	var cm := fposmod(m, 1440.0); var day0 := m - cm
+	if cm < COURIER_FROM: return day0 + COURIER_FROM + randf_range(0, 50)
+	if cm > COURIER_TO: return day0 + 1440.0 + COURIER_FROM + randf_range(0, 70)
+	return m
+
+func item_loc(it: Dictionary) -> String: return str(it.get("loc", "shelf"))
+func items_at(loc: String, cat := "") -> Array:
+	return S.inv.items.filter(func(it): return item_loc(it) == loc and (cat == "" or it.cat == cat))
+func move_items(uids: Array, loc: String) -> void:
+	for it in S.inv.items:
+		if uids.has(int(it.uid)): it.loc = loc
+	mark()
+func bench_free() -> int: return BENCH_CAP - items_at("bench").size()
+
+## Queues bought goods into a delivery. Purchases made within a few game minutes ride in the same box.
+func queue_delivery(items: Array, kind := "part", express := false, extra := {}) -> Dictionary:
+	var now := now_min()
+	if kind == "part":
+		for d in S.deliveries:
+			if d.kind == "part" and not d.get("express", false) and not express and now - float(d.made) < 12.0 and (d.items as Array).size() < 6:
+				d.items.append_array(items); mark(); return d
+	var mins := randf_range(35, 60) if express else randf_range(110, 220)
+	if kind == "client": mins = randf_range(25, 55)
+	var d := {"id": "d%d" % uid(), "kind": kind, "items": items, "made": now, "eta": courier_time(now + mins), "express": express}
+	d.merge(extra)
+	S.deliveries.append(d); mark()
+	return d
+
+func express_fee() -> float: return round(900.0 * part_city_k() / 100.0) * 100.0
+
+func parcel_size(items: Array) -> Vector3:
+	var big := "art"; var n := 0
+	for it in items:
+		var c: String = "kb" if it.cat == "client" else str(it.cat)
+		if not PARCEL_SIZE.has(c): c = "cons"
+		if SIZE_ORDER.find(c) > SIZE_ORDER.find(big): big = c
+		n += 1
+	var s: Vector3 = PARCEL_SIZE[big]
+	if n > 1: s = Vector3(s.x * (1.0 + 0.08 * min(n - 1, 4)), s.y * (1.0 + 0.35 * min(n - 1, 4)), s.z * (1.0 + 0.1 * min(n - 1, 4)))
+	return s
+
+func parcel_by_id(id: String) -> Dictionary:
+	for p in S.parcels:
+		if p.id == id: return p
+	return {}
+func door_slot_free() -> int:
+	var used := []
+	for p in S.parcels:
+		if p.place == "door": used.append(int(p.get("slot", 0)))
+	for i in 8:
+		if not (i in used): return i
+	return 8
+
+func _arrive(d: Dictionary) -> Dictionary:
+	var p := {"id": "p%d" % uid(), "kind": d.kind, "items": d.items, "place": "door", "slot": door_slot_free(), "pos": null, "rot": randf_range(-0.25, 0.25),
+		"size": parcel_size(d.items), "from": "KeyMarket" if d.kind == "part" else str(d.get("from", "")), "oid": d.get("oid", "")}
+	S.parcels.append(p)
+	parcel_arrived.emit(p)
+	var what := "посылка с деталями" if d.kind == "part" else ("клавиатура клиента: " + str(d.get("from", "")) if d.kind == "client" else "посылка")
+	toast("Звонок в дверь: курьер оставил у двери — %s" % what, "vio")
+	return p
+
+func set_parcel_place(id: String, place: String, pos = null, rot := 0.0) -> void:
+	var p := parcel_by_id(id)
+	if p.is_empty(): return
+	p.place = place; p.rot = rot
+	p.pos = [pos.x, pos.y, pos.z] if pos is Vector3 else null
+	if place == "door": p.slot = door_slot_free()
+	if p.kind == "out":
+		var sh := ship_by_id(str(p.get("ship", "")))
+		if not sh.is_empty():
+			if place == "door" and sh.status != "door":
+				sh.status = "door"; sh.pickup = courier_time(now_min() + randf_range(20, 50))
+				toast("Посылка у двери. Курьер заберёт её %s" % eta_str(float(sh.pickup)))
+			elif place != "door" and sh.status == "door": sh.status = "packed"
+	mark()
+
+## Opens a parcel for good: goods go to the bench (switches into jars, consumables into the drawer).
+## Returns the list of unpacked entries for the reveal. Client keyboards start the repair.
+func unbox_parcel(id: String) -> Array:
+	var p := parcel_by_id(id)
+	if p.is_empty(): return []
+	if p.kind == "client" and S.build != null:
+		toast("Сначала закончите текущую работу на верстаке", "bad"); return []
+	var got := []
+	for it in p.items:
+		match str(it.cat):
+			"sw": give_switches(it.id, int(it.n)); got.append(it)
+			"cons": S.inv.cons[it.id] = int(S.inv.cons.get(it.id, 0)) + int(it.get("n", 1)); got.append(it)
+			"art": give_artisan(it.id, true); got.append(it)
+			"client":
+				if start_repair(str(it.oid)): got.append(it)
+			_:
+				var x := {"uid": uid(), "cat": it.cat, "id": it.id, "cost": float(it.get("cost", price_base(it.cat, it.id, it.get("layout", "")))), "loc": "bench"}
+				if it.has("layout"): x.layout = it.layout
+				if it.cat == "case": x.color = int(it.get("color", 0))
+				if it.has("ouid"): x.ouid = it.ouid
+				S.inv.items.append(x)
+				if it.cat == "kc": S.col.kc[it.id] = 1
+				got.append(it)
+	S.parcels.erase(p)
+	S.stats.unboxed = int(S.stats.get("unboxed", 0)) + 1; track("unbox", 1)
+	mark()
+	return got
+
+func ship_by_id(id: String) -> Dictionary:
+	for s in S.ship:
+		if s.id == id: return s
+	return {}
+func board_ship(buid) -> Dictionary:
+	for s in S.ship:
+		if s.has("buid") and int(s.buid) == int(buid): return s
+	return {}
+func free_boards() -> Array:
+	return S.boards.filter(func(b): return board_ship(b.uid).is_empty())
+
+## Ties a finished keyboard to an order: it now waits to be packed on the packing table.
+func ship_order(oid: String, buid) -> Dictionary:
+	var o = null
+	for x in S.orders: if x.id == oid: o = x
+	if o == null or find_board(buid).is_empty() or not board_ship(buid).is_empty(): return {}
+	S.listings = S.listings.filter(func(l): return int(l.uid) != int(buid))
+	o.shipping = true
+	var s := {"id": "s%d" % uid(), "kind": "order", "oid": oid, "buid": buid, "name": o.name, "status": "ready", "brand": true}
+	S.ship.append(s); mark(); return s
+
+func pack_shipment(sid: String) -> Dictionary:
+	var s := ship_by_id(sid)
+	if s.is_empty(): return {}
+	s.status = "packed"
+	var size := Vector3(0.52, 0.12, 0.24)
+	if s.has("buid"):
+		var b := find_board(s.buid)
+		if not b.is_empty(): size = Vector3(0.36 + float(Data.LAYOUTS[b.layout].W) * 0.0195, 0.12, 0.24)
+	var p := {"id": "p%d" % uid(), "kind": "out", "ship": sid, "items": [], "place": "pack", "slot": 0, "pos": null, "rot": 0.0, "size": size, "from": str(S.shop), "brand": s.get("brand", false)}
+	S.parcels.append(p)
+	S.stats.packed = int(S.stats.get("packed", 0)) + 1; track("pack", 1)
+	mark(); return p
+
+func complete_shipment(sid: String) -> void:
+	var s := ship_by_id(sid)
+	if s.is_empty(): return
+	S.ship.erase(s)
+	match str(s.kind):
+		"order":
+			deliver_order(str(s.oid), s.buid)
+		"repair":
+			var pay := float(s.pay) + float(s.tip)
+			earn(pay, "ремонт: " + str(s.name)); add_rep(float(s.rep))
+			Audio.ui("coin")
+			toast("Курьер забрал клавиатуру. %s заплатил(а) %s" % [s.name, rub(pay)], "gold")
+		"sale":
+			var b := find_board(s.buid)
+			if not b.is_empty():
+				S.boards.erase(b); consume_board(b)
+				earn(float(s.price), "продажа: " + str(b.name))
+				S.stats.sold += 1; S.stats.maxSale = max(S.stats.maxSale, float(s.price)); track("sell", 1); weekly_track("sell", 1)
+				add_xp(22 + b.st.quality * 0.25); add_rep(0.015)
+				Audio.ui("coin"); toast("Покупатель получил «%s»: +%s" % [b.name, rub(s.price)], "gold")
+	mark()
+
+func accept_repair(oid: String) -> bool:
+	for o in S.orders:
+		if o.id != oid or o.kind != "repair": continue
+		if o.get("taken", false) or o.get("coming", false): return true
+		o.coming = true
+		queue_delivery([{"cat": "client", "oid": oid}], "client", false, {"from": o.name, "oid": oid})
+		toast("%s отправил(а) клавиатуру курьером. Ждите у двери" % o.name); mark(); return true
+	return false
+
+func home_tick() -> void:
+	var now := now_min()
+	for d in S.deliveries.duplicate():
+		if now >= float(d.eta) and courier_hours(now):
+			S.deliveries.erase(d); _arrive(d); mark()
+	for p in S.parcels.duplicate():
+		if p.kind != "out" or p.place != "door": continue
+		var sh := ship_by_id(str(p.get("ship", "")))
+		if sh.is_empty(): S.parcels.erase(p); continue
+		if now >= float(sh.get("pickup", 1e12)) and courier_hours(now):
+			S.parcels.erase(p); courier_came.emit(p); complete_shipment(sh.id)
+
+## Dev / tests: every delivery arrives and is unboxed onto the bench at once.
+func debug_receive_all() -> void:
+	for d in S.deliveries.duplicate():
+		S.deliveries.erase(d); var p := _arrive(d); unbox_parcel(p.id)
+	for p in S.parcels.duplicate():
+		if p.kind == "part": unbox_parcel(p.id)
+	for it in S.inv.items: it.loc = "bench"
+	mark()
+
+## Bed: from 18:00 you can sleep till 07:00 of the next day.
+func can_sleep() -> bool: return clock_min() >= 18.0 * 60.0
+func sleep() -> bool:
+	if not can_sleep():
+		toast("Ещё рано спать: лечь можно после 18:00", "bad"); return false
+	new_day(); S.home.woke = false; mark(); return true
 
 # ------------------------------------------------------------------ dailies / login / weekly
 const TASK_POOL := [
@@ -951,12 +1194,12 @@ func deliver_gb() -> Array:
 	var t = now(); var got = []; var keep = []
 	for p in S.gb.pending:
 		if float(p.arrive) > t: keep.append(p); continue
-		if p.kind == "sw": give_switches(p.id, int(p.n))
-		elif p.kind == "kc": S.inv.items.append({"uid":uid(),"cat":"kc","id":p.id,"cost":float(Data.kc(p.id).price)*part_city_k()}); S.col.kc[p.id] = 1
-		else: give_artisan(p.id)
+		var it := {"cat": p.kind, "id": p.id, "n": int(p.get("n", 1))}
+		if p.kind == "kc": it.cost = float(Data.kc(p.id).price) * part_city_k()
+		_arrive({"kind": "part", "items": [it], "from": "Group buy"})
 		S.stats.gb += 1; got.append(p.name)
 	if got.size() > 0:
-		S.gb.pending = keep; Audio.ui("rare"); toast("Посылка прибыла: " + ", ".join(got), "vio"); mark()
+		S.gb.pending = keep; Audio.ui("rare"); mark()
 	return got
 
 # ------------------------------------------------------------------ boxes
@@ -997,7 +1240,7 @@ func grant_entry(e: Dictionary, online_uid := "") -> void:
 	match e.kind:
 		"art": give_artisan(e.id, true, online_uid)
 		"sw": give_switches(e.id, int(e.n))
-		"kc": S.inv.items.append({"uid":uid(),"cat":"kc","id":e.id,"cost":float(Data.kc(e.id).price)*part_city_k(),"ouid":online_uid}); S.col.kc[e.id] = 1
+		"kc": S.inv.items.append({"uid":uid(),"cat":"kc","id":e.id,"cost":float(Data.kc(e.id).price)*part_city_k(),"ouid":online_uid,"loc":"shelf"}); S.col.kc[e.id] = 1
 	mark()
 ## Consumes one box and returns the won entry (local roll). The UI animates the reveal.
 func open_box_local(id: String) -> Dictionary:
@@ -1076,12 +1319,12 @@ func accept_npc_trade(offer_id: String, give: Dictionary) -> bool:
 
 # ------------------------------------------------------------------ tutorial / achievements
 const TUT := [
-	{"t":"Почините клавиатуру Димы: «Заказы» → «Взять в ремонт»", "k":"repairs", "r":1500},
-	{"t":"Почините клавиатуру Лены — после этого откроется сборка на заказ", "k":"repairs", "n":2, "r":2000},
-	{"t":"Соберите первую клавиатуру в мастерской из стартового набора", "k":"built", "r":2000},
-	{"t":"Отдайте её Диме: вкладка «Заказы»", "k":"orders", "r":3000},
-	{"t":"Купите детали для следующей сборки на «Рынке»", "k":"bought", "r":2000},
-	{"t":"Соберите ещё одну и выставьте её на «Витрину»", "k":"listed", "r":4000},
+	{"t":"Заберите коробку Димы у двери, распакуйте на верстаке и почините клавиатуру", "k":"repairs", "r":1500},
+	{"t":"Примите ремонт Лены на компьютере («Заказы») и почините — откроется сборка на заказ", "k":"repairs", "n":2, "r":2000},
+	{"t":"Возьмите стартовый набор из шкафа, отнесите на верстак и соберите первую клавиатуру", "k":"built", "r":2000},
+	{"t":"Упакуйте её для Димы на упаковочном столе и оставьте у двери курьеру", "k":"orders", "r":3000},
+	{"t":"Закажите детали в KeyMarket на компьютере или телефоне", "k":"bought", "r":2000},
+	{"t":"Соберите ещё одну и выставьте её в «Мой магазин»", "k":"listed", "r":4000},
 	{"t":"Загляните в «События» и заберите ежедневную награду", "k":"loginClaims", "r":5000},
 ]
 func tut_tick() -> void:
@@ -1152,6 +1395,9 @@ func load_game() -> bool:
 		S.stats.repairs = max(int(S.stats.repairs), 2)
 	for b in S.boards:
 		if not b.has("st"): b.st = board_stats(b)
+	for it in S.inv.items:
+		if not it.has("loc"): it.loc = "shelf"
+	if float(S.dayT) > Data.DAY_SEC: S.dayT = 0.0
 	return true
 func hydrate_vectors() -> void:
 	# JSON turns Vector2 into strings; restore order map positions
@@ -1164,15 +1410,23 @@ func hydrate_vectors() -> void:
 func boot() -> Dictionary:
 	var loaded = load_game()
 	if not loaded:
-		S = new_state(); starter_kit(S)
+		S = new_state(); starter_kit(S); _first_parcel()
 	hydrate_vectors()
 	ensure_daily(); ensure_week(); login_tick()
 	var off = process_offline() if loaded else {}
 	if S.orders.size() < 2: refill_orders(2)
 	save_game()
 	return off
+## The neighbour drops his broken keyboard at the door before the player wakes up.
+func _first_parcel() -> void:
+	for o in S.orders:
+		if o.kind == "repair" and int(o.get("story", -1)) == 0:
+			o.coming = true
+			var p := {"id": "p%d" % uid(), "kind": "client", "items": [{"cat": "client", "oid": o.id}], "place": "door", "slot": 0, "pos": null, "rot": 0.12,
+				"size": parcel_size([{"cat": "client"}]), "from": o.name, "oid": o.id}
+			S.parcels.append(p)
 func reset_game() -> void:
-	S = new_state(); starter_kit(S); ensure_daily(); ensure_week(); login_tick(); refill_orders(2); save_game(); mark()
+	S = new_state(); starter_kit(S); _first_parcel(); ensure_daily(); ensure_week(); login_tick(); refill_orders(2); save_game(); mark()
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_PAUSED:

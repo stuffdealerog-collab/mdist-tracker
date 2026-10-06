@@ -84,3 +84,49 @@
 
 ## Наборы kbsim
 Часть наборов свитчей сконвертирована из проекта kbsim (лицензия MIT). Исходники лежат в `tools/kbsim/snd`.
+
+## Комната, распаковка и доставка (tools/build_room_snd.py → assets/snd2/_room)
+- tape_rip: https://freesound.org/s/466211/
+- tape_rip: https://freesound.org/s/273450/
+- tape_rip: https://freesound.org/s/618541/
+- tape_pull: https://freesound.org/s/332225/
+- tape_pull: https://freesound.org/s/151446/
+- tape_seal: https://freesound.org/s/739437/
+- knife_cut: https://freesound.org/s/795827/
+- flaps: https://freesound.org/s/452567/
+- flaps: https://freesound.org/s/459428/
+- flaps: https://freesound.org/s/459443/
+- card_tear: https://freesound.org/s/764891/
+- card_tear: https://freesound.org/s/364739/
+- card_tear: https://freesound.org/s/764893/
+- box_down: https://freesound.org/s/491094/
+- box_down: https://freesound.org/s/452569/
+- film_peel: https://freesound.org/s/555695/
+- bag: https://freesound.org/s/389548/
+- bag: https://freesound.org/s/679998/
+- bag: https://freesound.org/s/142592/
+- zip: https://freesound.org/s/326466/
+- esd_bag: https://freesound.org/s/573824/
+- plastic_pkg: https://freesound.org/s/434674/
+- foam: https://freesound.org/s/868249/
+- foam: https://freesound.org/s/774262/
+- bubble: https://freesound.org/s/214675/
+- bubble: https://freesound.org/s/683100/
+- tray: https://freesound.org/s/444780/
+- tray: https://freesound.org/s/713350/
+- doorbell: https://freesound.org/s/123350/
+- knock: https://freesound.org/s/193873/
+- knock: https://freesound.org/s/621234/
+- door: https://freesound.org/s/237403/
+- step: https://freesound.org/s/426620/
+- step: https://freesound.org/s/505832/
+- step: https://freesound.org/s/543685/
+- bed: https://freesound.org/s/573730/
+- bed: https://freesound.org/s/644490/
+- pc_hum: https://freesound.org/s/211994/
+- mouse: https://freesound.org/s/687108/
+- mouse: https://freesound.org/s/534104/
+- phone_vib: https://freesound.org/s/529979/
+- phone_vib: https://freesound.org/s/677649/
+- alarm: https://freesound.org/s/709944/
+- label_print: https://freesound.org/s/546605/

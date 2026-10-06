@@ -1,0 +1,84 @@
+{
+	"_style": "Replace the empty backdrop with a professional e-commerce product photo of a single {what}, the whole object fully visible and centered with margin around it, three-quarter front view from slightly above, plain light grey seamless studio background, soft even diffused lighting, no text, no logos, photorealistic, sharp focus, high detail",
+	"office_chair": {
+		"what": "modern black mesh ergonomic office chair with padded seat, armrests, gas lift and five-star base with casters",
+		"size": 1.02,
+		"axis": "h"
+	},
+	"bed": {
+		"what": "double bed with a dark walnut wooden frame and low headboard, made with a slightly rumpled blue-grey linen duvet and two white pillows",
+		"size": 2.08,
+		"axis": "max"
+	},
+	"nightstand": {
+		"what": "small light oak wooden bedside table with one drawer with a round knob and an open shelf below, on short legs",
+		"size": 0.5,
+		"axis": "h"
+	},
+	"desk_lamp": {
+		"what": "black metal articulated architect desk lamp with a conical shade on a round weighted base",
+		"size": 0.62,
+		"axis": "h"
+	},
+	"plant": {
+		"what": "large monstera deliciosa house plant with big split leaves in a terracotta clay pot",
+		"size": 1.05,
+		"axis": "h"
+	},
+	"monitor": {
+		"what": "27 inch black flat computer monitor with very thin bezels on a matte black stand, screen turned off, seen from the front",
+		"size": 0.62,
+		"axis": "max"
+	},
+	"pc_tower": {
+		"what": "black mid-tower desktop computer case with a tempered glass side panel and three front fans",
+		"size": 0.46,
+		"axis": "h"
+	},
+	"alarm_clock": {
+		"what": "small black rectangular digital alarm clock with a glossy black front, display turned off",
+		"size": 0.12,
+		"axis": "max",
+		"seed": 21
+	},
+	"mug": {
+		"what": "plain white ceramic coffee mug with a handle",
+		"size": 0.095,
+		"axis": "h"
+	},
+	"backpack": {
+		"what": "dark olive green canvas backpack with a front pocket and leather trims, standing upright",
+		"size": 0.45,
+		"axis": "h"
+	},
+	"stool": {
+		"what": "black steel bar stool with four legs and a round grey fabric seat cushion",
+		"size": 0.66,
+		"axis": "h"
+	},
+	"tape_gun": {
+		"what": "red handheld packing tape dispenser gun loaded with a roll of brown packing tape",
+		"size": 0.24,
+		"axis": "max"
+	},
+	"label_printer": {
+		"what": "compact white thermal shipping label printer with a label coming out of the front slot",
+		"size": 0.18,
+		"axis": "max"
+	},
+	"headphones": {
+		"what": "black over-ear wireless headphones lying flat",
+		"size": 0.2,
+		"axis": "max"
+	},
+	"waste_bin": {
+		"what": "small black metal mesh waste paper basket",
+		"size": 0.3,
+		"axis": "h"
+	},
+	"bubble_roll": {
+		"what": "large roll of clear bubble wrap standing upright",
+		"size": 0.6,
+		"axis": "h"
+	}
+}

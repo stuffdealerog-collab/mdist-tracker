@@ -37,7 +37,7 @@ func content(first: bool) -> Control:
 func _group(cat: String, filter = null) -> Array:
 	var gr = {}; var order = []
 	for it in g().inv.items:
-		if it.cat != cat: continue
+		if it.cat != cat or Game.item_loc(it) != "bench": continue
 		if filter is Callable and not filter.call(it): continue
 		var k = "%s|%s|%s" % [it.id, it.get("layout", ""), it.get("color", "")]
 		if not gr.has(k): gr[k] = {"item": it, "uids": []}; order.append(k)
@@ -132,7 +132,9 @@ func _draft_view(first: bool) -> Control:
 	if int(g().tut) < Game.TUT.size(): v.add_child(_guide())
 	# slots
 	var slots = UIK.vbox(12)
-	slots.add_child(UIK.label("Детали со склада", "H3"))
+	slots.add_child(UIK.label("Детали на верстаке", "H3"))
+	var on_shelf = Game.items_at("shelf").size()
+	if on_shelf > 0: slots.add_child(UIK.label("В шкафу ещё %d дет. Встаньте (Esc), подойдите к шкафу и возьмите нужные (E)." % on_shelf, "SmallMuted", true))
 	var cases = _group("case")
 	slots.add_child(_slot("Корпус", cases.map(func(gr):
 		var c = Data.case_(gr.item.id)
@@ -203,8 +205,8 @@ func _guide() -> Control:
 func _slot(title: String, opts: Array, none_text: String) -> Control:
 	var v = UIK.vbox(6, [UIK.label(title.to_upper(), "Eyebrow")])
 	if opts.is_empty():
-		var go = UIK.button("На рынок", "BtnTeal", func(): main.open_tab("market"))
-		v.add_child(UIK.hbox(10, [UIK.label(none_text, "SmallMuted"), UIK.spacer(), go]))
+		var go = UIK.button("Заказать", "BtnTeal", func(): main.open_tab("market"))
+		v.add_child(UIK.hbox(10, [UIK.label(none_text + " Принесите из шкафа или закажите.", "SmallMuted", true), UIK.spacer(), go]))
 	else:
 		var f = UIK.flow(6)
 		for o in opts: f.add_child(o)
@@ -249,10 +251,10 @@ func _locked_view() -> Control:
 	var n: int = int(g().stats.get("repairs", 0)); var need: int = Game.REPAIR_STORY.size()
 	var c = UIK.vbox(10, [UIK.label("Вы только открыли мастерскую. Заработайте имя и первые деньги на ремонте чужих клавиатур, тогда клиенты начнут заказывать сборки.", "Small", true),
 		UIK.hbox(8, [UIK.label("Ремонтов выполнено", "Small"), UIK.spacer(), UIK.label("%d/%d" % [n, need], "Num")]), UIK.bar(float(n) / need)])
-	c.add_child(UIK.button("Взять ремонт в «Заказах»", "BtnPri", func(): main.open_tab("orders"), "wrench"))
+	c.add_child(UIK.button("Открыть заказы", "BtnPri", func(): main.open_tab("orders"), "wrench"))
 	v.add_child(UIK.card("CardHi", c))
 	v.add_child(UIK.card("Card", UIK.vbox(8, [UIK.label("КАК ПРОХОДИТ РЕМОНТ", "Eyebrow"),
-		UIK.label("1. Диагностика: прожмите все клавиши и найдите дефекты на слух.\n2. Ремонт: съёмник, новый свитч, чистка, смазка стаба или паяльник.\n3. Проверка звука и возврат клиенту.", "Small", true)])))
+		UIK.label("1. Клиент присылает клавиатуру курьером: заберите коробку у двери и распакуйте на верстаке.\n2. Диагностика: прожмите все клавиши и найдите дефекты на слух.\n3. Ремонт: съёмник, новый свитч, чистка, смазка стаба или паяльник.\n4. Упакуйте клавиатуру на упаковочном столе и оставьте у двери: курьер вернёт её клиенту и привезёт оплату.", "Small", true)])))
 	return v
 
 func _start() -> void:

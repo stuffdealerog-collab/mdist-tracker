@@ -27,7 +27,7 @@ ok=0
 for name, sid in WANT.items():
     out = "raw/%s.mp3" % name
     if os.path.exists(out) and os.path.getsize(out) > 1000: ok+=1; continue
-    h = subprocess.run(["curl","-sSL","-m","25","https://freesound.org/s/%d/" % sid],capture_output=True,text=True).stdout
+    h = subprocess.run(["curl","-sSL","-m","25","https://freesound.org/s/%d/" % sid],capture_output=True,text=True,encoding='utf-8',errors='replace').stdout
     m = re.search(r'https://cdn\.freesound\.org/previews/[0-9]+/%d_[0-9]+-hq\.mp3' % sid, h) or re.search(r'https://cdn\.freesound\.org/previews/[0-9]+/%d_[0-9]+-lq\.mp3' % sid, h)
     lic = "Creative Commons 0" in h or "creativecommons.org/publicdomain/zero" in h
     if not m: print("NO URL", name, sid); continue

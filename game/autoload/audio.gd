@@ -228,6 +228,72 @@ func ui(name: String) -> void:
 func socket(cap: bool) -> void:
 	ui("cap" if cap else "socket")
 
+# ------------------------------------------------------------------ room foley
+## Real CC0 room / unboxing / delivery recordings from assets/snd2/_room (see tools/build_room_snd.py).
+const ROOM := SND + "_room/"
+const ROOM_GAIN := {"step": -14.0, "pc_hum": -20.0, "doorbell": -4.0, "knock": -3.0, "bubble": -8.0, "mouse": -12.0, "box_down": -6.0,
+	"alarm": -10.0, "bed": -8.0, "label_print": -8.0, "tape_seal": -5.0, "film_peel": -4.0, "knife_cut": -4.0, "phone_vib": -8.0, "aquarium": -19.0}
+var room_snd := {}            # name -> [streams]
+var _room_players: Array[AudioStreamPlayer3D] = []
+var _room_flat: Array[AudioStreamPlayer] = []
+var _rp := 0
+var _rf := 0
+var _loops := {}
+
+func _room_load() -> void:
+	if not room_snd.is_empty(): return
+	var path := ROOM + "manifest.json"
+	if not FileAccess.file_exists(path): return
+	var m = JSON.parse_string(FileAccess.get_file_as_string(path))
+	if not m is Dictionary: return
+	for k in m:
+		room_snd[k] = []
+		for i in int(m[k]):
+			var f := ROOM + "%s_%02d.ogg" % [k, i]
+			if ResourceLoader.exists(f): room_snd[k].append(load(f))
+	for i in 16:
+		var p := AudioStreamPlayer3D.new(); p.bus = "UI"; p.unit_size = 2.5; p.max_distance = 18.0; p.attenuation_filter_cutoff_hz = 9000.0
+		p.attenuation_filter_db = -12.0; add_child(p); _room_players.append(p)
+	for i in 8:
+		var q := AudioStreamPlayer.new(); q.bus = "UI"; add_child(q); _room_flat.append(q)
+
+func room_has(name: String) -> bool:
+	_room_load(); return room_snd.has(name) and not (room_snd[name] as Array).is_empty()
+
+## Plays a room sound. With a position it is spatial (3D), otherwise it plays "in the head" (player's own hands).
+func sfx(name: String, pos = null, gain_db := 0.0, pitch_var := 0.06) -> void:
+	if Game.S.is_empty() or not Game.S.settings.sound: return
+	_room_load()
+	var arr: Array = room_snd.get(name, [])
+	if arr.is_empty(): ui(name); return
+	var s: AudioStream = arr[_pick(arr, "r_" + name)]
+	var db: float = float(ROOM_GAIN.get(name, -6.0)) + gain_db
+	var pitch: float = randf_range(1.0 - pitch_var, 1.0 + pitch_var)
+	if pos is Vector3:
+		_rp = (_rp + 1) % _room_players.size()
+		var p := _room_players[_rp]; p.stop(); p.global_position = pos; p.stream = s; p.volume_db = db + 4.0; p.pitch_scale = pitch; p.play()
+	else:
+		_rf = (_rf + 1) % _room_flat.size()
+		var q := _room_flat[_rf]; q.stream = s; q.volume_db = db; q.pitch_scale = pitch; q.play()
+
+## Starts (or moves) a looping spatial sound, e.g. the PC fan hum.
+func loop3d(id: String, name: String, pos: Vector3, gain_db := 0.0) -> void:
+	_room_load()
+	var arr: Array = room_snd.get(name, [])
+	if arr.is_empty(): return
+	var p: AudioStreamPlayer3D = _loops.get(id)
+	if p == null:
+		p = AudioStreamPlayer3D.new(); p.bus = "Ambient"; p.unit_size = 1.2; p.max_distance = 10.0; add_child(p); _loops[id] = p
+		var st: AudioStream = (arr[0] as AudioStream).duplicate()
+		if st is AudioStreamOggVorbis: (st as AudioStreamOggVorbis).loop = true
+		p.stream = st
+	p.global_position = pos; p.volume_db = float(ROOM_GAIN.get(name, -12.0)) + gain_db
+	if not p.playing: p.play()
+
+func stop_loop(id: String) -> void:
+	var p: AudioStreamPlayer3D = _loops.get(id)
+	if p: p.queue_free(); _loops.erase(id)
+
 # ------------------------------------------------------------------ synthesis
 func _wav(data: PackedFloat32Array, loop := false) -> AudioStreamWAV:
 	var bytes = PackedByteArray(); bytes.resize(data.size() * 2)

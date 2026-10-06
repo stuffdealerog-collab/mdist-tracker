@@ -3,3 +3,11 @@ build/
 server/*.db
 server/*.db-*
 *.tmp
+tools/raw_room/
+tools/last_search.json
+art/
+
+# Godot import caches next to assets
+*.unwrap_cache
+# lightmap bake: the night scene is only an input of the editor bake (tools/bake_lighting.sh)
+bake/room_night.scn
