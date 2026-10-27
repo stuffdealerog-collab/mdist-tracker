@@ -1,0 +1,5 @@
+node_modules/
+build/*
+!build/audio_raw/
+!build/tts_blocks.json
+output/DRAFT_*

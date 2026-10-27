@@ -1,0 +1,318 @@
+{
+  "topic": "Malaria",
+  "subtitle": "An ancient parasite, a modern fight",
+  "course": "Group Oral Presentation",
+  "speakers": {
+    "J": {
+      "short": "Javohir Azamov",
+      "first": "Javohir",
+      "full": "Azamov Javohir Latipovich",
+      "id": "b2600910",
+      "idSpoken": "bee, two, six, zero, zero, nine, one, zero",
+      "role": "Introduction + Conclusion",
+      "part": "What is malaria"
+    },
+    "M": {
+      "short": "Muhammadrizo Asatullayev",
+      "first": "Muhammadrizo",
+      "full": "Asatullayev Muhammadrizo Anvarjon o'g'li",
+      "id": "b2603096",
+      "idSpoken": "bee, two, six, zero, three, zero, nine, six",
+      "role": "Body 1 · History",
+      "part": "History and outbreaks"
+    },
+    "R": {
+      "short": "Ramazan Bakiyev",
+      "first": "Ramazan",
+      "full": "Bakiyev Ramazan Sherzodovich",
+      "id": "b2605509",
+      "idSpoken": "bee, two, six, zero, five, five, zero, nine",
+      "role": "Body 2 · Statistics",
+      "part": "Malaria today"
+    },
+    "A": {
+      "short": "Akmalbek Abduraimov",
+      "first": "Akmalbek",
+      "full": "Abduraimov Akmalbek Jamshit o'g'li",
+      "id": "b2606469",
+      "idSpoken": "bee, two, six, zero, six, four, six, nine",
+      "role": "Body 3 · Fighting back",
+      "part": "Vaccine, prevention and treatment"
+    }
+  },
+  "slides": [
+    {
+      "n": 1,
+      "key": "title",
+      "title": "Malaria",
+      "owner": "J",
+      "notes": [
+        {
+          "who": "J",
+          "text": "Good afternoon, dear teacher and dear audience. Today our group will present one of the oldest and deadliest diseases in human history: malaria. Before we start, let us introduce ourselves. My name is Azamov Javohir Latipovich, and my ID number is b2600910."
+        },
+        {
+          "who": "M",
+          "text": "Good afternoon. My name is Asatullayev Muhammadrizo Anvarjon o'g'li, and my ID number is b2603096."
+        },
+        {
+          "who": "R",
+          "text": "Good afternoon. My name is Bakiyev Ramazan Sherzodovich, and my ID number is b2605509."
+        },
+        {
+          "who": "A",
+          "text": "Good afternoon. My name is Abduraimov Akmalbek Jamshit o'g'li, and my ID number is b2606469."
+        }
+      ],
+      "cue": {
+        "J": "Greeting → topic: oldest + deadliest disease → \"let us introduce ourselves\" → full name + ID",
+        "M": "Good afternoon · full name · ID",
+        "R": "Good afternoon · full name · ID",
+        "A": "Good afternoon · full name · ID"
+      }
+    },
+    {
+      "n": 2,
+      "key": "outline",
+      "title": "Outline",
+      "owner": "J",
+      "notes": [
+        {
+          "who": "J",
+          "text": "Thank you. First, I will explain what malaria is and how deadly it is. Then Muhammadrizo will talk about its history and the biggest outbreaks, Ramazan about the numbers today, and Akmalbek about how we fight back: vaccines, prevention and treatment. Finally, I will conclude."
+        }
+      ],
+      "cue": {
+        "J": "Me: what + how deadly → Muhammadrizo: history + outbreaks → Ramazan: numbers today → Akmalbek: vaccines, prevention, treatment → me: conclusion"
+      }
+    },
+    {
+      "n": 3,
+      "key": "what",
+      "title": "What is malaria?",
+      "owner": "J",
+      "notes": [
+        {
+          "who": "J",
+          "text": "So, what is malaria? According to the World Health Organization, it is a life-threatening disease spread to humans by mosquitoes. Our task asks if it is viral or bacterial. The answer is: neither. Malaria is caused by a parasite, a tiny single-celled organism called Plasmodium.\nThe parasite travels inside the female Anopheles mosquito, which bites mostly at night. After the bite, the parasites hide in the liver, and then they attack the red blood cells. Malaria does not spread from person to person.\nFive species of Plasmodium infect humans. The most dangerous are vivax, the most common outside Africa, and falciparum, the deadliest one."
+        }
+      ],
+      "cue": {
+        "J": "WHO definition · NOT virus, NOT bacteria → parasite Plasmodium · female Anopheles, night · liver → red blood cells · not person to person · 5 species: vivax (outside Africa), falciparum (deadliest)"
+      }
+    },
+    {
+      "n": 4,
+      "key": "deadly",
+      "title": "How deadly is it?",
+      "owner": "J",
+      "notes": [
+        {
+          "who": "J",
+          "text": "And how deadly is it? The first symptoms usually start ten to fifteen days after the bite: fever, chills and headache. It looks like the flu, and that is exactly the danger. Left untreated, falciparum malaria can progress to severe illness and death within twenty-four hours.\nWhen severe malaria is not treated, the death rate approaches one hundred percent. Even with good hospital treatment, ten to twenty percent of these patients still die. So the key word is time: fast diagnosis saves lives.\nBut how long has this parasite been with us? Muhammadrizo will tell you."
+        }
+      ],
+      "cue": {
+        "J": "10–15 days · fever, chills, headache = looks like flu · 24 hours · severe untreated ≈ 100% · treated 10–20% · key word: TIME → pass to Muhammadrizo"
+      }
+    },
+    {
+      "n": 5,
+      "key": "records",
+      "title": "First records",
+      "owner": "M",
+      "notes": [
+        {
+          "who": "M",
+          "text": "Thank you, Javohir. As Javohir said, malaria is a very old enemy. In fact, it is one of the oldest diseases known to humanity.\nThe first records come from China. A Chinese medical text from about 2700 BC describes fevers that return again and again, together with an enlarged spleen. These are the classic signs of malaria.\nIn Egypt, medical papyri from 1570 BC describe similar fevers. And modern science found real proof: in 2010, researchers found the DNA of the malaria parasite in the mummy of the pharaoh Tutankhamun. So even a king could not escape it.\nIn ancient Greece, Hippocrates noticed that people who lived near marshes often suffered from these fevers. And the name itself is Italian: mal aria means bad air, because people believed that the disease came from the air of the swamps."
+        }
+      ],
+      "cue": {
+        "M": "Thank you, Javohir · China 2700 BC: fevers + spleen · Egypt 1570 BC papyri · 2010: DNA in Tutankhamun · Greece: Hippocrates, marshes · Italy: mal aria = bad air"
+      }
+    },
+    {
+      "n": 6,
+      "key": "discovery",
+      "title": "The great discoveries",
+      "owner": "M",
+      "notes": [
+        {
+          "who": "M",
+          "text": "For thousands of years, nobody knew the real cause. The answer came only at the end of the nineteenth century.\nIn 1880, a French army doctor in Algeria, Alphonse Laveran, looked through his microscope at the blood of a sick soldier and saw the parasite. Later he received the Nobel Prize for this work.\nOn the twentieth of August 1897, the British doctor Ronald Ross, working in India, found the parasite inside a mosquito. He called this day Mosquito Day, and in 1902 he received the Nobel Prize. A year later, in 1898, the Italian scientist Giovanni Grassi and his team proved that human malaria is carried by Anopheles mosquitoes.\nNow, for the first time, people knew exactly who the enemy was: a parasite, and its carrier, the mosquito."
+        }
+      ],
+      "cue": {
+        "M": "Cause unknown until end of 1800s · 1880 Laveran, Algeria, microscope → Nobel · 20 Aug 1897 Ross, India, Mosquito Day → Nobel 1902 · 1898 Grassi: Anopheles · enemy = parasite + carrier = mosquito"
+      }
+    },
+    {
+      "n": 7,
+      "key": "outbreaks",
+      "title": "Major outbreaks",
+      "owner": "M",
+      "notes": [
+        {
+          "who": "M",
+          "text": "Once people knew the enemy, they could fight it. But malaria still caused terrible epidemics.\nIn 1934 and 1935, in Sri Lanka, which was then called Ceylon, a drought created perfect breeding places for mosquitoes. About one and a half million people fell ill, and about eighty thousand died.\nIn 1958, Ethiopia suffered one of the worst epidemics in history: about three million cases and one hundred and fifty thousand deaths.\nAnd this is not only history. After the terrible floods of 2022 in Pakistan, malaria cases grew at least four times. And in 2024, Ethiopia, Madagascar and Yemen together added about five million new cases in just one year.\nSo what does malaria cost the world today? Ramazan will show you the numbers."
+        }
+      ],
+      "cue": {
+        "M": "Ceylon 1934–35: drought · 1.5 M ill · 80,000 dead · Ethiopia 1958: 3 M · 150,000 · Pakistan 2022 floods: ×4 · 2024 Ethiopia + Madagascar + Yemen: +5 M → pass to Ramazan"
+      }
+    },
+    {
+      "n": 8,
+      "key": "today",
+      "title": "Malaria today",
+      "owner": "R",
+      "notes": [
+        {
+          "who": "R",
+          "text": "Thank you, Muhammadrizo. As Muhammadrizo showed, malaria is not only a disease of the past. Let me show you the latest numbers from the World Malaria Report, published by WHO in December 2025.\nIn 2024, there were about two hundred and eighty-two million cases of malaria in eighty countries. Six hundred and ten thousand people died. That is almost one thousand seven hundred people every single day.\nThe burden is very unequal. Africa carries ninety-four percent of all cases and ninety-five percent of all deaths. Just five countries, Nigeria, the Democratic Republic of the Congo, Uganda, Ethiopia and Mozambique, have more than half of all cases in the world.\nAnd the most painful number: in Africa, three out of four people who die from malaria are children under five years old. That is more than one thousand small children every day."
+        }
+      ],
+      "cue": {
+        "R": "Thank you, Muhammadrizo · WMR Dec 2025 · 282 M cases · 80 countries · 610,000 deaths ≈ 1,700/day · Africa 94% / 95% · 5 countries > half · 3 of 4 = children under 5"
+      }
+    },
+    {
+      "n": 9,
+      "key": "trend",
+      "title": "The numbers are rising",
+      "owner": "R",
+      "notes": [
+        {
+          "who": "R",
+          "text": "And here is the worrying part: the number of cases is going up. In 2015, there were two hundred and thirty million cases. In 2023, two hundred and seventy-three million. And in 2024, two hundred and eighty-two million. Deaths also grew, from five hundred and seventy-eight thousand to six hundred and ten thousand. The death rate per person is lower than ten years ago, but the population keeps growing.\nOne big reason is money. The global strategy needs about nine point three billion dollars a year. In 2024, the world invested only three point nine billion dollars. That is just forty-two percent of what is needed. And without money, there are fewer nets, fewer tests and fewer medicines."
+        }
+      ],
+      "cue": {
+        "R": "Cases: 230 (2015) → 273 (2023) → 282 (2024) · deaths 578k → 610k · rate lower, population grows · money: need $9.3 bn, got $3.9 bn = 42%"
+      }
+    },
+    {
+      "n": 10,
+      "key": "progress",
+      "title": "Malaria can be defeated",
+      "owner": "R",
+      "notes": [
+        {
+          "who": "R",
+          "text": "But there is also good news. Since the year 2000, malaria control has prevented two point three billion cases and fourteen million deaths. Today, forty-seven countries and one territory are officially certified as malaria-free.\nAnd one of them is our own country. Uzbekistan first stopped malaria in 1961, but the disease came back. In 2005, the countries of our region signed the Tashkent Declaration and promised to eliminate malaria. In Surkhandarya, the most affected province, cases fell from eighty-one in 2007 to zero. The last local cases were found in 2010, and in December 2018, WHO officially certified Uzbekistan as malaria-free. According to WHO, the key was early diagnosis and treatment, free of charge for everyone.\nSo malaria can be defeated. But with which tools? Akmalbek will explain."
+        }
+      ],
+      "cue": {
+        "R": "Since 2000: 2.3 bn cases + 14 M deaths prevented · 47 countries + 1 territory · Uzbekistan: 1961 → came back → 2005 Tashkent Declaration → Surkhandarya 81 → 0 → last cases 2010 → certified Dec 2018 · free diagnosis + treatment → pass to Akmalbek"
+      }
+    },
+    {
+      "n": 11,
+      "key": "vaccine",
+      "title": "The vaccine",
+      "owner": "A",
+      "notes": [
+        {
+          "who": "A",
+          "text": "Thank you, Ramazan. As Ramazan said, malaria can be defeated, and today we have a new weapon: a vaccine. For a long time it seemed impossible, because a parasite is much more complex than a virus or a bacterium.\nThe first vaccine, RTS,S, is the result of thirty years of research by the company GSK. In October 2021, WHO recommended it for children, and called it a historic moment. In October 2023, WHO recommended a second vaccine, R21, developed by the University of Oxford. In areas where malaria is seasonal, it reduced cases by seventy-five percent. And it is affordable: according to WHO, it is cost-effective at only two to four dollars per dose.\nIn the pilot programme in Ghana, Kenya and Malawi, child deaths from all causes fell by thirteen percent. And by October 2025, twenty-four countries were using malaria vaccines."
+        }
+      ],
+      "cue": {
+        "A": "Thank you, Ramazan · new weapon · parasite > virus (complex) · RTS,S: 30 years, GSK, WHO Oct 2021 \"historic\" · R21: Oxford, Oct 2023, −75% seasonal, $2–4 per dose · pilot Ghana, Kenya, Malawi: −13% child deaths · 24 countries (Oct 2025)"
+      }
+    },
+    {
+      "n": 12,
+      "key": "prevention",
+      "title": "Prevention",
+      "owner": "A",
+      "notes": [
+        {
+          "who": "A",
+          "text": "But a vaccine alone is not enough. Prevention is still our main shield.\nThe most important tool is very simple: a bed net treated with insecticide. Between 2000 and 2015, these nets were responsible for sixty-eight percent of all malaria cases prevented in Africa. But a net works only if people sleep under it every night.\nSecond, spraying insecticide on the inside walls of houses, where mosquitoes rest after they bite.\nThird, preventive medicines for children during the rainy season. In 2024, about fifty-four million African children received them in each round.\nAnd finally, personal protection: repellents, long sleeves, and no standing water near the house. Travellers to risk areas should also take preventive tablets."
+        }
+      ],
+      "cue": {
+        "A": "Main shield · 1 Nets: 68% of prevented cases (2000–2015), every night · 2 Spray walls · 3 Medicines for children, rainy season: 54 M · 4 Personal: repellent, sleeves, no standing water, travellers' tablets"
+      }
+    },
+    {
+      "n": 13,
+      "key": "treatment",
+      "title": "Treatment",
+      "owner": "A",
+      "notes": [
+        {
+          "who": "A",
+          "text": "And if a person is already sick? Malaria is curable, but the first step is always a test: a blood test under the microscope, or a rapid test.\nThe history of treatment is fascinating. In the 1600s, people used the bark of the South American cinchona tree against fever, and in 1820 scientists extracted quinine from it. In the 1970s, the Chinese scientist Tu Youyou found artemisinin in an ancient herbal medicine, sweet wormwood. In 2015, she received the Nobel Prize.\nToday, the most effective treatment is artemisinin-based combination therapy, or ACT. For severe malaria, doctors give artesunate by injection. But there is a new danger: in Eritrea, Rwanda, Uganda and Tanzania, the parasite is becoming partially resistant to artemisinin.\nNow Javohir will sum up our presentation."
+        }
+      ],
+      "cue": {
+        "A": "Curable · test first: microscope or rapid test · 1600s cinchona bark → 1820 quinine · 1970s Tu Youyou, sweet wormwood → artemisinin → Nobel 2015 · today ACT · severe: artesunate injection · resistance: Eritrea, Rwanda, Uganda, Tanzania → pass to Javohir"
+      }
+    },
+    {
+      "n": 14,
+      "key": "conclusion",
+      "title": "Conclusion",
+      "owner": "J",
+      "notes": [
+        {
+          "who": "J",
+          "text": "Thank you, Akmalbek. To conclude, here are our four main ideas.\nFirst, malaria is caused by a parasite, and without treatment it can kill within one day.\nSecond, it has been with humanity for almost five thousand years.\nThird, it is still a huge problem: two hundred and eighty-two million cases and six hundred and ten thousand deaths in 2024, mostly young children in Africa.\nAnd fourth, we know how to win: vaccines, bed nets and fast treatment. Uzbekistan is the proof.\nSo our message is simple: malaria is preventable and curable. Block the bite, test early, treat fast."
+        }
+      ],
+      "cue": {
+        "J": "Thank you, Akmalbek · 4 ideas: 1 parasite, kills in 1 day · 2 ~5,000 years · 3 282 M / 610k, children in Africa · 4 vaccines + nets + fast treatment, Uzbekistan = proof · \"Block the bite, test early, treat fast\""
+      }
+    },
+    {
+      "n": 15,
+      "key": "thanks",
+      "title": "Thank you",
+      "owner": "J",
+      "notes": [
+        {
+          "who": "J",
+          "text": "Thank you for your attention. We will be happy to answer your questions."
+        }
+      ],
+      "cue": {
+        "J": "Thank you for your attention → questions → click to References"
+      }
+    },
+    {
+      "n": 16,
+      "key": "references",
+      "title": "References",
+      "owner": "J",
+      "notes": [
+        {
+          "who": "J",
+          "text": "(Show this slide after \"thank you\" and leave it on the screen during questions. No speech needed. If asked: \"Here are the sources we used, in Harvard style.\")",
+          "silent": true
+        }
+      ],
+      "cue": {
+        "J": "Leave on screen during questions"
+      }
+    }
+  ],
+  "references": [
+    "Achan, J. et al. (2011) ‘Quinine, an old anti-malarial drug in a modern world: role in the treatment of malaria’, Malaria Journal, 10, 144. Available at: https://doi.org/10.1186/1475-2875-10-144",
+    "Bhatt, S. et al. (2015) ‘The effect of malaria control on Plasmodium falciparum in Africa between 2000 and 2015’, Nature, 526(7572), pp. 207–211. Available at: https://doi.org/10.1038/nature15535",
+    "Cox, F.E.G. (2010) ‘History of the discovery of the malaria parasites and their vectors’, Parasites & Vectors, 3, 5. Available at: https://doi.org/10.1186/1756-3305-3-5",
+    "Fontaine, R.E., Najjar, A.E. and Prince, J.S. (1961) ‘The 1958 malaria epidemic in Ethiopia’, American Journal of Tropical Medicine and Hygiene, 10, pp. 795–803. Available at: https://doi.org/10.4269/ajtmh.1961.10.795",
+    "Gill, C.A. (1935) Report on the malaria epidemic in Ceylon in 1934–35. Sessional Paper XXIII. Colombo: Ceylon Government Press.",
+    "Hawass, Z. et al. (2010) ‘Ancestry and pathology in King Tutankhamun’s family’, JAMA, 303(7), pp. 638–647. Available at: https://doi.org/10.1001/jama.2010.121",
+    "Nobel Prize Outreach (2026) All Nobel Prizes in Physiology or Medicine. Available at: https://www.nobelprize.org/prizes/lists/all-nobel-laureates-in-physiology-or-medicine/ (Accessed: 27 October 2026).",
+    "University of Oxford (2023) Highly effective R21/Matrix-M malaria vaccine developed by University of Oxford and Serum Institute of India receives WHO prequalification, 21 December. Available at: https://www.ox.ac.uk/news/2023-12-21-highly-effective-r21matrix-m-malaria-vaccine-developed-university-oxford-and-serum (Accessed: 27 October 2026).",
+    "World Health Organization (2015) Guidelines for the treatment of malaria. 3rd edn. Geneva: WHO. Available at: https://www.ncbi.nlm.nih.gov/books/NBK294445/ (Accessed: 27 October 2026).",
+    "World Health Organization (2018) WHO certifies that Uzbekistan has eliminated malaria, 7 December. Available at: https://www.who.int/news/item/07-12-2018-who-certifies-that-uzbekistan-has-eliminated-malaria (Accessed: 27 October 2026).",
+    "World Health Organization (2021) WHO recommends groundbreaking malaria vaccine for children at risk, 6 October. Available at: https://www.who.int/news/item/06-10-2021-who-recommends-groundbreaking-malaria-vaccine-for-children-at-risk (Accessed: 27 October 2026).",
+    "World Health Organization (2023a) ‘It was just the perfect storm for malaria’: Pakistan responds to surge in cases following the 2022 floods. Available at: https://www.who.int/news-room/feature-stories/detail/It-was-just-the-perfect-storm-for-malaria-pakistan-responds-to-surge-in-cases-following-the-2022-floods (Accessed: 27 October 2026).",
+    "World Health Organization (2023b) WHO recommends R21/Matrix-M vaccine for malaria prevention in updated advice on immunization, 2 October. Available at: https://www.who.int/news/item/02-10-2023-who-recommends-r21-matrix-m-vaccine-for-malaria-prevention-in-updated-advice-on-immunization (Accessed: 27 October 2026).",
+    "World Health Organization (2025a) Malaria: fact sheet. Available at: https://www.who.int/news-room/fact-sheets/detail/malaria (Accessed: 27 October 2026).",
+    "World Health Organization (2025b) World malaria report 2025. Geneva: WHO. Available at: https://www.who.int/teams/global-malaria-programme/reports/world-malaria-report-2025 (Accessed: 27 October 2026)."
+  ]
+}

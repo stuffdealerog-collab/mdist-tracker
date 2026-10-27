@@ -1,0 +1,17 @@
+{
+  "name": "malaria-presentation",
+  "private": true,
+  "description": "Build scripts for the Malaria group presentation",
+  "scripts": {
+    "deck": "node src/build_deck.js",
+    "prep": "node src/build_prep.js"
+  },
+  "dependencies": {
+    "jszip": "^3.10.2",
+    "pptxgenjs": "^3.12.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-icons": "^5.7.0",
+    "sharp": "^0.35.5"
+  }
+}

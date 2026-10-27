@@ -1,0 +1,116 @@
+{
+  "colors": { "J": "#C8202F", "M": "#B86E0B", "R": "#0E7C7B", "A": "#4B3FA8" },
+  "story": "A female mosquito bites at night (03) → in one day you can die (04) → it has done this for almost 5,000 years (05) → until three doctors caught it (06) → but it still explodes in epidemics (07) → today 282 million people get sick (08) → and the numbers are rising (09) → yet Uzbekistan won (10) → with a vaccine (11), a net (12) and a medicine (13) → so: block the bite, test early, treat fast (14).",
+  "keywords": {
+    "1": "Greeting · topic · 4 names + IDs",
+    "2": "Me → Muhammadrizo → Ramazan → Akmalbek → me",
+    "3": "Parasite · female Anopheles · 5 species",
+    "4": "10–15 days · 24 hours · ≈100% vs 10–20%",
+    "5": "China · Egypt · Greece · Italy",
+    "6": "1880 Laveran · 1897 Ross · 1898 Grassi",
+    "7": "Ceylon 80k · Ethiopia 150k · Pakistan ×4 · +5 M",
+    "8": "282 M · 610k · Africa 94/95% · 3 of 4",
+    "9": "230 → 273 → 282 · need 9.3, got 3.9",
+    "10": "2.3 bn · 14 M · 47 + 1 · Uzbekistan 2018",
+    "11": "RTS,S 2021 · R21 2023 · −13% · 24",
+    "12": "Nets 68% · spray · medicines 54 M · personal",
+    "13": "Test · bark → quinine → artemisinin · ACT",
+    "14": "4 ideas = 4 speakers · motto",
+    "15": "Thank you · questions",
+    "16": "Leave on screen"
+  },
+  "techniques": [
+    ["Story chain", "Learn the talk as one story (above), not as 16 separate slides. If you know where you are in the story, you know what comes next."],
+    ["3 words per slide", "Each slide = 3 keywords. Look at the slide title, say the 3 words in your head, then speak. That is all you need on stage."],
+    ["Number hooks", "Every number has a picture or a trick (282 is a palindrome, 9.3 vs 3.9 are mirror digits). Hooks are on your memory page."],
+    ["Shadowing", "Play your shadowing track: after each phrase there is a pause of the same length. Repeat the phrase aloud in the pause."],
+    ["Self-test", "Cover the right column of the self-test and answer aloud. Retrieval, not re-reading, is what makes memory stick."]
+  ],
+  "hooks": {
+    "J": [
+      ["P-A-L-R = \"polar\"", "Parasite → Anopheles (female, at night) → Liver → Red blood cells. Say \"polar\" and unpack it."],
+      ["Two weeks, one day", "10–15 days until symptoms (≈ two weeks). 24 hours from mild to deadly (one day). Big number first, small number second."],
+      ["Almost all vs one in ten", "Untreated severe malaria: almost everyone dies (≈100%). Treated: 10–20% still die. That is why the key word is TIME."],
+      ["Your slides ask questions", "\"What is malaria?\" → \"How deadly is it?\" → \"How long has it been with us?\" Your handover is also a question."],
+      ["Conclusion = your team", "Idea 1 is your part, idea 2 is Muhammadrizo, idea 3 is Ramazan, idea 4 is Akmalbek. Look at each of them as you say it."]
+    ],
+    "M": [
+      ["The disease travels west", "China → Egypt → Greece → Italy, like a journey along an old trade road. Each stop has one clue: spleen · pharaoh · marshes · bad air."],
+      ["27 → 15 → 4", "2700 BC, 1570 BC, 400 BC: the hundreds go down 27, 15, 4."],
+      ["Saw it · caught it · named it", "1880 Laveran SAW the parasite in blood. 1897 Ross CAUGHT it in a mosquito. 1898 Grassi NAMED the mosquito: Anopheles."],
+      ["The Nobel paradox", "Laveran was first (1880) but got his Nobel later (1907). Ross was second (1897) but got his Nobel first (1902)."],
+      ["Dry and wet both kill", "Ceylon 1934–35: DROUGHT (80,000 deaths). Pakistan 2022: FLOODS (×4 cases). Water in pools = mosquito babies."],
+      ["Then ×4, now +5", "Pakistan: cases ×4. 2024: +5 million cases in Ethiopia, Madagascar, Yemen. Four, then five."]
+    ],
+    "R": [
+      ["282 is a palindrome", "2-8-2 reads the same both ways. 610,000 deaths: think of a clock at 6:10."],
+      ["Deaths are one point higher", "Africa has 94% of cases and 95% of deaths. Three out of four who die are children under five."],
+      ["Never Delay — Use Every Medicine", "N-D-U-E-M = Nigeria, DR Congo, Uganda, Ethiopia, Mozambique: five countries with more than half of all cases."],
+      ["Up, up, up", "Cases: 230 → 273 → 282 million (2015 → 2023 → 2024). Deaths: 578,000 → 610,000."],
+      ["Mirror money", "Needed 9.3 billion, invested 3.9 billion: the same digits, flipped. = only 42%."],
+      ["Uzbekistan: 61 · 05 · 10 · 18", "1961 first win → 2005 Tashkent Declaration → 2010 last local cases → 2018 WHO certificate (7 December). Surkhandarya: 81 → 0."]
+    ],
+    "A": [
+      ["Before, around, after", "Vaccine = shield BEFORE. Prevention = shield AROUND you. Treatment = cure AFTER. That is the order of your three slides."],
+      ["The younger brother", "RTS,S is the older brother: 2021, GSK, 30 years of research. R21 is the younger brother: 2023, Oxford, −75%, $2–4 a dose."],
+      ["Good Kids Matter", "G-K-M = Ghana, Kenya, Malawi: the pilot countries, −13% child deaths. By October 2025: 24 countries."],
+      ["Nets Stop Malaria, Period", "N-S-M-P = Nets (68%), Spray, Medicines for children (54 million), Personal protection."],
+      ["Tree → pill → plant → combo", "1600s cinchona bark → 1820 quinine → 1970s artemisinin from sweet wormwood (Tu Youyou, Nobel 2015) → today ACT."],
+      ["It's TRUE, read backwards", "Resistance countries in your order: Eritrea, Rwanda, Uganda, Tanzania = E-R-U-T = TRUE backwards."]
+    ]
+  },
+  "say": {
+    "J": [["Plasmodium", "plaz-MOH-dee-əm"], ["Anopheles", "ə-NOF-ə-leez"], ["falciparum", "fal-SIP-ə-rəm"], ["vivax", "VY-vaks"], ["parasite", "PA-rə-syt"], ["organism", "OR-gə-ni-zəm"], ["diagnosis", "dy-əg-NOH-sis"]],
+    "M": [["Tutankhamun", "too-tan-KAH-moon"], ["Hippocrates", "hi-POK-rə-teez"], ["papyri", "pə-PY-ry"], ["Laveran", "la-VRAHN"], ["Algeria", "al-JEER-ee-ə"], ["Ceylon", "si-LON"], ["epidemic", "e-pi-DE-mik"]],
+    "R": [["Mozambique", "moh-zam-BEEK"], ["certified", "SUR-ti-fyd"], ["territory", "TE-ri-tə-ree"], ["declaration", "de-klə-RAY-shən"], ["eliminate", "i-LI-mi-nayt"], ["Surkhandarya", "soor-khan-DAR-ya"]],
+    "A": [["vaccine", "VAK-seen"], ["insecticide", "in-SEK-ti-syd"], ["repellent", "ri-PE-lənt"], ["cinchona", "sing-KOH-nə"], ["quinine", "KWY-nyn"], ["artemisinin", "ar-tə-MIS-i-nin"], ["artesunate", "ar-TE-sə-nayt"], ["Tu Youyou", "too yoh-YOH"]]
+  },
+  "selftest": {
+    "J": [["Virus, bacterium or parasite?", "Parasite: Plasmodium"], ["Which mosquito, and when?", "Female Anopheles, mostly at night"], ["Where does the parasite go first?", "The liver, then red blood cells"], ["How many species infect humans?", "5 · deadliest: falciparum"], ["Days until symptoms?", "10–15 days"], ["How fast can it kill?", "Within 24 hours"], ["Severe malaria deaths: untreated / treated?", "≈100% / 10–20%"], ["Our motto?", "Block the bite, test early, treat fast"]],
+    "M": [["Oldest record?", "China, c. 2700 BC: fevers + enlarged spleen"], ["Egypt?", "Papyri 1570 BC; 2010: DNA in Tutankhamun"], ["Who linked fevers to marshes?", "Hippocrates, ancient Greece"], ["What does mal aria mean?", "Bad air (Italian)"], ["1880?", "Laveran sees the parasite, Algeria · Nobel 1907"], ["20 August 1897?", "Ross finds it in a mosquito, India · Nobel 1902"], ["1898?", "Grassi: Anopheles carries human malaria"], ["Ceylon / Ethiopia?", "1934–35: 1.5 M ill, 80,000 dead · 1958: 3 M cases, 150,000 dead"], ["2022 / 2024?", "Pakistan floods ×4 · +5 M (Ethiopia, Madagascar, Yemen)"]],
+    "R": [["Cases and deaths in 2024?", "282 million · 610,000"], ["Deaths per day?", "Almost 1,700"], ["Africa's share?", "94% of cases · 95% of deaths"], ["Children under 5?", "3 of 4 deaths in Africa"], ["The 5 countries?", "Nigeria, DR Congo, Uganda, Ethiopia, Mozambique"], ["Cases 2015 / 2023 / 2024?", "230 / 273 / 282 million"], ["Funding needed / invested?", "$9.3 bn / $3.9 bn = 42%"], ["Prevented since 2000?", "2.3 bn cases · 14 M deaths"], ["Uzbekistan certified?", "December 2018 (first stopped 1961, last cases 2010)"]],
+    "A": [["First vaccine?", "RTS,S · GSK · 30 years · WHO Oct 2021"], ["Second vaccine?", "R21 · Oxford · WHO Oct 2023 · −75% seasonal · $2–4"], ["Pilot result?", "−13% child deaths (Ghana, Kenya, Malawi)"], ["Countries using vaccines?", "24 by October 2025"], ["Nets' share of prevented cases?", "68% (Africa, 2000–2015)"], ["Children on seasonal medicines?", "≈54 million per round (2024)"], ["Quinine?", "From cinchona bark; extracted 1820"], ["Artemisinin?", "Tu Youyou, sweet wormwood, 1970s · Nobel 2015"], ["Resistance countries?", "Eritrea, Rwanda, Uganda, Tanzania"]]
+  },
+  "questions": [
+    ["J", "Is malaria caused by a virus or by bacteria?", "Neither. It is caused by a single-celled parasite called Plasmodium. That is also why a vaccine was so difficult to make (WHO, 2025a)."],
+    ["J", "Why does only the female mosquito spread malaria?", "Only female Anopheles mosquitoes bite people: they need blood to produce their eggs. Males feed on plant juices."],
+    ["J", "Can I get malaria from another person?", "Not like a cold. It needs a mosquito. In rare cases it can pass through blood, for example a transfusion, or from a mother to her baby."],
+    ["M", "Why is the disease called malaria?", "From the Italian mal aria, \"bad air\". People thought the air of the swamps caused it. Today we know it is the mosquito that lives near the swamps (Cox, 2010)."],
+    ["M", "Who discovered the parasite?", "Alphonse Laveran, a French army doctor, in Algeria in 1880. Ronald Ross then showed the mosquito link in 1897, and Grassi's team proved it was Anopheles in 1898."],
+    ["M", "Why did the 1934–35 epidemic in Ceylon start?", "A drought dried the rivers into small pools: perfect places for mosquito larvae. About 80,000 people died (Gill, 1935)."],
+    ["R", "Why is Africa hit hardest?", "It has the most dangerous parasite, P. falciparum, very efficient mosquitoes, a warm climate, and many people far from clinics. That is why it has 94% of cases (WHO, 2025b)."],
+    ["R", "Is there malaria in Uzbekistan today?", "No local transmission: the last local cases were in 2010 and WHO certified us malaria-free in 2018. Travellers can still bring cases from abroad, so testing continues (WHO, 2018)."],
+    ["R", "If we have the tools, why are cases rising?", "The population grows, funding is only 42% of what is needed, and there is drug resistance, floods and conflict, for example in Ethiopia and Yemen (WHO, 2025b)."],
+    ["A", "How effective is the vaccine?", "R21 reduced cases by 75% in seasonal areas in the first year, and in the pilot child deaths fell by 13%. It is not 100%, so nets are still needed (WHO, 2023b; 2025b)."],
+    ["A", "What is ACT?", "Artemisinin-based combination therapy: artemisinin plus a second medicine. Two medicines together make it harder for the parasite to become resistant (WHO, 2025a)."],
+    ["A", "What should a traveller do?", "See a doctor before the trip, take preventive tablets, use repellent and a net. If fever starts after returning, test immediately and say where you travelled."]
+  ],
+  "numbers": [
+    ["Parasite · 5 species · female Anopheles", "cause, species, carrier; not person to person", "WHO (2025a)", "J"],
+    ["10–15 days · 24 hours", "time to symptoms · untreated falciparum can kill", "WHO (2025a)", "J"],
+    ["≈100% · 10–20%", "severe malaria deaths: untreated · treated", "WHO (2015)", "J"],
+    ["2700 BC · 1570 BC · c. 400 BC", "China text · Egyptian papyri · Hippocrates", "Cox (2010)", "M"],
+    ["2010", "parasite DNA found in Tutankhamun's mummy", "Hawass et al. (2010)", "M"],
+    ["1880 · 1897 · 1898", "Laveran · Ross · Grassi (Nobel 1907, 1902)", "Cox (2010); Nobel Prize Outreach (2026)", "M"],
+    ["1.5 M · 80,000", "Ceylon 1934–35: ill · deaths", "Gill (1935)", "M"],
+    ["3 M · 150,000", "Ethiopia 1958: cases · deaths", "Fontaine, Najjar and Prince (1961)", "M"],
+    ["×4 (400,000 → 1.6 M+)", "Pakistan after the 2022 floods", "WHO (2023a)", "M"],
+    ["+5 M", "2024 increase: Ethiopia +2.9 M, Madagascar +1.9 M, Yemen +378,000", "WHO (2025b)", "M"],
+    ["282 M · 610,000 · 80", "cases · deaths · countries, 2024", "WHO (2025b)", "R, J"],
+    ["≈1,700 a day", "our calculation: 610,000 ÷ 365", "WHO (2025b)", "R"],
+    ["94% · 95% · 75%", "Africa: cases · deaths · deaths that are children under 5", "WHO (2025b)", "R"],
+    ["> 1,000 children a day", "our calculation: 610,000 × 95% × 75% ÷ 365 ≈ 1,190", "WHO (2025b)", "R"],
+    ["230 → 273 → 282 M", "cases 2015 → 2023 → 2024; deaths 578,000 → 610,000", "WHO (2025b)", "R"],
+    ["$9.3 bn · $3.9 bn · 42%", "needed per year · invested 2024 · share", "WHO (2025b)", "R"],
+    ["2.3 bn · 14 M · 47 + 1", "cases · deaths prevented since 2000 · certified malaria-free", "WHO (2025b)", "R"],
+    ["1961 · 2005 · 2010 · 2018 · 81 → 0", "Uzbekistan timeline · Surkhandarya cases", "WHO (2018)", "R"],
+    ["RTS,S · 30 years · Oct 2021", "first vaccine, GSK, WHO recommendation", "WHO (2021)", "A"],
+    ["R21 · Oct 2023 · 75% · $2–4", "second vaccine, efficacy (seasonal), price", "WHO (2023b); University of Oxford (2023)", "A"],
+    ["−13% · 24 countries", "pilot child deaths · countries by Oct 2025", "WHO (2025b)", "A"],
+    ["68%", "share of prevented cases due to nets, Africa 2000–2015", "Bhatt et al. (2015)", "A"],
+    ["54 M", "children per round of seasonal medicines, 2024", "WHO (2025b)", "A"],
+    ["1600s · 1820 · 1970s · 2015", "cinchona · quinine · artemisinin · Tu Youyou's Nobel", "Achan et al. (2011); Nobel Prize Outreach (2026)", "A"],
+    ["ACT · artesunate", "best treatment · injection for severe malaria", "WHO (2015; 2025a)", "A"],
+    ["4 countries", "partial artemisinin resistance: Eritrea, Rwanda, Uganda, Tanzania", "WHO (2025b)", "A"]
+  ]
+}
