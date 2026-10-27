@@ -121,6 +121,7 @@ async function disc() {
 async function background(src, name, opts = {}) {
   const file = path.join(BUILD, `bg_${name}.jpg`);
   let img = sharp(src).resize(1920, 1080, { fit: "cover", position: opts.position || "centre" });
+  if (opts.flop) img = img.flop();
   if (opts.blur) img = img.blur(opts.blur);
   if (opts.darken) img = img.modulate({ brightness: opts.darken });
   await img.jpeg({ quality: 84, mozjpeg: true }).toFile(file);

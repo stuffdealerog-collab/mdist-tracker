@@ -132,7 +132,9 @@ async function prepareAssets() {
       if (!DRAFT) throw new Error(`Missing assets/images/${k}.png — run: python3 src/gen_images.py`);
       src = await placeholder(k);
     }
-    bgs[k] = await L.background(src, k, k === "smoke" ? { darken: 0.7 } : {});
+    // the bed-net photo came out with the subject on the left: mirror it so the text sits on dark space
+    const opts = { smoke: { darken: 0.7, blur: 14 }, bed_net: { flop: true } }[k] || {};
+    bgs[k] = await L.background(src, k, opts);
   }
   const shade = { L: await L.shade("L", "L"), Lsoft: await L.shade("Lsoft", "L", 0.85), full: await L.shade("full", "full") };
   const icon = {
